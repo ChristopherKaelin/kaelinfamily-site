@@ -1,21 +1,38 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
-import { render } from 'astro:content';
+import { sanityClient } from '../../../sanity.config.js';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
+	const posts = await sanityClient.fetch(`
+		*[_type == "post"] {
+			"slug": slug.current,
+			title,
+			publishedAt,
+			body,
+			"imageUrl": mainImage.asset->url
+		}
+	`);
+	
 	return posts.map((post) => ({
-		params: { slug: post.id },
+		params: { slug: post.slug },
 		props: post,
 	}));
 }
-type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
-const { Content } = await render(post);
 ---
 
-<BlogPost {...post.data}>
-	<Content />
+<BlogPost 
+	title={post.title}
+	description={post.title}
+	pubDate={new Date(post.publishedAt)}
+	heroImage={post.imageUrl}
+>
+	<div>
+		{post.body && post.body.map((block) => {
+			if (block._type === 'block') {
+				return <p>{block.children?.map(child => child.text).join('')}</p>
+			}
+		})}
+	</div>
 </BlogPost>

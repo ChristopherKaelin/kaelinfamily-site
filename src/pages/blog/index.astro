@@ -102,7 +102,7 @@ const posts = await sanityClient.fetch(`
 			<section>
 				<ul>
 					{
-						posts.map((post) => (
+						posts.map((post: { slug: { current: any; }; imageUrl: string | null | undefined; title: unknown; publishedAt: string | number | Date; }) => (
 							<li>
 								<a href={`/blog/${post.slug.current}/`}>
 									{post.imageUrl && (
