@@ -1,6 +1,7 @@
 ---
 import BlogPost from '../../layouts/BlogPost.astro';
 import { sanityClient } from '../../../sanity.config.js';
+import VideoEmbed from '../../components/VideoEmbed.astro';
 
 export async function getStaticPaths() {
 	const posts: any[] = await sanityClient.fetch(`
@@ -9,7 +10,8 @@ export async function getStaticPaths() {
 			title,
 			publishedAt,
 			body,
-			"imageUrl": mainImage.asset->url
+			"imageUrl": mainImage.asset->url,
+			videoUrl  
 		}
 	`);
 	
@@ -34,5 +36,7 @@ const post = Astro.props;
 				return <p>{block.children?.map((child: any) => child.text).join('')}</p>
 			}
 		})}
+		{post.videoUrl && <VideoEmbed url={post.videoUrl} />}
+
 	</div>
 </BlogPost>

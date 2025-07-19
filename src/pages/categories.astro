@@ -28,7 +28,7 @@ const categories: any[] = await sanityClient.fetch(`
 				<div class="categories-grid">
 					{
 						categories.map((category) => (
-							<div class="category-card">
+							<div class="card">
 								<a href={`/category/${category.slug}`}>
 									<h3>{category.title}</h3>
 									<p>{category.description}</p>
@@ -52,25 +52,26 @@ const categories: any[] = await sanityClient.fetch(`
 		margin-top: 2rem;
 	}
 	
-	.category-card {
-		border: 1px solid #ddd;
-		border-radius: 8px;
-		padding: 1rem;
-		transition: box-shadow 0.2s;
-	}
-	
-	.category-card:hover {
-		box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-	}
-	
-	.category-card a {
-		text-decoration: none;
-		color: inherit;
-	}
-	
 	.post-count {
 		color: #666;
 		font-size: 0.9rem;
 		margin-top: 0.5rem;
+	}
+
+	@media (max-width: 760px) {
+		.categories-grid { grid-template-columns: 1fr;}
+		.category-card { padding: 0.5rem; }
+		.category-card h3 { font-size: 1.25rem; }
+		.category-card p { font-size: 0.875rem; }
+	}
+
+	@media (max-width: 480px) {
+		.category-card h3 {
+			font-size: 1.1rem;
+		}
+		
+		.category-card p {
+			display: none;
+		}
 	}
 </style>

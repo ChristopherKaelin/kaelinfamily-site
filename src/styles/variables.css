@@ -1,0 +1,57 @@
+:root {
+  
+  /* Theme Colors */
+  --color-primary: #0033a0;
+  --color-primary-rgb: 0, 51, 160;
+  --color-primary-light: #4a90e2;
+  --color-accent: #4a4a80;
+  --color-accent-rgb: 74, 74, 128;
+  --color-success: #57b768;
+  --color-warning: #f4c95d;
+  --color-bg: #f8faff;
+  --color-bg-blue: #f0f4fd;
+  --color-input-bg: #ffffff;
+  --color-border: #f1f5f9;
+  --color-muted: #4a5568;
+  --color-bright: #e2e8f0;
+  --color-error: #e94f4f;
+  --color-info: #4a90e2;
+	--gray-gradient: rgba(225, 232, 240, 50%), #fff;
+
+  /* Typography */
+  --font-primary: "Arial", "Helvetica", "Roboto", "Georgia", "Times New Roman";
+  --font-size-xs: 0.5rem;
+  --font-size-small: 0.75rem;
+  --font-size-base: 1rem;
+  --font-size-large: 1.33rem;
+  --font-size-xl: 1.67rem;
+  --font-size-xxl: 2rem;
+
+  /* Spacing (Gap, Padding) */
+  --spacing-small: 0.5rem;
+  --spacing-base: 1rem;
+  --spacing-large: 1.5rem;
+  --spacing-xl: 2rem;
+
+/* Borders */
+/* For buttons, cards, forms */
+  --border-width: 1px;
+  --border-radius-small: 4px;
+  --border-radius-base: 8px;
+  --border-radius-large: 12px;
+
+/* Shadows */
+  --box-shadow:
+      1px 1px 3px rgba(var(--color-accent-rgb), 0.167), 
+      2px 2px 6px rgba(var(--color-accent-rgb), 0.25),
+      3px 3px 18px rgba(var(--color-accent-rgb), 0.25);
+  --shadow-small: 2px 2px 4px rgba(0, 0, 0, 0.1); 
+  --shadow-base: 4px 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-large: 8px 8px 16px rgba(0, 0, 0, 0.1);  
+
+/* Transitions */
+/* Hover effects, modal animations */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.4s ease;
+  --transition-slow: 0.6s ease;  
+}
