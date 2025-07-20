@@ -1,36 +1,133 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { sanityClient } from '../../sanity.config.js';
+import FormattedDate from '../components/FormattedDate.astro';
+
+// Better SEO values for home page
+const homeTitle = "Kaelin Family Blog - Stories from Kentucky";
+const homeDescription = "Family stories, tech adventures, recipes, and life in Kentucky. Join Chris Kaelin for heartwarming tales, coding projects, and genuine conversation from the Bluegrass State.";
+
+// Fetch 5 most recent posts
+const recentPosts: any[] = await sanityClient.fetch(`
+  *[_type == "post"] | order(publishedAt desc)[0...5] {
+    _id,
+    title,
+    slug,
+    publishedAt,
+    "imageUrl": mainImage.asset->url,
+    "categories": categories[]->title
+  }
+`);
 ---
 
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  <h1>🧑‍🚀 Hello, Astronaut!</h1>
+<BaseLayout title={homeTitle} description={homeDescription}>
 
-  <p>
-    Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-    template serves as a lightweight, minimally-styled starting point for anyone looking to 
-    build a personal website, blog, or portfolio with Astro.
-  </p>
-  <p>
-    This template comes with a few integrations already configured in your
-    <code>astro.config.mjs</code> file. You can customize your setup with
-    <a href="https://astro.build/integrations">Astro Integrations</a> to add tools like
-    Tailwind, React, or Vue to your project.
-  </p>
-  <p>Here are a few ideas on how to get started with the template:</p>
-  <ul>
-    <li>Edit this page in <code>src/pages/index.astro</code></li>
-    <li>Edit the site header items in <code>src/components/Header.astro</code></li>
-    <li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-    <li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-  </ul>
-  <p>
-    Have fun! If you get stuck, remember to <a href="https://docs.astro.build/">read the docs
-    </a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-  </p>
-  <p>
-    Looking for a blog template with a bit more personality? Check out 
-      href="https://github.com/Charca/astro-blog-template">astro-blog-template</a
-    > by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-  </p>
+  <section class="hero">
+
+    <h1>Welcome to the Kaelin Family Blog</h1>
+    <p class="work-in-progress">
+      <strong>🚧 Site Update in Progress 🚧</strong><br />
+      I'm currently transitioning from WordPress to this new setup! Some content is still being 
+      migrated and features are being added. Thanks for your patience as I put the finishing 
+      touches on our new digital home.
+    </p>
+    <p class="intro">
+      Hey there! I'm Chris, and this is where I share stories about family, tech adventures, 
+      good food, and life in Kentucky. Pull up a chair and stay a while!
+    </p>
+    <p class="subtitle">
+      Whether you're here for family tales, tech tips, recipe ideas, or just some good conversation, 
+      you're always welcome at our virtual table. Grab a cup of coffee and make yourself at home!
+    </p>
+
+  </section>
+
+  <section class="categories-overview">
+    <h2>What You'll Find Here</h2>
+    <p>I write about the things that bring joy and meaning to my life:</p>
+    
+    <div class="category-grid">
+      <div class="category-item">
+        <h3>Family & Friends</h3>
+        <p>Stories about the people who matter most, family adventures, and life's precious moments</p>
+      </div>
+      
+      <div class="category-item">
+        <h3>Feel Good Stories</h3>
+        <p>Uplifting moments, acts of kindness, and stories that restore your faith in humanity</p>
+      </div>
+      
+      <div class="category-item">
+        <h3>Tech & Coding</h3>
+        <p>Projects I'm building, things I'm learning, and tech solutions that actually help people</p>
+      </div>
+      
+      <div class="category-item">
+        <h3>Food & Recipes</h3>
+        <p>Family recipes, culinary experiments, and the meals that bring us together</p>
+      </div>
+      
+      <div class="category-item">
+        <h3>Health & Fitness</h3>
+        <p>Staying active as a grandfather and encouraging others on their wellness journey</p>
+      </div>
+      
+      <div class="category-item">
+        <h3>Sports</h3>
+        <p>Following my favorite teams and the games that bring us all together</p>
+      </div>
+    </div>
+  </section>  
+
+  <section class="cta-section">
+    <h2>Start Exploring</h2>
+    <p>Ready to dive in? Here's where to begin your journey:</p>
+    
+    <div class="cta-buttons">
+      <a href="/blog" class="cta-button primary">
+        <strong>Read the Blog</strong>
+        <span>Browse all my latest posts and stories</span>
+      </a>
+      
+      <a href="/categories" class="cta-button secondary">
+        <strong>Explore Categories</strong>
+        <span>Find posts by topic that interests you</span>
+      </a>
+      
+      <a href="/about" class="cta-button secondary">
+        <strong>About Me</strong>
+        <span>Get to know the person behind the stories</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="recent-posts">
+    <h2>Latest from the Blog</h2>
+    <p>Here's what I've been writing about lately:</p>
+    
+    <div class="posts-preview">
+      {recentPosts.map((post) => (
+        <article class="post-preview">
+          <h3><a href={`/blog/${post.slug.current}/`}>{post.title}</a></h3>
+          <p class="post-date"><FormattedDate date={new Date(post.publishedAt)} /></p>
+          <p class="post-categories">
+            {post.categories && post.categories.length > 0 && 
+              post.categories.join(', ')
+            }
+          </p>
+        </article>
+      ))}
+    </div>
+    
+    <div class="view-all">
+      <a href="/blog" class="view-all-link">View all posts →</a>
+    </div>
+  </section>
+
+
+
+
+
+
 </BaseLayout>
