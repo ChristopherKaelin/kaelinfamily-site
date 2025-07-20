@@ -1,7 +1,5 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { sanityClient } from '../../../sanity.config.js';
 import FormattedDate from '../../components/FormattedDate.astro';
@@ -42,34 +40,25 @@ const posts: any[] = await sanityClient.fetch(`
 `);
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={`${categoryTitle} - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<h1>Posts in: {categoryTitle}</h1>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.slug.current}/`}>
-									{post.imageUrl && (
-										<img width={720} height={360} src={post.imageUrl} alt="" />
-									)}
-									<h4 class="title">
-										{post.title} - <span class="date"><FormattedDate date={new Date(post.publishedAt)} /></span>
-									</h4>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout title={`${categoryTitle} - ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
+	<!-- your category page content here -->
+	<section>
+		<h1>Posts in: {categoryTitle}</h1>
+		<ul>
+			{
+				posts.map((post) => (
+					<li>
+						<a href={`/blog/${post.slug.current}/`}>
+							{post.imageUrl && (
+								<img width={720} height={360} src={post.imageUrl} alt="" />
+							)}
+							<h4 class="title">
+								{post.title} - <span class="date"><FormattedDate date={new Date(post.publishedAt)} /></span>
+							</h4>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</BaseLayout>

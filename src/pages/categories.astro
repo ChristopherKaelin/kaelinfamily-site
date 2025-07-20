@@ -1,7 +1,5 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { sanityClient } from '../../sanity.config.js';
 
@@ -15,34 +13,26 @@ const categories: any[] = await sanityClient.fetch(`
 `);
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={`Categories - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<h1>All Categories</h1>
-				<div class="categories-grid">
-					{
-						categories.map((category) => (
-							<div class="card">
-								<a href={`/category/${category.slug}`}>
-									<h3>{category.title}</h3>
-									<p>{category.description}</p>
-									<p class="post-count">{category.postCount} posts</p>
-								</a>
-							</div>
-						))
-					}
-				</div>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout title={`Categories - ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
+	<!-- your categories content here (everything that was inside <main>) -->
+	<section>
+		<h1>All Categories</h1>
+		<div class="categories-grid">
+			{
+				categories.map((category) => (
+					<div class="card">
+						<a href={`/category/${category.slug}`}>
+							<h3>{category.title}</h3>
+							<p>{category.description}</p>
+							<p class="post-count">{category.postCount} posts</p>
+						</a>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+</BaseLayout>
 
 <style>
 	.categories-grid {
