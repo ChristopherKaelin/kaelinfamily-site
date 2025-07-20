@@ -27,10 +27,14 @@ const recentPosts: any[] = await sanityClient.fetch(`
 
     <h1>Welcome to the Kaelin Family Blog</h1>
     <p class="work-in-progress">
-      <strong>🚧 Site Update in Progress 🚧</strong><br />
-      I'm currently transitioning from WordPress to this new setup! Some content is still being 
-      migrated and features are being added. Thanks for your patience as I put the finishing 
-      touches on our new digital home.
+      <span class="title">
+        🚧 Site Update in Progress 🚧
+      </span>
+      <span class="text">
+        I'm currently transitioning from WordPress to this new setup! Some content is still being
+        migrated and features are being added. Thanks for your patience as I put the finishing
+        touches on our new digital home.
+      </span>
     </p>
     <p class="intro">
       Hey there! I'm Chris, and this is where I share stories about family, tech adventures, 
@@ -125,9 +129,29 @@ const recentPosts: any[] = await sanityClient.fetch(`
     </div>
   </section>
 
-
-
-
-
-
 </BaseLayout>
+
+<style>
+  .work-in-progress {
+    background-color: var(--color-warning-light);
+    border: 1px solid var(--color-warning);
+    color: var(--color-accent);
+    padding: 0.75rem;
+    border-radius: 12px;
+    margin: 1rem 0;
+    max-width: 80%;
+  }
+
+  .work-in-progress .title {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 0.5rem;
+    display: block;
+  }  
+
+  .work-in-progress .text {
+    padding-left: 2.5rem;
+    display: block;
+  }  
+
+</style>
