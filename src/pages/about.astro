@@ -1,61 +1,69 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
->
+<BaseLayout
+	title="About - ${SITE_TITLE}"
+	description="bout Chris Kaelin - grandfather, tech enthusiast, and family man from Kentucky">
+
+<h1>About Me</h1>
+	<h2>Who I Am</h2>
 	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+		Hey there! I'm Chris, and welcome to my little corner of the internet. I'm a proud grandfather, husband, and lifelong learner 
+		living in the beautiful Bluegrass State of Kentucky with my family.
+	</p>
+	<p>
+		First and foremost, I'm a family man. Being a grandparent has been one of life's greatest joys—there's nothing quite like seeing 
+		the world through a child's eyes again or watching them discover something new for the first time. My family keeps me grounded, 
+		laughing, and always on my toes. Whether we're having Sunday dinners, planning family adventures, or just spending quiet time 
+		together, these moments with my loved ones are what matter most.
+	</p>
+	<p>
+		I happen to love technology too. After serving in the Air Force and spending years building software, I've discovered that what 
+		I enjoy most isn't just the coding—it's the problem-solving, the "aha!" moments, and sharing what I've learned with others. 
+		Whether I'm helping our church with their live stream setup, building something new for fun, or teaching a grandchild how computers 
+		work, I get genuinely excited about making things work better and helping people connect with technology in meaningful ways.
 	</p>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+	<h2>What You'll Find Here</h2>
+	<p>This blog is where I share the things that matter to me:</p>
+	<ul>
+		<li><strong>Family & Friends</strong>: The heart of everything—stories about the people I love, family adventures, and the moments that make life meaningful</li>
+		<li><strong>Feel Good Stories</strong>: Life's beautiful moments, acts of kindness, and stories that restore your faith in humanity</li>
+		<li><strong>Food & Recipes</strong>: Family recipes passed down through generations, new culinary experiments, and the meals that bring us together</li>
+		<li><strong>Health & Fitness</strong>: Staying active as a grandfather, finding motivation, and encouraging others on their wellness journey</li>
+		<li><strong>Tech & Coding</strong>: The nerdy stuff I love—projects I'm working on, things I'm learning, and tech solutions that actually help people</li>
+		<li><strong>Sports</strong>: Cheering for my teams, family game nights, and the sports that bring us all together</li>
+	</ul>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+	<h2>Life Beyond the Screen</h2>
+	<p>When I'm not tinkering with code, you'll find me:</p>
+	<ul>
+		<li>Playing with my grandchildren (and probably getting schooled at video games)</li>
+		<li>Trying new recipes and perfecting old family favorites</li>
+		<li>Cheering for my favorite teams—win or lose, I'm loyal</li>
+		<li>Serving at church and helping with their technology needs</li>
+		<li>Taking walks around our beautiful Kentucky neighborhood</li>
+		<li>Reading, learning something new, or planning the next family adventure</li>
+	</ul>
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+	<h2>Things I'm Working On</h2>
+	<p><strong>This Website</strong> – You're looking at it! I rebuilt this site from scratch because I wanted a place that truly reflected who I am. It's where I can share everything from family stories to the latest tech project I'm excited about.</p>
+	<p><strong>Church Tech</strong> – I love helping our church connect with people through technology. Whether it's live streaming services or making sure the sound system doesn't embarrass the pastor, it's rewarding work that serves our community.</p>
+	<p><strong>Side Projects</strong> – I'm always tinkering with something. Sometimes it's a useful tool, sometimes it's just for fun. I believe the best way to learn is by building things, even if they're just for me and my family.</p>
+	<p><strong>Family Time</strong> – The most important project of all. Whether it's planning family gatherings, teaching a grandchild something new, or just being present for the people I love.</p>
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+	<h2>A Little About My Background</h2>
+	<p>I've been fortunate to have varied experiences that shaped who I am today. My time in the Air Force taught me discipline, problem-solving, and how to stay calm when things get hectic—skills that serve me well whether I'm debugging code or helping a grandchild with homework.</p>
+	<p>Over the years, I've worked with technology in different ways, from building business applications to creating simple solutions that make people's lives easier. But honestly, what I love most is when technology helps bring people together or solves a real problem someone is facing.</p>
+
+	<h2>Let's Be Friends</h2>
+	<p>I love connecting with people who share similar interests or just want to chat about life. Whether you're a fellow grandparent, someone learning to code, a foodie looking for recipe ideas, or just someone who enjoys genuine conversation, I'd love to hear from you.</p>
+	<p><strong>Email</strong>: <a href="mailto:chris@kaelinfamily.com">chris@kaelinfamily.com</a><br>
+	<strong>GitHub</strong>: <a href="https://github.com/christopherkaelin" target="_blank" rel="noopener">github.com/christopherkaelin</a> (where I share my coding adventures)<br>
+	<strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/christopherkaelin/" target="_blank" rel="noopener">linkedin.com/in/christopherkaelin</a> (for the more professional stuff)</p>
+	<p>Thanks for stopping by and taking the time to get to know me a little better. I hope you find something here that makes you smile, think, or maybe even inspires you to try something new!</p>	
+
+</BaseLayout>
