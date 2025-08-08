@@ -52,32 +52,37 @@ const recentPosts: any[] = await sanityClient.fetch(`
     <p>I write about the things that bring joy and meaning to my life:</p>
     
     <div class="category-grid">
-      <div class="category-item">
+      <div class="category-item card">
         <h3>Family & Friends</h3>
         <p>Stories about the people who matter most, family adventures, and life's precious moments</p>
       </div>
       
-      <div class="category-item">
+      <div class="category-item card">
         <h3>Feel Good Stories</h3>
         <p>Uplifting moments, acts of kindness, and stories that restore your faith in humanity</p>
       </div>
       
-      <div class="category-item">
+      <div class="category-item card">
         <h3>Tech & Coding</h3>
         <p>Projects I'm building, things I'm learning, and tech solutions that actually help people</p>
       </div>
       
-      <div class="category-item">
+      <div class="category-item card">
         <h3>Food & Recipes</h3>
         <p>Family recipes, culinary experiments, and the meals that bring us together</p>
       </div>
       
-      <div class="category-item">
+      <div class="category-item card">
         <h3>Health & Fitness</h3>
         <p>Staying active as a grandfather and encouraging others on their wellness journey</p>
       </div>
       
-      <div class="category-item">
+      <div class="category-item card">
+        <h3>Sports</h3>
+        <p>Following my favorite teams and the games that bring us all together</p>
+      </div>
+
+      <div class="category-item card">
         <h3>Sports</h3>
         <p>Following my favorite teams and the games that bring us all together</p>
       </div>
@@ -153,5 +158,21 @@ const recentPosts: any[] = await sanityClient.fetch(`
     padding-left: 2.5rem;
     display: block;
   }  
+  
+  /* .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  } */
 
+  .category-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .category-item {
+    flex: 1 1 250px;
+    min-width: 250px;
+  }
 </style>
