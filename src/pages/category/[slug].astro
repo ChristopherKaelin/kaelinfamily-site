@@ -41,24 +41,91 @@ const posts: any[] = await sanityClient.fetch(`
 ---
 
 <BaseLayout title={`${categoryTitle} - ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
-	<!-- your category page content here -->
 	<section>
 		<h1>Posts in: {categoryTitle}</h1>
-		<ul>
+		<div class="posts-grid">
 			{
 				posts.map((post) => (
-					<li>
+					<article class="post-card">
 						<a href={`/blog/${post.slug.current}/`}>
 							{post.imageUrl && (
-								<img width={720} height={360} src={post.imageUrl} alt="" />
+								<img width={200} height={120} src={post.imageUrl} alt="" class="post-image" />
 							)}
-							<h4 class="title">
-								{post.title} - <span class="date"><FormattedDate date={new Date(post.publishedAt)} /></span>
-							</h4>
+							<div class="post-content">
+								<h4 class="title">{post.title}</h4>
+								<p class="date"><FormattedDate date={new Date(post.publishedAt)} /></p>
+							</div>
 						</a>
-					</li>
+					</article>
 				))
 			}
-		</ul>
+		</div>
 	</section>
 </BaseLayout>
+
+<style>
+	.posts-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 1.5rem;
+		margin-top: 2rem;
+	}
+
+	.post-card {
+		background: var(--color-bg, #fff);
+		border: 1px solid var(--border-color, #e1e5e9);
+		border-radius: 12px;
+		padding: 1rem;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.post-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+	}
+
+	.post-card a {
+		text-decoration: none;
+		color: inherit;
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+	}
+
+  .post-image {
+    width: 150px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 8px;
+    flex-shrink: 0;
+    background-color: #f8f9fa;
+  }  
+	.post-content {
+		flex: 1;
+		padding: 0;
+	}
+
+	.title {
+		margin: 0 0 0.5rem 0;
+		font-size: 1.2rem;
+		color: var(--color-primary, #2c5aa0);
+	}
+
+	.date {
+		margin: 0;
+		color: var(--text-muted, #666);
+		font-size: 0.9rem;
+	}
+
+	@media (max-width: 768px) {
+		.posts-grid {
+			grid-template-columns: 1fr;
+		}
+		
+		.post-image {
+			width: 120px;
+			height: 80px;
+		}
+	}
+</style>
