@@ -15,7 +15,7 @@ const recentPosts: any[] = await sanityClient.fetch(`
     title,
     slug,
     publishedAt,
-    "imageUrl": mainImage.asset->url,
+    "imageUrl": mainImage.asset->url + "?w=400&h=200&fit=crop&auto=format",
     "categories": categories[]->title
   }
 `);

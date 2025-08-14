@@ -10,8 +10,12 @@ export async function getStaticPaths() {
 			title,
 			publishedAt,
 			body,
-			"imageUrl": mainImage.asset->url,
-			videoUrl  
+			"imageUrl": mainImage.asset->url + "?w=1200&h=630&fit=crop&auto=format",
+			videoUrl,
+      "seoTitle": seo.metaTitle,
+      "seoDescription": seo.metaDescription,
+      "seoImage": seo.ogImage.asset->url,
+      excerpt  
 		}
 	`);
 	
@@ -25,10 +29,10 @@ const post = Astro.props;
 ---
 
 <BlogPost 
-	title={post.title}
-	description={post.title}
+	title={post.seoTitle || post.title}
+	description={post.seoDescription || post.excerpt || post.title}
 	pubDate={new Date(post.publishedAt)}
-	heroImage={post.imageUrl}
+	heroImage={post.seoImage || post.imageUrl}
 >
 	<div>
 		{post.body && post.body.map((block: any) => {

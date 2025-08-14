@@ -10,7 +10,7 @@ const posts: any[] = await sanityClient.fetch(`
     title,
     slug,
     publishedAt,
-    "imageUrl": mainImage.asset->url,
+    "imageUrl": mainImage.asset->url + "?w=720&h=360&fit=crop&auto=format",
     "categories": categories[]->{title, "slug": slug.current}
   }
 `);
