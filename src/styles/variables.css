@@ -21,12 +21,12 @@
 
   /* Typography */
   --font-primary: "Arial", "Helvetica", "Roboto", "Georgia", "Times New Roman";
-  --font-size-xs: 0.5rem;
-  --font-size-small: 0.75rem;
-  --font-size-base: 1rem;
-  --font-size-large: 1.33rem;
-  --font-size-xl: 1.67rem;
-  --font-size-xxl: 2rem;
+  --font-size-xs: 0.6rem;
+  --font-size-small: 0.8rem;
+  --font-size-base: 1.0rem;
+  --font-size-large: 1.2rem;
+  --font-size-xl: 1.4rem;
+  --font-size-xxl: 1.6rem;
 
   /* Spacing (Gap, Padding) */
   --spacing-small: 0.5rem;
