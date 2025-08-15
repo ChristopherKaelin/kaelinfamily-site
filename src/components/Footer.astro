@@ -5,8 +5,8 @@ const today = new Date();
 ---
 
 <footer>
-	&copy; {today.getFullYear()} The Kaelin Family. All rights reserved.
-	<SocialLinks style="--social-justify: center; --social-margin-top: 1em;" />
+	<div class="copyright">&copy; {today.getFullYear()} The Kaelin Family. All rights reserved.</div>
+	<SocialLinks />
 </footer>
 <style>
 	footer {
@@ -15,4 +15,8 @@ const today = new Date();
 		color: rgb(var(--gray));
 		text-align: center;
 	}
+
+  .copyright {
+    padding-bottom: 1.5rem;
+  }
 </style>

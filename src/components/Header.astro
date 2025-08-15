@@ -6,14 +6,12 @@ import SocialLinks from './SocialLinks.astro';
 
 <header>
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
+		<div>
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/categories">Categories</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
-		<SocialLinks style="--social-display-mobile: none;" />
 	</nav>
 </header>
 <style>
@@ -35,7 +33,7 @@ import SocialLinks from './SocialLinks.astro';
 	nav {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: center;
 	}
 	nav a {
 		padding: 1em 0.5em;

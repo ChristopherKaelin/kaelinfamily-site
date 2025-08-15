@@ -108,7 +108,7 @@ const recentPosts: any[] = await sanityClient.fetch(`
   .hero {
     text-align: center;
     margin-bottom: var(--spacing-xl);
-    padding: var(--spacing-xl) 0;
+    padding: 0;
   }
 
   .hero h1 {
@@ -215,6 +215,12 @@ const recentPosts: any[] = await sanityClient.fetch(`
   /* Recent Posts */
   .recent-posts {
     margin-bottom: var(--spacing-xl);
+  }
+
+  .recent-posts h2 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-base);
+    text-align: center !important;
   }
 
   .recent-posts > p {
