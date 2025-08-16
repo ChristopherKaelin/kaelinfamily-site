@@ -8,10 +8,10 @@
   --color-accent-rgb: 74, 85, 104;
   
   /* Category Accent Colors */
-  --color-orange-accent: #ed8936;     /* Feel Good Stories border */
-  --color-green-accent: #38a169;      /* Food & Recipes border */
-  --color-purple-accent: #805ad5;     /* Tech/Projects accent */
-  --color-blue-accent: #3182ce;       /* Family & Friends accent */
+  --color-orange-accent: #ed8936;
+  --color-green-accent: #38a169;
+  --color-purple-accent: #805ad5;
+  --color-blue-accent: #63b3ed;
   
   /* Background & Surface Colors */
   --color-bg: #f5f5dc;                /* Warm cream background (main site bg) */

@@ -1,46 +1,48 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import { sanityClient } from '../../sanity.config.js';
-import FormattedDate from '../components/FormattedDate.astro';
-import CategoryIcon from '../components/CategoryIcon.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { sanityClient } from "../../sanity.config.js";
+import FormattedDate from "../components/FormattedDate.astro";
 
 // Better SEO values for home page
 const homeTitle = "Kaelin Family Blog - Stories from Kentucky";
-const homeDescription = "Family stories, tech adventures, recipes, and life in Kentucky. Join Chris Kaelin for heartwarming tales, coding projects, and genuine conversation from the Bluegrass State.";
+const homeDescription =
+  "Family stories, tech adventures, recipes, and life in Kentucky. Join Chris Kaelin for heartwarming tales, coding projects, and genuine conversation from the Bluegrass State.";
 
 //  If text length > maxLength, return the truncated the text.
 function truncateText(text: string, maxLength: number = 250): string {
-  if (!text) return '';
+  if (!text) return "";
   if (text.length <= maxLength) return text;
-  return text.substring(0, maxLength).trim() + '...';
+  return text.substring(0, maxLength).trim() + "...";
 }
 
 // Helper function to get primary category for styling
 function getPrimaryCategorySlug(categories: any[]) {
-  if (!categories || categories.length === 0) return 'default';
+  if (!categories || categories.length === 0) return "default";
   const category = categories[0];
-  
+
   // Use parent category if it exists, otherwise use the category itself
   if (category.parent && category.parent.slug) {
-    return category.parent.slug.toLowerCase().replace(/\s+/g, '-');
+    return category.parent.slug.toLowerCase().replace(/\s+/g, "-");
   }
-  
-  return category.slug.toLowerCase().replace(/\s+/g, '-');
+
+  return category.slug.toLowerCase().replace(/\s+/g, "-");
 }
 
 // Fetch all top level categories
 const categories: any[] = await sanityClient.fetch(`
-  *[_type == "category" && !defined(parent)] | order(title asc) {
+  *[_type == "category" && !defined(parent)] | order(sortOrder asc) {
     title,
     "slug": slug.current,
-    description
+    description,
+    icon,
+    color
   }
 `);
 
 // Fetch the 8 most recent posts
 const recentPosts: any[] = await sanityClient.fetch(`
-  *[_type == "post"] | order(publishedAt desc)[0...7] {
+  *[_type == "post"] | order(publishedAt desc)[0...8] {
     _id,
     title,
     slug,
@@ -53,28 +55,17 @@ const recentPosts: any[] = await sanityClient.fetch(`
     }
   }
 `);
-
 ---
 
 <BaseLayout title={homeTitle} description={homeDescription}>
-
   <section class="hero">
     <h1>Welcome to the Kaelin Family Blog</h1>
-    <p class="work-in-progress">
-      <span class="title">
-        🚧 Site Update in Progress 🚧
-      </span>
-      <span class="text">
-        We're currently transitioning from WordPress to this new setup! Some content is still being
-        migrated and features are being added. Thanks for your patience as we put the finishing
-        touches on our new digital home.
-      </span>
-    </p>
     <p class="intro">
-      Hey there! We are Chris and Trish, and this is where we will share stories about family, 
-      tech adventures, good food, and life in Kentucky.  Whether you're here for family tales, 
-      tech tips, recipe ideas, or just some good conversation, you're always welcome at our  
-      virtual table.  Grab a cup of coffee, pull up a chair and make yourself at home!
+      Hey there! We are Chris and Trish, and this is where we will share stories
+      about family, tech adventures, good food, and life in Kentucky. Whether
+      you're here for family tales, tech tips, recipe ideas, or just some good
+      conversation, you're always welcome at our virtual table. Grab a cup of
+      coffee, pull up a chair and make yourself at home!
     </p>
   </section>
 
@@ -82,40 +73,56 @@ const recentPosts: any[] = await sanityClient.fetch(`
   <section class="categories-overview">
     <h2>What You'll Find Here</h2>
     <p>We write about the things that bring joy and meaning to my life:</p>
-    
+
     <div class="category-grid">
-      {categories.map((category) => (
-        <a href={`/category/${category.slug}`} class={`category-button category-button--${category.slug.toLowerCase().replace(/\s+/g, '-')}`}>
-          
-          <h3><CategoryIcon categorySlug={category.slug.toLowerCase().replace(/\s+/g, '-')} /> {category.title}</h3>
-          <p>{truncateText(category.description, 100)}</p>
-        </a>
-      ))}
+      {
+        categories.map((category) => (
+          <a
+            href={`/category/${category.slug}`}
+            style={`border-left: 10px solid ${category.color.hex}`}
+            class={`category-button`}
+          >
+            <h3>
+              {category.icon} {category.title}
+            </h3>
+            <p>{truncateText(category.description, 100)}</p>
+          </a>
+        ))
+      }
     </div>
   </section>
 
   <section class="recent-posts">
     <h2>Latest from the Blog</h2>
     <p>Here's what We've been writing about lately:</p>
-    
+
     <div class="posts-preview">
-      {recentPosts.map((post) => (
-        <article class={`post-preview post-preview--${getPrimaryCategorySlug(post.categories)}`}>
-          <h3><a href={`/blog/${post.slug.current}/`}>{post.title}</a></h3>
-          <span class="post-date"><FormattedDate date={new Date(post.publishedAt)} /></span>
-          <span class="post-categories"> in 
-            {post.categories && post.categories.length > 0 && 
-              post.categories.map((cat: any) => cat.title).join(', ')
-            }
-          </span>
-        </article>
-      ))}
+      {
+        recentPosts.map((post) => (
+          <article
+            class={`post-preview post-preview--${getPrimaryCategorySlug(post.categories)}`}
+          >
+            <h3>
+              <a href={`/blog/${post.slug.current}/`}>{post.title}</a>
+            </h3>
+            <span class="post-date">
+              <FormattedDate date={new Date(post.publishedAt)} />
+            </span>
+            <span class="post-categories">
+              {" "}
+              in
+              {post.categories &&
+                post.categories.length > 0 &&
+                post.categories.map((cat: any) => cat.title).join(", ")}
+            </span>
+          </article>
+        ))
+      }
       <article class="post-preview">
-        <h4><a href="/blog" >View all posts →</a></h4>
+        <h4><a href="/blog">View all posts →</a></h4>
       </article>
     </div>
   </section>
-
 </BaseLayout>
 
 <style>
@@ -165,7 +172,7 @@ const recentPosts: any[] = await sanityClient.fetch(`
     margin-bottom: var(--spacing-small);
     display: block;
     text-align: center;
-  }  
+  }
 
   .work-in-progress .text {
     display: block;
@@ -190,7 +197,8 @@ const recentPosts: any[] = await sanityClient.fetch(`
 
   .category-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(4, 1fr); /* 4 cards across on full screen */
+    /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
     gap: var(--spacing-large);
     margin-top: var(--spacing-large);
   }
@@ -205,7 +213,6 @@ const recentPosts: any[] = await sanityClient.fetch(`
     box-shadow: var(--shadow-small);
     text-decoration: none;
     color: inherit;
-
   }
 
   .category-item:hover {
@@ -252,7 +259,7 @@ const recentPosts: any[] = await sanityClient.fetch(`
   }
 
   .post-preview {
-    background: var(--color-bg);
+    background: var(--color-bg-secondary);
     padding: var(--spacing-large);
     border-radius: var(--border-radius-base);
     border: 1px solid var(--color-border);
@@ -325,23 +332,27 @@ const recentPosts: any[] = await sanityClient.fetch(`
       padding: var(--spacing-base);
     }
 
-    .intro, .subtitle {
+    .intro,
+    .subtitle {
       font-size: var(--font-size-base);
     }
-    
+
     .posts-preview {
-      grid-template-columns: repeat(2, 1fr); /* 2 cards across at first breakpoint */
+      grid-template-columns: repeat(
+        2,
+        1fr
+      ); /* 2 cards across at first breakpoint */
       gap: var(--spacing-base);
     }
   }
-
 
   @media (max-width: 480px) {
     .hero {
       padding: var(--spacing-base) 0;
     }
 
-    .cta-section, .categories-overview {
+    .cta-section,
+    .categories-overview {
       padding: var(--spacing-base);
     }
 
@@ -353,17 +364,17 @@ const recentPosts: any[] = await sanityClient.fetch(`
       grid-template-columns: 1fr; /* Stacked at second breakpoint */
       gap: var(--spacing-base);
     }
-    
+
     .post-preview {
       padding: var(--spacing-base);
     }
   }
 
-    .post-preview--feel-good-stories {
+  .post-preview--feel-good-stories {
     background: rgba(237, 137, 54, 0.1) !important;
     border-left: 4px solid var(--color-orange-accent) !important;
   }
-  
+
   .post-preview--sports {
     background: rgba(49, 130, 206, 0.1) !important;
     border-left: 4px solid var(--color-blue-accent) !important;

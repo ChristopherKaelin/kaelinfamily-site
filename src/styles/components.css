@@ -28,15 +28,6 @@
   font-size: var(--font-size-small);
 }
 
-/* Category-specific colored borders */
-.category-button--family-and-friends { border-color: var(--color-blue-accent); }
-.category-button--feel-good-stories { border-color: var(--color-orange-accent); }
-.category-button--food-and-recipes { border-color: var(--color-green-accent); }
-.category-button--health-and-fitness {border-color: var(--color-green-accent);}
-.category-button--projects {border-color: var(--color-purple-accent);}
-.category-button--sports {border-color: var(--color-blue-accent);}
-.category-button--tech-and-coding { border-color: var(--color-purple-accent); }
-
 /* Post Preview Category Styling */
 .post-preview {
   background: var(--color-bg-secondary);
