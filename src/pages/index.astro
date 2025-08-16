@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { sanityClient } from '../../sanity.config.js';
 import FormattedDate from '../components/FormattedDate.astro';
+import CategoryIcon from '../components/CategoryIcon.astro';
 
 // Better SEO values for home page
 const homeTitle = "Kaelin Family Blog - Stories from Kentucky";
@@ -13,6 +14,19 @@ function truncateText(text: string, maxLength: number = 250): string {
   if (!text) return '';
   if (text.length <= maxLength) return text;
   return text.substring(0, maxLength).trim() + '...';
+}
+
+// Helper function to get primary category for styling
+function getPrimaryCategorySlug(categories: any[]) {
+  if (!categories || categories.length === 0) return 'default';
+  const category = categories[0];
+  
+  // Use parent category if it exists, otherwise use the category itself
+  if (category.parent && category.parent.slug) {
+    return category.parent.slug.toLowerCase().replace(/\s+/g, '-');
+  }
+  
+  return category.slug.toLowerCase().replace(/\s+/g, '-');
 }
 
 // Fetch all top level categories
@@ -32,7 +46,11 @@ const recentPosts: any[] = await sanityClient.fetch(`
     slug,
     publishedAt,
     "imageUrl": mainImage.asset->url,
-    "categories": categories[]->title
+    "categories": categories[]->{
+      title, 
+      "slug": slug.current,
+      "parent": parent->{title, "slug": slug.current}
+    }
   }
 `);
 
@@ -67,13 +85,10 @@ const recentPosts: any[] = await sanityClient.fetch(`
     
     <div class="category-grid">
       {categories.map((category) => (
-        <a href={`/category/${category.slug}`} class="category-item">
-          <h3>{category.title}</h3>
-          <p>{truncateText(
-              category.description || `Stories and posts about ${category.title.toLowerCase()}`,
-              200
-            )}
-          </p>
+        <a href={`/category/${category.slug}`} class={`category-button category-button--${category.slug.toLowerCase().replace(/\s+/g, '-')}`}>
+          
+          <h3><CategoryIcon categorySlug={category.slug.toLowerCase().replace(/\s+/g, '-')} /> {category.title}</h3>
+          <p>{truncateText(category.description, 100)}</p>
         </a>
       ))}
     </div>
@@ -85,12 +100,12 @@ const recentPosts: any[] = await sanityClient.fetch(`
     
     <div class="posts-preview">
       {recentPosts.map((post) => (
-        <article class="post-preview">
-          <h4><a href={`/blog/${post.slug.current}/`}>{post.title}</a></h4>
+        <article class={`post-preview post-preview--${getPrimaryCategorySlug(post.categories)}`}>
+          <h3><a href={`/blog/${post.slug.current}/`}>{post.title}</a></h3>
           <span class="post-date"><FormattedDate date={new Date(post.publishedAt)} /></span>
           <span class="post-categories"> in 
             {post.categories && post.categories.length > 0 && 
-              post.categories.join(', ')
+              post.categories.map((cat: any) => cat.title).join(', ')
             }
           </span>
         </article>
@@ -342,5 +357,15 @@ const recentPosts: any[] = await sanityClient.fetch(`
     .post-preview {
       padding: var(--spacing-base);
     }
+  }
+
+    .post-preview--feel-good-stories {
+    background: rgba(237, 137, 54, 0.1) !important;
+    border-left: 4px solid var(--color-orange-accent) !important;
+  }
+  
+  .post-preview--sports {
+    background: rgba(49, 130, 206, 0.1) !important;
+    border-left: 4px solid var(--color-blue-accent) !important;
   }
 </style>

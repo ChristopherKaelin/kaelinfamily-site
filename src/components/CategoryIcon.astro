@@ -1,0 +1,29 @@
+---
+interface Props {
+  categorySlug: string;
+}
+
+const { categorySlug } = Astro.props as Props;
+
+const iconMap: Record<string, string> = {
+  'family-and-friends': '👥',
+  'feel-good-stories': '💝', 
+  'food-and-recipes': '🍳',
+  'health-and-fitness': '💪',
+  'projects': '⚡',
+  'sports': '⚽',
+  'tech-and-coding': '💻',
+};
+
+const icon = iconMap[categorySlug] || '📝';
+---
+
+<span class="category-icon">{icon}</span>
+
+<style>
+  .category-icon {
+    font-size: 32px;
+    display: inline-block;
+    margin: 0 auto var(--spacing-small);
+  }
+</style>
