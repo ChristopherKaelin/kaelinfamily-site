@@ -1,11 +1,12 @@
-@import "./modern-normalize.css";
 @import "./variables.css";
+@import "./design-system.css";
+@import "./modern-normalize.css";
 @import "./components.css";
 
 body {
-  background-color: var(--background-light);
-  color: var(--text-main);
-  font-family: var(font-primary);
+  background-color: var(--color-bg);
+  color: var(--color-accent);
+  font-family: var(--font-primary);
   font-size: var(--font-size-base);
   word-wrap: break-word;
   margin: 0;
@@ -20,7 +21,7 @@ main {
 
 h1, h2, h3 { color: var(--color-primary); }
 h1 { font-size: var(--font-size-xxl); }
-h2 { font-size: var(--font-size-x1); }
+h2 { font-size: var(--font-size-xl); }
 h3 { font-size: var(--font-size-large); }
 
 a { color: var(--color-accent); }
@@ -33,7 +34,7 @@ p { margin-bottom: var(--spacing-base); }
 
 .card {
   background-color:  var(--color-bg);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--color-border);
   box-shadow: var(--shadow-base);
   padding: 1rem;
   border-radius: 12px;

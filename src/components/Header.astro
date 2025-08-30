@@ -1,18 +1,12 @@
 ---
 import HeaderLink from './HeaderLink.astro';
-import { SITE_TITLE } from '../consts';
 import SocialLinks from './SocialLinks.astro';
+import Navigation from '../components/Navigation.astro';
+import { SITE_TITLE } from '../consts';
 ---
 
 <header>
-	<nav>
-		<div>
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/categories">Categories</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
-		</div>
-	</nav>
+  <Navigation />
 </header>
 <style>
 	header {
