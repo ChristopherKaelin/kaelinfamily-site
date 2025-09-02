@@ -5,18 +5,22 @@ import VideoEmbed from '../../components/VideoEmbed.astro';
 
 export async function getStaticPaths() {
 	const posts: any[] = await sanityClient.fetch(`
-		*[_type == "post"] {
-			"slug": slug.current,
-			title,
-			publishedAt,
-			body,
-			"imageUrl": mainImage.asset->url + "?w=1200&h=630&fit=crop&auto=format",
-			videoUrl,
+    *[_type == "post"] {
+      "slug": slug.current,
+      title,
+      publishedAt,
+      body,
+      "imageUrl": mainImage.asset->url + "?w=1200&h=630&fit=crop&auto=format",
+      videoUrl,
       "seoTitle": seo.metaTitle,
       "seoDescription": seo.metaDescription,
       "seoImage": seo.ogImage.asset->url,
-      excerpt  
-		}
+      excerpt,
+      "categories": categories[]->{title, "slug": slug.current},
+      "excerpt": array::join(string::split(pt::text(body), "")[0..150], "") + "...",
+      "author": author->name,
+      "readingTime": string(round(length(pt::text(body)) / 200)) + " min read"
+    }
 	`);
 	
 	return posts.map((post) => ({
@@ -33,6 +37,10 @@ const post = Astro.props;
 	description={post.seoDescription || post.excerpt || post.title}
 	pubDate={new Date(post.publishedAt)}
 	heroImage={post.seoImage || post.imageUrl}
+	categories={post.categories}
+	slug={post.slug}
+	author={post.author}
+	readingTime={post.readingTime}
 >
 	<div>
 		{post.body && post.body.map((block: any) => {

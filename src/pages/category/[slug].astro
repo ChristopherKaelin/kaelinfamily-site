@@ -1,131 +1,142 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
-import { sanityClient } from '../../../sanity.config.js';
-import FormattedDate from '../../components/FormattedDate.astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostList from "../../components/PostList.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { sanityClient } from "../../../sanity.config.js";
 
 export async function getStaticPaths() {
-	const categories: any[] = await sanityClient.fetch(`
-		*[_type == "category"] {
-			title,
-			"slug": slug.current
-		}
-	`);
-	
-	console.log('Categories from Sanity:', categories);
-	
-	return categories.map((category) => {
-		console.log('Creating path for:', category.slug);
-		return {
-			params: { slug: category.slug },
-			props: { 
-				categoryTitle: category.title,
-				categorySlug: category.slug 
-			},
-		};
-	});
+  const categories: any[] = await sanityClient.fetch(`
+    *[_type == "category"] {
+      title,
+      "slug": slug.current,
+      description
+    }
+  `);
+
+  return categories.map((category) => ({
+    params: { slug: category.slug },
+    props: {
+      categoryTitle: category.title,
+      categorySlug: category.slug,
+      categoryDescription: category.description,
+    },
+  }));
 }
 
-const { categoryTitle, categorySlug } = Astro.props;
+const { categoryTitle, categorySlug, categoryDescription } = Astro.props;
 
 const posts: any[] = await sanityClient.fetch(`
-	*[_type == "post" && references(*[_type == "category" && slug.current == "${categorySlug}"]._id)] | order(publishedAt desc) {
-		_id,
-		title,
-		slug,
-		publishedAt,
-		"imageUrl": mainImage.asset->url,
-		"categories": categories[]->title
-	}
+  *[_type == "post" && (
+    references(*[_type == "category" && slug.current == "${categorySlug}"]._id) ||
+    references(*[_type == "category" && parent->slug.current == "${categorySlug}"]._id)
+  )] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    publishedAt,
+    "imageUrl": mainImage.asset->url,
+    "categories": categories[]->{title, "slug": slug.current},
+    "excerpt": array::join(string::split(pt::text(body), "")[0..150], "") + "..."
+  }
 `);
 ---
 
-<BaseLayout title={`${categoryTitle} - ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
-	<section>
-		<h1>Posts in: {categoryTitle}</h1>
-		<div class="posts-grid">
-			{
-				posts.map((post) => (
-					<article class="post-card">
-						<a href={`/blog/${post.slug.current}/`}>
-							{post.imageUrl && (
-								<img width={200} height={120} src={post.imageUrl} alt="" class="post-image" />
-							)}
-							<div class="post-content">
-								<h4 class="title">{post.title}</h4>
-								<p class="date"><FormattedDate date={new Date(post.publishedAt)} /></p>
-							</div>
-						</a>
-					</article>
-				))
-			}
-		</div>
-	</section>
+<BaseLayout
+  title={`${categoryTitle} - ${SITE_TITLE}`}
+  description={SITE_DESCRIPTION}
+>
+  <div class="category-header">
+    <h1>{categoryTitle}</h1>
+    {
+      categoryDescription && (
+        <p class="category-description">{categoryDescription}</p>
+      )
+    }
+    <div class="category-stats">
+      {posts.length}
+      {posts.length === 1 ? "post" : "posts"}
+    </div>
+  </div>
+
+  {
+    posts.length > 0 ? (
+      <section>
+        <PostList posts={posts} variant="grid" />
+      </section>
+    ) : (
+      <div class="no-posts">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" >
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.35-4.35" />
+        </svg>
+        <h2>No posts found</h2>
+        <p>There are no posts in this category yet. Check back later!</p>
+        <a href="/blog" class="back-to-blog">
+          ← Back to all posts
+        </a>
+      </div>
+    )
+  }
 </BaseLayout>
 
 <style>
-	.posts-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 1.5rem;
-		margin-top: 2rem;
-	}
+  .category-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-large);
+    border-bottom: 2px solid var(--color-border);
+  }
 
-	.post-card {
-		background: var(--color-bg, #fff);
-		border: 1px solid var(--border-color, #e1e5e9);
-		border-radius: 12px;
-		padding: 1rem;
-		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-		transition: transform 0.2s ease, box-shadow 0.2s ease;
-	}
+  .category-header h1 {
+    font-size: var(--font-size-xxl);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-base);
+  }
 
-	.post-card:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-	}
+  .category-description {
+    font-size: var(--font-size-large);
+    color: var(--color-muted);
+    margin-bottom: var(--spacing-base);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-	.post-card a {
-		text-decoration: none;
-		color: inherit;
-		display: flex;
-		align-items: flex-start;
-		gap: 1rem;
-	}
+  .category-stats {
+    color: var(--color-accent);
+    font-weight: 500;
+  }
 
-  .post-image {
-    width: 150px;
-    height: 100px;
-    object-fit: contain;
-    border-radius: 8px;
-    flex-shrink: 0;
-    background-color: #f8f9fa;
-  }  
-	.post-content {
-		flex: 1;
-		padding: 0;
-	}
+  .no-posts {
+    text-align: center;
+    padding: var(--spacing-xl) 0;
+    color: var(--color-muted);
+  }
 
-	.title {
-		margin: 0 0 0.5rem 0;
-		font-size: 1.2rem;
-		color: var(--color-primary, #2c5aa0);
-	}
+  .no-posts svg {
+    margin-bottom: var(--spacing-base);
+    opacity: 0.5;
+  }
 
-	.date {
-		margin: 0;
-		color: var(--text-muted, #666);
-		font-size: 0.9rem;
-	}
+  .no-posts h2 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-base);
+  }
 
-	@media (max-width: 768px) {
-		.posts-grid {
-			grid-template-columns: 1fr;
-		}
-		
-		.post-image {
-			width: 120px;
-			height: 80px;
-		}
-	}
+  .back-to-blog {
+    display: inline-block;
+    margin-top: var(--spacing-large);
+    padding: 0.75rem 1.5rem;
+    background: var(--color-accent);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius-base);
+    font-weight: 500;
+    transition: var(--transition-fast);
+  }
+
+  .back-to-blog:hover {
+    background: var(--color-primary);
+    transform: translateY(-2px);
+  }
 </style>

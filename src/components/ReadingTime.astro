@@ -1,0 +1,39 @@
+---
+// src/components/ReadingTime.astro
+export interface Props {
+  content: string;
+  wordsPerMinute?: number;
+}
+
+const { content, wordsPerMinute = 200 } = Astro.props;
+
+function calculateReadingTime(text: string, wpm: number): string {
+  const words = text.trim().split(/\s+/).length;
+  const minutes = Math.ceil(words / wpm);
+  return `${minutes} min read`;
+}
+
+const readingTime = calculateReadingTime(content, wordsPerMinute);
+---
+
+<span class="reading-time">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="10"></circle>
+    <polyline points="12,6 12,12 16,14"></polyline>
+  </svg>
+  {readingTime}
+</span>
+
+<style>
+  .reading-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--color-muted);
+    font-size: var(--font-size-small);
+  }
+
+  .reading-time svg {
+    opacity: 0.7;
+  }
+</style>
