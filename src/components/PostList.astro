@@ -57,6 +57,10 @@ const { posts, variant = 'grid', showExcerpt = true } = Astro.props;
 </div>
 
 <style>
+  .post-list.list .image-container {
+    display: none;
+  }
+
   .post-list.grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -177,5 +181,23 @@ const { posts, variant = 'grid', showExcerpt = true } = Astro.props;
       flex: none;
       aspect-ratio: 16/9;
     }
+  }
+
+  .post-title a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .post-title a:hover {
+    color: var(--color-accent);
+  }
+
+  .read-more a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .read-more a:hover {
+    color: var(--color-primary);
   }
 </style>

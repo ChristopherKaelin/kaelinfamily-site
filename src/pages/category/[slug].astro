@@ -61,7 +61,42 @@ const posts: any[] = await sanityClient.fetch(`
   {
     posts.length > 0 ? (
       <section>
-        <PostList posts={posts} variant="grid" />
+        <div class="controls-container">
+          <div class="view-controls">
+            <div class="view-toggle">
+              <span class="label">View: </span>
+              <a href={`?view=grid`} class='view-button active'>
+                <svg width="16" height="16" viewBox="0 0 16 16">
+                  <rect width="6" height="6" x="1" y="1" fill="currentColor"/>
+                  <rect width="6" height="6" x="9" y="1" fill="currentColor"/>
+                  <rect width="6" height="6" x="1" y="9" fill="currentColor"/>
+                  <rect width="6" height="6" x="9" y="9" fill="currentColor"/>
+                </svg>
+                Grid
+              </a> &nbsp;
+              <a href={`?view=list`} class='view-button'>
+                <svg width="16" height="16" viewBox="0 0 16 16">
+                  <rect width="14" height="2" x="1" y="3" fill="currentColor"/>
+                  <rect width="14" height="2" x="1" y="7" fill="currentColor"/>
+                  <rect width="14" height="2" x="1" y="11" fill="currentColor"/>
+                </svg>
+                List
+              </a>
+            </div>
+          </div>
+          <div class="sort-controls">
+            <div class="sort-toggle">
+              <span class="label">Sort:</span>
+              <a href="?sort=newest" class="sort-button" data-sort="newest">
+                Newest
+              </a>
+              <a href="?sort=oldest" class="sort-button" data-sort="oldest">
+                Oldest
+              </a>
+            </div>
+          </div>
+        </div>
+        <PostList posts={posts} variant='list' />
       </section>
     ) : (
       <div class="no-posts">
@@ -78,6 +113,49 @@ const posts: any[] = await sanityClient.fetch(`
     )
   }
 </BaseLayout>
+
+<script>
+  // Get view mode from URL or default to grid
+  const urlParams = new URLSearchParams(window.location.search);
+  const viewMode = urlParams.get('view') || 'grid';
+  const sortMode = urlParams.get('sort') || 'newest';
+  
+  // Apply the view mode to the post list
+  const postList = document.querySelector('.post-list');
+  if (postList) {
+    postList.className = `post-list ${viewMode}`;
+  }
+
+  // Update view button active states
+  document.querySelectorAll('.view-button').forEach(button => {
+    const isActive = button.getAttribute('href')?.includes(`view=${viewMode}`);
+    button.classList.toggle('active', isActive);
+  });
+
+  // Update sort button hrefs and active states
+  document.querySelectorAll('.sort-button').forEach(button => {
+    const sort = button.getAttribute('data-sort') || 'newest';
+    const params = new URLSearchParams();
+    if (viewMode !== 'grid') params.set('view', viewMode);
+    params.set('sort', sort);
+    button.setAttribute('href', '?' + params.toString());
+
+    button.classList.toggle('active', sort === sortMode);
+  });
+
+  // Sort posts
+  if (postList && sortMode === 'oldest') {
+    const articles = Array.from(postList.querySelectorAll('.post-item'));
+    const sortedArticles = articles.sort((a, b) => {
+      const dateA = new Date(a.querySelector('.post-date time')?.getAttribute('datetime') || '');
+      const dateB = new Date(b.querySelector('.post-date time')?.getAttribute('datetime') || '');
+      return dateA.getTime() - dateB.getTime(); // oldest first
+    });
+    
+    // Re-append in sorted order
+    sortedArticles.forEach(article => postList.appendChild(article));
+  }
+</script>
 
 <style>
   .category-header {
@@ -138,5 +216,38 @@ const posts: any[] = await sanityClient.fetch(`
   .back-to-blog:hover {
     background: var(--color-primary);
     transform: translateY(-2px);
+  }
+
+	.active {
+		font-weight: bolder;
+		text-decoration: none;
+	}
+
+  .controls-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: var(--spacing-large);
+    flex-wrap: wrap;
+    gap: var(--spacing-base);
+  }
+  
+  .controls-container .label {
+    font-size: x-large;
+    font-weight: 600;
+    margin-right: 0.5rem;
+  }
+
+  .view-button,
+  .sort-button {
+    margin-left: 0.5rem;
+    padding: .25rem .5rem;
+    border-radius: var(--border-radius-base);
+  }
+
+  .view-button.active,
+  .sort-button.active {
+    color: var(--color-bright);
+    background-color: var(--color-success-light);
   }
 </style>

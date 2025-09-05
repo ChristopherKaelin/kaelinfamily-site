@@ -1,0 +1,123 @@
+---
+// src/pages/projects/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { fade } from 'astro:transitions';
+import PortfolioCard from '../../components/PortfolioCard.astro';
+import { sanityClient } from '../../../sanity.config.js';
+
+// Fetch portfolio items from Sanity CMS
+const portfolioItems: any[] = await sanityClient.fetch(`
+  *[_type == "portfolio" && defined(publishedAt) && isPublic == true] | order(publishedAt desc) {
+    _id,
+    title,
+    description,
+    "slug": slug.current,
+    technologies[]->{title},
+    "imageUrl": mainImage.asset->url,
+    liveUrl,
+    githubUrl,
+    featured
+  }
+`);
+console.log('Filtered portfolio items:', portfolioItems);
+
+// Debug query - remove all filters to see what's there
+const debugItems: any[] = await sanityClient.fetch(`
+  *[_type == "portfolio"] {
+    _id,
+    title,
+    publishedAt,
+    isPublic,
+    "slug": slug.current
+  }
+`);
+console.log('All portfolio items:', debugItems);
+---
+
+<BaseLayout 
+  title={`Portfolio - ${SITE_TITLE}`} 
+  description="Explore Chris Kaelin's tech portfolio, from family websites to church technology solutions.">
+  
+  <section class="projects-header">
+    <h1>My Portfolio</h1>
+    <p class="intro">
+      Here are some of the things I've built, from family websites to solutions that help my community. 
+      Each project teaches me something new and hopefully helps someone along the way.
+    </p>
+  </section>
+
+  <section class="projects-grid">
+    {portfolioItems.map((item) => (
+      <PortfolioCard {...item} />
+    ))}
+  </section>
+  
+  <section class="projects-footer">
+    <p>
+      Want to see more? Check out my <a href="/category/projects">project blog posts</a> 
+      where I share the stories behind these builds, or browse my 
+      <a href="https://github.com/christopherkaelin" target="_blank" rel="noopener">GitHub</a> 
+      for code and experiments.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .projects-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .projects-header h1 {
+    margin-bottom: var(--spacing-base);
+  }
+  
+  .intro {
+    font-size: var(--font-size-large);
+    color: var(--color-muted);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-large);
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .projects-grid:only-child {
+    max-width: 566px;
+    justify-self: center;
+  }
+  
+  .projects-footer {
+    text-align: center;
+    padding: var(--spacing-xl) 0;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-muted);
+  }
+  
+  .projects-footer a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  
+  .projects-footer a:hover {
+    color: var(--color-primary-light);
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 760px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-base);
+    }
+    
+    .intro {
+      font-size: var(--font-size-base);
+    }
+  }
+</style>

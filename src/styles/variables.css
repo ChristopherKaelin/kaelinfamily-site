@@ -21,6 +21,7 @@
   
   /* Utility Colors */
   --color-success: #38a169;           /* Green for success states */
+  --color-success-light: #7dd3c0;     /* Light green background */
   --color-warning: #ed8936;           /* Orange for warnings/work-in-progress */
   --color-warning-light: #fef5e7;     /* Light orange background */
   --color-error: #e53e3e;             /* Red for errors */
