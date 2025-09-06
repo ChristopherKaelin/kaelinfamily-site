@@ -1,0 +1,46 @@
+---
+// Only include in development
+const isDev = import.meta.env.DEV;
+---
+
+{isDev && (
+  <script>
+    // Core Web Vitals monitoring
+    function measureWebVitals() {
+      // Largest Contentful Paint
+      new PerformanceObserver((entryList) => {
+        const entries = entryList.getEntries();
+        const lastEntry = entries[entries.length - 1];
+        console.log('LCP:', lastEntry.startTime + 'ms');
+      }).observe({ entryTypes: ['largest-contentful-paint'] });
+      
+      // First Input Delay
+      new PerformanceObserver((entryList) => {
+        const entries = entryList.getEntries();
+        entries.forEach(entry => {
+          const fidEntry = entry as any;
+          console.log('FID:', (fidEntry.processingStart - fidEntry.startTime) + 'ms');
+        });
+      }).observe({ entryTypes: ['first-input'] });
+      
+      // Cumulative Layout Shift
+      let clsScore = 0;
+      new PerformanceObserver((entryList) => {
+        const entries = entryList.getEntries();
+        entries.forEach(entry => {
+           const clsEntry = entry as any;
+          if (!clsEntry.hadRecentInput) {
+            clsScore += clsEntry.value;
+            console.log('CLS:', clsScore.toFixed(3));
+          }
+        });
+      }).observe({ entryTypes: ['layout-shift'] });
+    }
+    
+    if (document.readyState === 'complete') {
+      measureWebVitals();
+    } else {
+      window.addEventListener('load', measureWebVitals);
+    }
+  </script>
+)}

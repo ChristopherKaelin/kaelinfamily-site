@@ -3,6 +3,7 @@
 import { sanityClient } from '../../sanity.config.js';
 import FormattedDate from './FormattedDate.astro';
 import CategoryTags from './CategoryTags.astro';
+import OptimizedImage from '../components/OptimizedImage.astro';
 
 export interface Props {
   currentSlug?: string;
@@ -38,15 +39,8 @@ const relatedPosts = await sanityClient.fetch(`
         <article class="related-post">
           <a href={`/blog/${post.slug.current}/`} class="post-link">
             {post.imageUrl && (
-              <div class="post-image">
-                <img 
-                  src={post.imageUrl} 
-                  alt={post.title}
-                  width="300" 
-                  height="200"
-                  loading="lazy"
-                />
-              </div>
+              <OptimizedImage src={post.imageUrl} alt={post.title} width={300} height={200}
+                loading="lazy" sizes="(max-width: 768px) 100vw, 300px" />
             )}
             
             <div class="post-content">

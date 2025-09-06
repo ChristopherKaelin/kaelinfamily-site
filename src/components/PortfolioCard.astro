@@ -1,5 +1,7 @@
 ---
 // src/components/PortfolioCard.astro
+import OptimizedImage from './OptimizedImage.astro';
+
 export interface Props {
   title: string;
   description: string;
@@ -25,13 +27,14 @@ const {
 
 <article class={`project-card ${featured ? 'featured' : ''}`}>
   <div class="project-image">
-    {imageUrl ? (
-      <img src={imageUrl} alt={`${title} screenshot`} loading="lazy" />
-    ) : (
-      <div class="image-placeholder">
-        <span>📋</span>
-      </div>
-    )}
+     {imageUrl ? (
+        <OptimizedImage src={imageUrl} alt={`${title} screenshot`}width={400} height={250}
+          loading="lazy" sizes="(max-width: 768px) 100vw, 400px" />
+        ) : (
+        <div class="image-placeholder">
+          <span>📋</span>
+        </div>
+      )}
   </div>
   
   <div class="project-content">

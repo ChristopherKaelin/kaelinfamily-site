@@ -198,7 +198,6 @@ const recentPosts: any[] = await sanityClient.fetch(`
   .category-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 cards across on full screen */
-    /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
     gap: var(--spacing-large);
     margin-top: var(--spacing-large);
   }
@@ -313,7 +312,14 @@ const recentPosts: any[] = await sanityClient.fetch(`
   }
 
   /* Responsive Design */
-  @media (max-width: 768px) {
+  @media (max-width: 1200px) {
+    /* 3 columns on medium screens */
+    .category-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
     .hero h1 {
       font-size: var(--font-size-xl);
     }
@@ -324,7 +330,7 @@ const recentPosts: any[] = await sanityClient.fetch(`
     }
 
     .category-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: var(--spacing-base);
     }
 
@@ -343,6 +349,13 @@ const recentPosts: any[] = await sanityClient.fetch(`
         1fr
       ); /* 2 cards across at first breakpoint */
       gap: var(--spacing-base);
+    }
+  }
+
+  @media (max-width: 600px) {
+    /* 1 columns */
+    .category-grid {
+      grid-template-columns: 1fr;
     }
   }
 

@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { sanityClient } from '../../../sanity.config.js';
 import FormattedDate from '../../components/FormattedDate.astro';
+import OptimizedImage from '../../components/OptimizedImage.astro';
 
 const posts: any[] = await sanityClient.fetch(`
   *[_type == "post"] | order(publishedAt desc) {
@@ -25,7 +26,8 @@ const posts: any[] = await sanityClient.fetch(`
 					<article class="post-card">
 						<a href={`/blog/${post.slug.current}/`}>
 							{post.imageUrl && (
-								<img width={150} height={100} src={post.imageUrl} alt="" class="post-image" />
+                <OptimizedImage src={post.imageUrl} alt={post.title} width={150} height={100}
+                  loading="lazy" sizes="(max-width: 768px) 100vw, 150px" />
 							)}
 							<div class="post-content">
 								<h4 class="title">{post.title}</h4>

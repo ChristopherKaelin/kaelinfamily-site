@@ -20,19 +20,6 @@ const portfolioItems: any[] = await sanityClient.fetch(`
     featured
   }
 `);
-console.log('Filtered portfolio items:', portfolioItems);
-
-// Debug query - remove all filters to see what's there
-const debugItems: any[] = await sanityClient.fetch(`
-  *[_type == "portfolio"] {
-    _id,
-    title,
-    publishedAt,
-    isPublic,
-    "slug": slug.current
-  }
-`);
-console.log('All portfolio items:', debugItems);
 ---
 
 <BaseLayout 

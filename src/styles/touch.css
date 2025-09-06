@@ -1,0 +1,62 @@
+/* Touch-friendly interactive elements */
+@media (hover: none) and (pointer: coarse) {
+  /* Touch device specific styles */
+  a, button, [role="button"], .nav-mobile-link {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .category-button {
+    min-height: 44px;
+    min-width: 44px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Remove hover effects on touch devices */
+  a:hover, button:hover, .category-button:hover {
+    transform: none;
+    background: initial;
+  }
+  
+  /* Add touch feedback instead */
+  a:active, button:active, .category-button:active {
+    transform: scale(0.98);
+    opacity: 0.8;
+  }
+}
+
+/* Touch-friendly form elements */
+input, textarea, select {
+  font-size: 16px; /* Prevents zoom on iOS */
+  padding: var(--spacing-base);
+  border-radius: var(--border-radius-base);
+  min-height: 44px;
+}
+
+/* Focus styles for keyboard/touch navigation */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Swipe container for image galleries */
+.swipe-container {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.swipe-container::-webkit-scrollbar {
+  display: none;
+}
+
+.swipe-item {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
