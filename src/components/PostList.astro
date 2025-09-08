@@ -25,7 +25,7 @@ const { posts, variant = 'grid', showExcerpt = true } = Astro.props;
   {posts.map((post) => (
     <article class="post-item">
       <div class="image-container">
-        <a href={`/blog/${post.slug.current}/`} class="post-link">
+        <a href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} class="post-link">
           {post.imageUrl && (
             <OptimizedImage src={post.imageUrl} alt={post.title} 
               loading="eager" sizes="(max-width: 768px) 100vw, 400px" />
@@ -42,14 +42,20 @@ const { posts, variant = 'grid', showExcerpt = true } = Astro.props;
           </div>
         </div>
         
-        <h2 class="post-title">{post.title}</h2>
+        <h2 class="post-title">
+          <a href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} class="post-link">
+            {post.title}
+          </a>
+        </h2>
         
         {post.excerpt && (
           <p class="post-excerpt">{post.excerpt}</p>
         )}
         
         <div class="read-more">
-          Read more →
+          <a href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} class="post-link">
+            Read more →
+          </a>
         </div>
       </div>
     </article>
