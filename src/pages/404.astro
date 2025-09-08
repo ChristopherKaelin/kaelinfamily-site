@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<BaseLayout title={`Page Not Found - ${SITE_TITLE}`} description="The page you're looking for doesn't exist.">
+  <div class="error-container">
+    <div class="error-content">
+      <h1 class="error-code">404</h1>
+      <h2 class="error-title">Oops! Page Not Found</h2>
+      <p class="error-message">
+        The page you're looking for seems to have wandered off. Maybe it's exploring Kentucky like we do!
+      </p>f
+      
+      <div class="error-suggestions">
+        <h3>Here's where you can go instead:</h3>
+        <div class="suggestion-links">
+          <a href="/" class="suggestion-button primary">
+            🏠 Home
+          </a>
+          <a href="/categories" class="suggestion-button">
+            📂 Categories
+          </a>
+          <a href="/portfolio" class="suggestion-button">
+            ⚡ Portfolio
+          </a>
+        </div>
+      </div>
+      
+      <div class="search-suggestion">
+        <p>Looking for something specific? Try going back to the <a href="/">homepage</a> and using the navigation menu.</p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: var(--spacing-xl) var(--spacing-base);
+  }
+
+  .error-content {
+    text-align: center;
+    max-width: 600px;
+  }
+
+  .error-code {
+    font-size: 6rem;
+    font-weight: bold;
+    color: var(--color-accent);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .error-title {
+    font-size: var(--font-size-xxl);
+    color: var(--color-primary);
+    margin: var(--spacing-base) 0;
+  }
+
+  .error-message {
+    font-size: var(--font-size-large);
+    color: var(--color-muted);
+    margin-bottom: var(--spacing-xl);
+    line-height: 1.6;
+  }
+
+  .error-suggestions h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-large);
+  }
+
+  .suggestion-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--spacing-base);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .suggestion-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-border);
+    color: var(--color-primary);
+    text-decoration: none;
+    border-radius: var(--border-radius-base);
+    font-weight: 500;
+    transition: var(--transition-fast);
+    border: 2px solid transparent;
+  }
+
+  .suggestion-button:hover {
+    background: var(--color-accent);
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  .suggestion-button.primary {
+    background: var(--color-accent);
+    color: white;
+  }
+
+  .suggestion-button.primary:hover {
+    background: var(--color-primary);
+  }
+
+  .search-suggestion {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-large);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .search-suggestion p {
+    color: var(--color-muted);
+  }
+
+  .search-suggestion a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .search-suggestion a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .error-code {
+      font-size: 4rem;
+    }
+    
+    .suggestion-links {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

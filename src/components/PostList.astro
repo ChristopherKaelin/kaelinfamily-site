@@ -34,20 +34,16 @@ const { posts, variant = 'grid', showExcerpt = true } = Astro.props;
       </div>
       <div class="post-content">
         <div class="post-meta-top">
-          <div class="post-categories">
-            <CategoryTags categories={post.categories || []} variant="compact" />
-          </div>
+          <h2 class="post-title">
+            <a href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} class="post-link">
+              {post.title}
+            </a>
+          </h2>
           <div class="post-date">
             <FormattedDate date={new Date(post.publishedAt)} />
           </div>
         </div>
-        
-        <h2 class="post-title">
-          <a href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} class="post-link">
-            {post.title}
-          </a>
-        </h2>
-        
+                
         {post.excerpt && (
           <p class="post-excerpt">{post.excerpt}</p>
         )}
