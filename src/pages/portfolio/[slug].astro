@@ -75,7 +75,7 @@ const { title, description, technologies, liveUrl, githubUrl, fullDescription, c
     </div>
 
     <footer class="project-footer">
-      <a href="/projects" class="back-link">← Back to Projects</a>
+      <a href="/portfolio" class="back-link">← Back to Portfolio List</a>
     </footer>
   </article>
 </BaseLayout>
@@ -164,6 +164,12 @@ const { title, description, technologies, liveUrl, githubUrl, fullDescription, c
   }
 
   .project-content {
+    padding: 0.67rem;
+    background-color: var(--color-primary-100) !important;
+    border: var(--border-width) solid var(--color-primary);
+    border-radius: var(--border-radius-base);
+    box-shadow: 8px 8px 8px rgba(var(--color-primary-rgb), 0.25);
+
     line-height: 1.7;
     margin-bottom: var(--spacing-xl);
   }
