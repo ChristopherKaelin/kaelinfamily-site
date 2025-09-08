@@ -54,4 +54,14 @@ const {
     height: auto;
     border-radius: var(--border-radius-base);
   }
+
+  /* Allow parent styles to override */
+  img:where(.post-image) {
+    width: 150px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 8px;
+    flex-shrink: 0;
+    background-color: #f8f9fa;
+  }  
 </style>

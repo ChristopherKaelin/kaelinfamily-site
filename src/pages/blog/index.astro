@@ -27,7 +27,7 @@ const posts: any[] = await sanityClient.fetch(`
 						<a href={`/${post.categories[0].slug}/${post.slug.current}/`}>
 							{post.imageUrl && (
                 <OptimizedImage src={post.imageUrl} alt={post.title} width={150} height={100}
-                  loading="lazy" sizes="(max-width: 768px) 100vw, 150px" />
+                  loading="lazy" sizes="(max-width: 768px) 100vw, 150px" class="post-image"/>
 							)}
 							<div class="post-content">
 								<h4 class="title">{post.title}</h4>
