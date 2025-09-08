@@ -24,7 +24,7 @@ const posts: any[] = await sanityClient.fetch(`
 			{
 				posts.map((post) => (
 					<article class="post-card">
-						<a href={`/blog/${post.slug.current}/`}>
+						<a href={`/${post.categories[0].slug}/${post.slug.current}/`}>
 							{post.imageUrl && (
                 <OptimizedImage src={post.imageUrl} alt={post.title} width={150} height={100}
                   loading="lazy" sizes="(max-width: 768px) 100vw, 150px" />

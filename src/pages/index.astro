@@ -103,7 +103,7 @@ const recentPosts: any[] = await sanityClient.fetch(`
             class={`post-preview post-preview--${getPrimaryCategorySlug(post.categories)}`}
           >
             <h3>
-              <a href={`/blog/${post.slug.current}/`}>{post.title}</a>
+              <a href={`/${post.categories[0].slug}/${post.slug.current}/`}>{post.title}</a>
             </h3>
             <span class="post-date">
               <FormattedDate date={new Date(post.publishedAt)} />
