@@ -1,0 +1,209 @@
+.theme-toggle {
+  top: 20px;
+  right: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  font-size: 25px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.favorites-page {
+  font-family: system-ui, sans-serif;
+  background-color: var(--background-light);
+  color: var(--purple);
+  padding: 2rem;
+  text-align: center;
+}
+
+.favorites-page h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--purple);
+}
+
+/* Gallery Grid */
+.favorites-page .gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 1.25rem;
+  max-width: 1024px;
+  margin: 0;
+  justify-content: start;
+}
+
+.favorites-page .gallery .card {
+  position: relative;
+}
+
+/* Card Styling */
+.favorites-page .gallery a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 140px;
+  width: 100%;
+  max-width: 140px;
+  padding: 8px 4px 20px 4px;
+  border-radius: 12px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 4px 4px 8px rgba(var(--box-shadow-color), 0.1);
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.favorites-page .gallery a:hover {
+  transform: scale(0.99);
+  box-shadow: 2px 2px 6px rgba(var(--box-shadow-color), 0.75);
+}
+
+.favorites-page .gallery img {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.favorites-page .label {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: var(--green);
+  text-align: center;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  height: 3.6em;
+  line-height: 1.2;
+}
+
+.favorites-page .click-count {
+  position: absolute;
+  bottom: 8px;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: var(--green);
+}
+
+/* Accordion */
+.favorites-page .accordion-header,
+.favorites-page .static-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+  text-align: left;
+  padding: 1rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--purple);
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 1rem;
+  box-shadow: 2px 2px 6px rgba(var(--box-shadow-color), 0.05);
+}
+
+.favorites-page .accordion-header:hover {
+  background-color: #606060;
+}
+
+/* Static header (non-clickable) */
+.favorites-page .static-header {
+  cursor: default;
+}
+
+.favorites-page .static-header:hover {
+  background-color: var(--card-bg);
+}
+
+/* Accordion icon */
+.favorites-page .accordion-header .arrow {
+  font-size: 1rem;
+  color: var(--text-muted);
+  transition: transform 0.3s ease;
+  margin-right: 0.5rem;
+}
+
+.favorites-page .accordion-header.open .arrow {
+  transform: rotate(90deg);
+}
+
+/* Accordion content */
+.favorites-page .accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 1rem;
+  background-color: var(--card-bg);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  transition: max-height 0.3s ease;
+}
+
+.favorites-page .accordion-content.open {
+  max-height: 1000px;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.favorites-page .card {
+  padding: 0;
+  border: none;
+}
+
+/* Responsive layout */
+@media (max-width: 900px) {
+  .favorites-page .gallery {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+  }
+
+  .favorites-page .accordion-header {
+    font-size: 1.05rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .favorites-page .accordion-content {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .favorites-page .gallery {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .favorites-page .gallery a {
+    height: 120px;
+    padding: 8px;
+  }
+
+  .favorites-page .gallery img {
+    width: 60px;
+  }
+
+  .favorites-page .label {
+    font-size: 0.65rem;
+  }
+
+  .favorites-page h2 {
+    font-size: 1.5rem;
+  }
+
+  .favorites-page .accordion-header {
+    font-size: 1rem;
+    padding: 0.65rem 1rem;
+  }
+}
