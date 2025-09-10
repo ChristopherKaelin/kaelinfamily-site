@@ -1,24 +1,25 @@
-export default function handler(req, res) {
-  // Enable CORS for your domain
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+// @ts-check
+import { defineConfig } from 'astro/config';
+import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 
-  // Handle preflight requests
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
+export default defineConfig({
+  site: 'https://www.kaelinfamily.com',
+  integrations: [mdx(), sitemap()],
+  vite: {
+    build: {
+      cssCodeSplit: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['astro']
+          }
+        }
+      }
+    }
+  },
+  compressHTML: true,
+  build: {
+    inlineStylesheets: 'auto'
   }
-
-  if (req.method === 'GET') {
-    // For now, return empty data - we'll improve this next
-    res.status(200).json({ clicks: {} });
-  } else if (req.method === 'POST') {
-    // For now, just acknowledge the data - we'll add storage next
-    const clickData = req.body;
-    console.log('Received click data:', clickData);
-    res.status(200).json({ success: true });
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
-  }
-}
+});
