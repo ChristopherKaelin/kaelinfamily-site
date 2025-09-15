@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelin Family - Stories from Kentucky</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #2D3748;
+            background: #FEFEFE;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 8px rgba(45, 55, 72, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 75px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2C7A7B;
+            text-decoration: none;
+            font-family: 'Georgia', serif;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #2D3748;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 0;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #2C7A7B;
+            color: #2C7A7B;
+        }
+
+        /* Dropdown for Categories */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            padding: 0.75rem 1.5rem;
+            display: block;
+            border-bottom: none;
+            font-size: 0.95rem;
+        }
+
+        .dropdown-content a:hover {
+            background: #F7FAFC;
+            color: #2C7A7B;
+        }
+
+        /* Mobile menu toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #2C7A7B;
+            cursor: pointer;
+        }
+
+        /* Hero Section with Family Photo */
+        .hero {
+            background: linear-gradient(rgba(44, 122, 123, 0.1), rgba(44, 122, 123, 0.2)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23E2E8F0" width="1200" height="600"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23718096" font-family="system-ui" font-size="24">Family Hero Photo - Kentucky Landscape</text></svg>');
+            background-size: cover;
+            background-position: center;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-overlay {
+            background: rgba(45, 55, 72, 0.4);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Georgia', serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .hero-cta {
+            background: #ED8936;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            background: #DD6B20;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: #F7FAFC;
+            padding: 2rem;
+            margin: 3rem 0;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .search-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2D3748;
+        }
+
+        .search-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.875rem 1rem;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #2C7A7B;
+        }
+
+        .search-btn {
+            background: #2C7A7B;
+            color: white;
+            border: none;
+            padding: 0.875rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-btn:hover {
+            background: #2D3748;
+        }
+
+        /* Browse Categories with Pictures */
+        .browse-categories {
+            margin: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2D3748;
+            font-family: 'Georgia', serif;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #E2E8F0, #CBD5E0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #718096;
+            font-size: 0.9rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .category-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3));
+        }
+
+        .category-content {
+            padding: 1.5rem;
+        }
+
+        .category-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: #2D3748;
+        }
+
+        .category-content p {
+            color: #4A5568;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-count {
+            font-size: 0.8rem;
+            color: #718096;
+            font-weight: 500;
+        }
+
+        /* Popular & Featured Posts */
+        .posts-sections {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+
+        .popular-posts h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #2D3748;
+        }
+
+        .featured-posts h2 {
+            font-size: 1.75rem;
+            margin-bottom: 2rem;
+            color: #2D3748;
+        }
+
+        /* Non-uniform card layout */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .post-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .post-card.featured {
+            grid-column: 1 / -1;
+        }
+
+        .post-card.featured .post-image {
+            height: 250px;
+        }
+
+        .post-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #E2E8F0, #CBD5E0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #718096;
+            font-size: 0.85rem;
+        }
+
+        .post-content {
+            padding: 1.25rem;
+        }
+
+        .post-category {
+            background: #2C7A7B;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+        }
+
+        .post-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2D3748;
+            line-height: 1.4;
+        }
+
+        .post-card.featured .post-title {
+            font-size: 1.4rem;
+        }
+
+        .post-excerpt {
+            color: #4A5568;
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #718096;
+        }
+
+        /* Featured sidebar posts */
+        .featured-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .featured-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s ease;
+        }
+
+        .featured-item:hover {
+            transform: translateX(4px);
+        }
+
+        .featured-thumb {
+            width: 80px;
+            height: 60px;
+            background: linear-gradient(135deg, #E2E8F0, #CBD5E0);
+            border-radius: 6px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: #718096;
+        }
+
+        .featured-content h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            color: #2D3748;
+            line-height: 1.3;
+        }
+
+        .featured-meta {
+            font-size: 0.7rem;
+            color: #718096;
+        }
+
+        /* Quick About Section */
+        .quick-about {
+            background: linear-gradient(135deg, #F7FAFC, #EDF2F7);
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            margin: 4rem 0;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-photo {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #E2E8F0, #CBD5E0);
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .about-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #2D3748;
+            font-family: 'Georgia', serif;
+        }
+
+        .about-content p {
+            color: #4A5568;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .about-link {
+            background: #2C7A7B;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: background 0.3s ease;
+        }
+
+        .about-link:hover {
+            background: #2D3748;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2D3748;
+            color: white;
+            padding: 3rem 1rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            transition: background 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .posts-sections {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-about {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-photo {
+                width: 150px;
+                height: 150px;
+            }
+
+            .search-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .categories-grid {
+                gap: 1rem;
+            }
+            
+            .hero {
+                min-height: 400px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Simplified Menu -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="logo">Kaelin Family</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li class="dropdown">
+                        <a href="/categories">Categories</a>
+                        <div class="dropdown-content">
+                            <a href="/family">👨‍👩‍👧‍👦 Family</a>
+                            <a href="/food">🍳 Food & Recipes</a>
+                            <a href="/sports">⚽ Sports</a>
+                            <a href="/tech">💻 Tech</a>
+                            <a href="/health">🏃‍♂️ Health & Fitness</a>
+                        </div>
+                    </li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/portfolio">Portfolio</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </header>
+
+    <!-- Hero Section with Family Photo -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Welcome to Our Kentucky Story</h1>
+                <p>Follow our family adventures, discover delicious recipes, and join us on our tech journey in the heart of Kentucky</p>
+                <a href="/latest" class="hero-cta">Explore Latest Posts</a>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <!-- Search Section -->
+        <section class="search-section">
+            <h3>What are you looking for?</h3>
+            <form class="search-form">
+                <input type="search" class="search-input" placeholder="Search recipes, family stories, tech tips...">
+                <button type="submit" class="search-btn">Search</button>
+            </form>
+        </section>
+
+        <!-- Browse Categories with Pictures -->
+        <section class="browse-categories">
+            <h2 class="section-title">Browse Our Stories</h2>
+            <div class="categories-grid">
+                <a href="/family" class="category-card">
+                    <div class="category-image">
+                        <div class="category-overlay"></div>
+                        Family Photos - Kids Playing in Kentucky Yard
+                    </div>
+                    <div class="category-content">
+                        <h3>Family Adventures</h3>
+                        <p>Personal stories, milestones, and adventures from our Kentucky life</p>
+                        <span class="post-count">12 recent posts</span>
+                    </div>
+                </a>
+
+                <a href="/food" class="category-card">
+                    <div class="category-image">
+                        <div class="category-overlay"></div>
+                        Delicious Food Photography - Bourbon Chicken
+                    </div>
+                    <div class="category-content">
+                        <h3>Food & Recipes</h3>
+                        <p>Family recipes, cooking experiments, and foodie adventures</p>
+                        <span class="post-count">8 recent posts</span>
+                    </div>
+                </a>
+
+                <a href="/sports" class="category-card">
+                    <div class="category-image">
+                        <div class="category-overlay"></div>
+                        Sports Action - Commanders Game Day Setup
+                    </div>
+                    <div class="category-content">
+                        <h3>Sports & Games</h3>
+                        <p>Following our favorite teams and game day traditions</p>
+                        <span class="post-count">15 recent posts</span>
+                    </div>
+                </a>
+
+                <a href="/tech" class="category-card">
+                    <div class="category-image">
+                        <div class="category-overlay"></div>
+                        Tech Setup - Clean Workspace & Code
+                    </div>
+                    <div class="category-content">
+                        <h3>Tech & Programming</h3>
+                        <p>Code tutorials, tech insights, and development adventures</p>
+                        <span class="post-count">6 recent posts</span>
+                    </div>
+                </a>
+
+                <a href="/health" class="category-card">
+                    <div class="category-image">
+                        <div class="category-overlay"></div>
+                        Fitness Journey - Morning Run in Kentucky
+                    </div>
+                    <div class="category-content">
+                        <h3>Health & Fitness</h3>
+                        <p>Wellness journey, fitness goals, and healthy living</p>
+                        <span class="post-count">5 recent posts</span>
+                    </div>
+                </a>
+
+                <a href="/portfolio" class="category-card">
+                    <div class="category-image">
+                        <div class="category-overlay"></div>
+                        Project Screenshots & Professional Work
+                    </div>
+                    <div class="category-content">
+                        <h3>Portfolio & Projects</h3>
+                        <p>Professional work, case studies, and technical achievements</p>
+                        <span class="post-count">4 projects</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Popular & Featured Posts -->
+        <section class="posts-sections">
+            <div class="popular-posts">
+                <h2>Browse Our Popular Posts</h2>
+                <div class="posts-grid">
+                    <article class="post-card featured">
+                        <div class="post-image">Featured Hero Image - Kentucky Fall Family Adventure</div>
+                        <div class="post-content">
+                            <span class="post-category">Family</span>
+                            <h3 class="post-title">Our First Kentucky Fall: Leaf Peeping Adventures with the Kids</h3>
+                            <p class="post-excerpt">Discovering the incredible beauty of autumn in Kentucky with our little ones. From apple orchards to pumpkin patches, here's how we made the most of our first fall season as Kentucky residents...</p>
+                            <div class="post-meta">
+                                <span>6 min read</span>
+                                <span>Sep 8, 2025</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="post-card">
+                        <div class="post-image">Bourbon Chicken Recipe Photo</div>
+                        <div class="post-content">
+                            <span class="post-category">Food</span>
+                            <h3 class="post-title">Grandma's Secret Bourbon Chicken Recipe</h3>
+                            <p class="post-excerpt">A family recipe passed down through generations, perfect for Sunday dinners...</p>
+                            <div class="post-meta">
+                                <span>4 min read</span>
+                                <span>Sep 5, 2025</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="post-card">
+                        <div class="post-image">Commanders Jersey & Game Setup</div>
+                        <div class="post-content">
+                            <span class="post-category">Sports</span>
+                            <h3 class="post-title">Commanders Season Preview</h3>
+                            <p class="post-excerpt">Breaking down the roster changes and what to expect this season...</p>
+                            <div class="post-meta">
+                                <span>8 min read</span>
+                                <span>Sep 1, 2025</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="post-card">
+                        <div class="post-image">React Code Screenshot</div>
+                        <div class="post-content">
+                            <span class="post-category">Tech</span>
+                            <h3 class="post-title">Building with Astro & Sanity</h3>
+                            <p class="post-excerpt">How I built this blog using modern web technologies...</p>
+                            <div class="post-meta">
+                                <span>10 min read</span>
+                                <span>Aug 28, 2025</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="featured-posts">
+                <h2>Featured This Week</h2>
+                <div class="featured-list">
+                    <a href="#" class="featured-item">
+                        <div class="featured-thumb">Recipe Photo</div>
+                        <div class="featured-content">
+                            <h4>Easy Weeknight Dinner Ideas</h4>
+                            <div class="featured-meta">Food • 5 min read</div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="featured-item">
+                        <div class="featured-thumb">Family Photo</div>
+                        <div class="featured-content">
+                            <h4>Moving to Kentucky: Our Story</h4>
+                            <div class="featured-meta">Family • 7 min read</div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="featured-item">
+                        <div class="featured-thumb">Sports Photo</div>
+                        <div class="featured-content">
+                            <h4>Yankees Playoff Predictions</h4>
+                            <div class="featured-meta">Sports • 6 min read</div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="featured-item">
+                        <div class="featured-thumb">Code Screenshot</div>
+                        <div class="featured-content">
+                            <h4>JavaScript Tips for Beginners</h4>
+                            <div class="featured-meta">Tech • 12 min read</div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="featured-item">
+                        <div class="featured-thumb">Fitness Photo</div>
+                        <div class="featured-content">
+                            <h4>Morning Routine for Energy</h4>
+                            <div class="featured-meta">Health • 4 min read</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick About Section -->
+        <section class="quick-about">
+            <div class="about-photo">
+                Family Portrait Photo
+            </div>
+            <div class="about-content">
+                <h3>Hey there, we're the Kaelins!</h3>
+                <p>We're a family who recently made Kentucky our home. I'm a tech enthusiast who loves to code, cook, and cheer for our favorite sports teams. Join us as we share our adventures, family recipes, and the ups and downs of life in the Bluegrass State.</p>
+                <a href="/about" class="about-link">Read Our Full Story</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">GitHub</a>
+                <a href="#">LinkedIn</a>
+            </div>
+            <p>&copy; 2025 Kaelin Family Blog. Made with ❤️ in Kentucky</p>
+        </div>
+    </footer>
+</body>
+</html>
