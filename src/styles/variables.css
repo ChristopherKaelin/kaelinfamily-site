@@ -1,83 +1,170 @@
 :root {
-  
+  color-scheme: light only;
+
   /* Theme Colors - Warm Family Blog Palette */
-  --color-primary: #1a365d;           /* Deep navy blue (for headers like "The Kaelin Family") */
-  --color-primary-rgb: 26, 54, 93;
-  --color-primary-light: #2b6cb0;     /* Royal blue (for category buttons) */
-  --color-accent: #4a5568;            /* Warm charcoal gray (readable text) */
-  --color-accent-rgb: 74, 85, 104;
+  --color-primary-100:  #dae4f2;
+  --color-primary-200:  #bdd0e7;
+  --color-primary-300:  #a0b8d9;
+  --color-primary-400:  #839fcb;
+  --color-primary-500:  #6582b6;
+  --color-primary-600:  #4c6ba0;
+  --color-primary-700:  #365489;
+  --color-primary-800:  #274171;
+  --color-primary-900:  #1e3a8a;      /* Deep Navy blue (for headers) | Original --color-primary */
+  --color-primary-rgb:    30, 58, 138;  /* Deep Navy blue RGB */
+
+  --color-primary-light:    #2b6cb0;          /* Royal blue (for category buttons) */
+  --color-primary-light-rgb:  43, 108, 176;     /* Royal blue RGB */
+ 
+
+  /* === CATEGORY ACCENT COLORS === */
+  /* Orange Accent Scale */
+  --color-orange-100:     #fef5e7;
+  --color-orange-200:     #feebc8;
+  --color-orange-300:     #fbd38d;
+  --color-orange-400:     #f6ad55;
+  --color-orange-500:     #ed8936;   /* Original --color-orange-accent */
+  --color-orange-600:     #dd6b20;
+  --color-orange-700:     #c05621;
+  --color-orange-800:     #9c4221;
+  --color-orange-900:     #7b341e;
+
+  /* Green Accent Scale */
+  --color-green-100:    #c6f6d5;
+  --color-green-200:    #9ae6b4;
+  --color-green-300:    #68d391;
+  --color-green-400:    #48bb78;
+  --color-green-500:    #38a169;   /* Original --color-green-accent */
+  --color-green-600:    #2f855a;
+  --color-green-700:    #276749;
+  --color-green-800:    #22543d;
+  --color-green-900:    #1c4532;  
   
-  /* Category Accent Colors */
-  --color-orange-accent: #ed8936;
-  --color-green-accent: #38a169;
-  --color-purple-accent: #805ad5;
-  --color-blue-accent: #63b3ed;
-  
+
+  /* Purple Accent Scale */
+  --color-purple-accent:  #805ad5;
+  --color-purple-100:     #e9d8fd;
+  --color-purple-200:     #d6bcfa;
+  --color-purple-300:     #b794f6;
+  --color-purple-400:     #9f7aea;
+  --color-purple-500:     #805ad5;    /* Original --color-purple-accent */
+  --color-purple-600:     #6b46c1;
+  --color-purple-700:     #553c9a;
+  --color-purple-800:     #44337a;
+  --color-purple-900:     #322659;
+
+  /* Blue Accent Scale */
+  --color-blue-accent:  #63b3ed;
+  --color-blue-100:     #ebf8ff;
+  --color-blue-200:     #bee3f8;
+  --color-blue-300:     #90cdf4;
+  --color-blue-400:     #76c7f0;
+  --color-blue-500:     #63b3ed;
+  --color-blue-600:     #4299e1;
+  --color-blue-700:     #3182ce;
+  --color-blue-800:     #2c5282;
+  --color-blue-900:     #2a4365;
+
+  /* Red Accent Scale */
+  --color-red-100: #fef2f2;
+  --color-red-200: #fecaca;
+  --color-red-300: #fca5a5;
+  --color-red-400: #f87171;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+  --color-red-700: #b91c1c;
+  --color-red-800: #991b1b;
+  --color-red-900: #7f1d1d;
+
+  /* Warm Cream Scale */
+  --color-cream-100:  #faf8f3;
+  --color-cream-200:  #f7fafc;
+  --color-cream-300:  #f5f5dc;
+  --color-cream-400:  #f0f0c8;
+  --color-cream-500:  #ebebb4;
+  --color-cream-600:  #d6d690;
+  --color-cream-700:  #c1c16c;
+  --color-cream-800:  #9a9a54;
+  --color-cream-900:  #73733f;
+
+  /* Warm Charcoal Gray */
+  --color-accent-100:   #edf2f7;
+  --color-accent-200:   #e2e8f0;
+  --color-accent-300:   #cbd5e0;
+  --color-accent-400:   #a0aec0;
+  --color-accent-500:   #718096;      /* Original --color-muted */
+  --color-accent-600:   #4a5568;      /* Warm charcoal gray, readable text | Original --color-accent */
+  --color-accent-600-rgb: 74, 85, 104;  /* Warm charcoal gray RGB */
+  --color-accent-700:   #2d3748;
+  --color-accent-800:   #1a202c;
+  --color-accent-900:   #171923;
+
   /* Background & Surface Colors */
-  --color-bg: #f5f5dc;                /* Warm cream background (main site bg) */
-  --color-bg-secondary: #faf8f3;      /* Slightly lighter cream for cards */
-  --color-bg-blue: #e6f3ff;           /* Light blue background for special sections */
-  --color-input-bg: #ffffff;          /* Clean white for form inputs */
+  /* Your custom semantic mappings */
+  --color-bg:           var(--color-cream-300);    /* Main site bg */
+  --color-bg-secondary: var(--color-cream-100);    /* For cards */
+  --color-bg-blue:      var(--color-blue-200);    /* Special sections */
+  --color-input-bg:     #ffffff;    /* Clean white for form inputs */
   
   /* Utility Colors */
-  --color-success: #38a169;           /* Green for success states */
-  --color-success-light: #7dd3c0;     /* Light green background */
-  --color-warning: #ed8936;           /* Orange for warnings/work-in-progress */
-  --color-warning-light: #fef5e7;     /* Light orange background */
-  --color-error: #e53e3e;             /* Red for errors */
-  --color-info: #3182ce;              /* Blue for information */
-  
-  /* Border & Structural Colors */
-  --color-border: #e2e8f0;            /* Light gray borders */
-  --color-border-dark: #cbd5e0;       /* Darker borders when needed */
-  --color-muted: #718096;             /* Muted text color */
-  --color-bright: #f7fafc;            /* Very light backgrounds */
-  
+  --color-info:           var(--color-blue-700);
+
+  --color-success:        var(--color-green-600);
+  --color-success-light:  var(--color-green-300);
+
+  --color-warning:        var(--color-orange-600);
+  --color-warning-light:  var(--color-orange-300);
+
+  --color-error:          var(--color-red-600);
+  --color-error-light:    var(--color-red-300);
+
   /* Gradients */
   --gray-gradient: rgba(226, 232, 240, 50%), #fff;
   --cream-gradient: linear-gradient(135deg, #f5f5dc 0%, #faf8f3 100%);
 
   /* Typography */
-  --font-primary: "Georgia", "Times New Roman", "Palatino", "serif";  /* More warm/personal serif */
-  --font-secondary: "Arial", "Helvetica", "Roboto", "sans-serif";     /* Clean sans for UI */
-  --font-size-xs: 0.6rem;
-  --font-size-small: 0.8rem;
-  --font-size-base: 1.0rem;
-  --font-size-large: 1.2rem;
-  --font-size-xl: 1.4rem;
-  --font-size-xxl: 1.6rem;
+  --font-primary:   "Georgia", "Times New Roman", "Palatino", "serif";  /* More warm/personal serif */
+  --font-secondary: "Arial", "Helvetica", "Roboto", "sans-serif";       /* Clean sans for UI */
+  --font-mono:      "Courier New", "Courier", "monospace";              /* Monospace for code */
+  --font-size-xxs:    0.50rem;
+  --font-size-xs:     0.65rem;
+  --font-size-small:  0.85rem;
+  --font-size-base:   1.00rem;
+  --font-size-large:  1.33rem;
+  --font-size-xl:     1.67rem;
+  --font-size-xxl:    2.00rem;
 
   /* Spacing (Gap, Padding) */
-  --spacing-small: 0.5rem;
-  --spacing-base: 1rem;
-  --spacing-large: 1.5rem;
-  --spacing-xl: 2rem;
+  --spacing-small:  0.5rem;
+  --spacing-base:   1.0rem;
+  --spacing-large:  1.5rem;
+  --spacing-xl:     2.0rem;
 
   /* Borders */
-  /* For buttons, cards, forms */
-  --border-width: 2px;
-  --border-width-thick: 4px;          /* For category card borders */
-  --border-radius-small: 4px;
-  --border-radius-base: 8px;
+  --color-border:       var(--color-accent-200);    /* Light gray borders */
+  --color-border-dark:  var(--color-accent-400);    /* Darker borders when needed */
+
+  --border-width:         2px;
+  --border-width-thick:   4px;    /* For category card borders */
+
+  --border-radius-small:  4px;
+  --border-radius-base:   8px;    /* For button styling */
   --border-radius-large: 12px;
-  --border-radius-button: 8px;        /* Specific for button styling */
 
   /* Shadows - Warmer, softer shadows */
-  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --box-shadow:   0 2px 8px rgba(0, 0, 0, 0.1);
   --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.1); 
-  --shadow-base: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-base:  0 4px 12px rgba(0, 0, 0, 0.1);
   --shadow-large: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --shadow-warm: 0 4px 12px rgba(26, 54, 93, 0.1);  /* Navy-tinted shadow */
+  --shadow-warm:  0 4px 12px rgba(var(--color-primary-rgb), 0.1);
 
   /* Transitions */
   /* Hover effects, modal animations */
-  --transition-fast: 0.2s ease;
-  --transition-normal: 0.4s ease;
-  --transition-slow: 0.6s ease;
+  --transition-fast:    0.2s ease;
+  --transition-normal:  0.5s ease;
+  --transition-slow:    0.8s ease;
   
-  /* Component-Specific Variables */
-  --category-card-border: var(--border-width-thick);
-  --category-button-bg: var(--color-primary-light);
-  --category-button-text: #ffffff;
+  /* Component-specific values */
   --header-height: 60px;
+
 }

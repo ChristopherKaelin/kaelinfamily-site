@@ -1,0 +1,228 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { sanityClient } from "../../sanity.config.js";
+import FormattedDate from "../components/FormattedDate.astro";
+
+// SEO values for home page
+const homeTitle = "Kaelin Family - Stories from Kentucky";
+const homeDescription = "Family stories, tech adventures, recipes, and life in Kentucky. Join Chris and Trish Kaelin for heartwarming tales, coding projects, and genuine conversation from the Bluegrass State.";
+
+// Fetch all top level categories
+const categories: any[] = await sanityClient.fetch(`
+  *[_type == "category" && !defined(parent)] | order(sortOrder asc) {
+    title,
+    "slug": slug.current,
+    description,
+    subtitle,
+    icon,
+    color,
+    "postCount": count(*[_type == "post" && references(^._id)])
+  }
+`);
+
+// Fetch recent posts for different sections
+const popularPosts: any[] = await sanityClient.fetch(`
+  *[_type == "post"] | order(publishedAt desc)[0...4] {
+    _id,
+    title,
+    slug,
+    publishedAt,
+    "imageUrl": mainImage.asset->url,
+    "categories": categories[]->{title, "slug": slug.current}
+  }
+`);
+
+const featuredPosts: any[] = await sanityClient.fetch(`
+  *[_type == "post"] | order(publishedAt desc)[0...5] {
+    _id,
+    title,
+    slug,
+    publishedAt,
+    "categories": categories[]->{title, "slug": slug.current}
+  }
+`);
+---
+
+<BaseLayout title={homeTitle} description={homeDescription}>
+  <!-- Hero Section with Family Photo -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1>Welcome to Our Kentucky Story</h1>
+        <p>Follow our family adventures, discover delicious recipes, and join us on our tech journey in the heart of Kentucky</p>
+        <a href="/latest" class="hero-cta">Explore Latest Posts</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <!-- Search Section -->
+    <section class="search-section">
+      <h3>What are you looking for?</h3>
+      <form class="search-form">
+        <input type="search" class="search-input" placeholder="Search recipes, family stories, tech tips...">
+        <button type="submit" class="search-btn">Search</button>
+      </form>
+    </section>
+
+    <!-- Browse Categories with Pictures -->
+    <section class="browse-categories">
+      <h2 class="section-title">Browse Our Stories</h2>
+      <div class="categories-grid">
+        {
+          categories.map((category) => (
+            <a href={`/category/${category.slug}`} class="category-card">
+              <div class="category-image">
+                <div class="category-overlay"></div>
+                {category.title} - {category.icon || ''} Content
+              </div>
+              <div class="category-content">
+                <h3>{category.title}</h3>
+                <p>{category.subtitle || category.description}</p>
+                <span class="post-count">{category.postCount || 0} recent posts</span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Popular & Featured Posts -->
+    <section class="posts-sections">
+      <div class="popular-posts">
+        <h2>Browse Our Popular Posts</h2>
+        <div class="posts-grid">
+          {
+            <>
+              <article class="post-card featured">
+                <div class="post-image">
+                  {popularPosts[0].imageUrl ? (
+                    <img src={popularPosts[0].imageUrl} alt={popularPosts[0].title} />
+                  ) : (
+                    "Featured Hero Image - Kentucky Fall Family Adventure"
+                  )}
+                </div>
+                <div class="post-content">
+                  <span class="post-category">{popularPosts[0].categories?.[0]?.title || "Blog"}</span>
+                  <h3 class="post-title">{popularPosts[0].title}</h3>
+                  <p class="post-excerpt">Discovering the incredible beauty of autumn in Kentucky with our little ones...</p>
+                  <div class="post-meta">
+                    <span>6 min read</span>
+                    <span><FormattedDate date={new Date(popularPosts[0].publishedAt)} /></span>
+                  </div>
+                </div>
+              </article>
+
+              {popularPosts.slice(1).map((post) => (
+                <article class="post-card">
+                  <div class="post-image">
+                    {post.imageUrl ? (
+                      <img src={post.imageUrl} alt={post.title} />
+                    ) : (
+                      `${post.categories?.[0]?.title || "Blog"} Content`
+                    )}
+                  </div>
+                  <div class="post-content">
+                    <span class="post-category">{post.categories?.[0]?.title || "Blog"}</span>
+                    <h3 class="post-title">{post.title}</h3>
+                    <p class="post-excerpt">A brief excerpt about this post...</p>
+                    <div class="post-meta">
+                      <span>4 min read</span>
+                      <span><FormattedDate date={new Date(post.publishedAt)} /></span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </>
+          }
+        </div>
+      </div>
+
+      <div class="featured-posts">
+        <h2>Featured This Week</h2>
+        <div class="featured-list">
+          {featuredPosts.length > 0 ? (
+            featuredPosts.map((post) => (
+              <a href={`/${post.categories?.[0]?.slug || 'blog'}/${post.slug.current}/`} class="featured-item">
+                <div class="featured-thumb">{post.categories?.[0]?.title || "Post"} Photo</div>
+                <div class="featured-content">
+                  <h4>{post.title}</h4>
+                  <div class="featured-meta">{post.categories?.[0]?.title || "Blog"} • 5 min read</div>
+                </div>
+              </a>
+            ))
+          ) : (
+            <>
+              <a href="#" class="featured-item">
+                <div class="featured-thumb">Recipe Photo</div>
+                <div class="featured-content">
+                  <h4>Easy Weeknight Dinner Ideas</h4>
+                  <div class="featured-meta">Food • 5 min read</div>
+                </div>
+              </a>
+
+              <a href="#" class="featured-item">
+                <div class="featured-thumb">Family Photo</div>
+                <div class="featured-content">
+                  <h4>Moving to Kentucky: Our Story</h4>
+                  <div class="featured-meta">Family • 7 min read</div>
+                </div>
+              </a>
+
+              <a href="#" class="featured-item">
+                <div class="featured-thumb">Sports Photo</div>
+                <div class="featured-content">
+                  <h4>Yankees Playoff Predictions</h4>
+                  <div class="featured-meta">Sports • 6 min read</div>
+                </div>
+              </a>
+
+              <a href="#" class="featured-item">
+                <div class="featured-thumb">Code Screenshot</div>
+                <div class="featured-content">
+                  <h4>JavaScript Tips for Beginners</h4>
+                  <div class="featured-meta">Tech • 12 min read</div>
+                </div>
+              </a>
+
+              <a href="#" class="featured-item">
+                <div class="featured-thumb">Fitness Photo</div>
+                <div class="featured-content">
+                  <h4>Morning Routine for Energy</h4>
+                  <div class="featured-meta">Health • 4 min read</div>
+                </div>
+              </a>
+            </>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick About Section -->
+    <section class="quick-about">
+      <div class="about-photo">
+        Family Portrait Photo
+      </div>
+      <div class="about-content">
+        <h3>Hey there, we're the Kaelins!</h3>
+        <p>We're a family who recently made Kentucky our home. I'm a tech enthusiast who loves to code, cook, and cheer for our favorite sports teams. Join us as we share our adventures, family recipes, and the ups and downs of life in the Bluegrass State.</p>
+        <a href="/about" class="about-link">Read Our Full Story</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="social-links">
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+      </div>
+      <p>&copy; 2025 Kaelin Family Blog. Made with ❤️ in Kentucky</p>
+    </div>
+  </footer>
+</BaseLayout>

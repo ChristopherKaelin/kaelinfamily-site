@@ -32,112 +32,34 @@ const relatedPosts = await sanityClient.fetch(`
 ---
 
 {relatedPosts.length > 0 && (
-  <section class="related-posts">
-    <h2 class="section-title">Related Posts</h2>
-    <div class="posts-grid">
-      {relatedPosts.map((post: any) => (
-        <article class="related-post">
-          <a href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} class="post-link">
-            {post.imageUrl && (
-              <OptimizedImage src={post.imageUrl} alt={post.title} width={300} height={200}
-                loading="lazy" sizes="(max-width: 768px) 100vw, 300px" />
-            )}
-            <div class="post-content">           
-              <h3 class="post-title">{post.title}</h3>
+  <section class="mt-8">
+    <h2 class="text-center text-xl text-primary mb-6">Related Posts</h2>
+      <div class="grid grid-cols-3 gap-8 sm:grid-cols-1">
+        {relatedPosts.map((post: any) => (
+          <article class="related-post m-4 p-8">
+            <a href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} class="block no-underline text-inherit">
+              <div class="space-y-3">         
+              <h3 class="post-title text-sm mb-2 leading-tight">{post.title}</h3>
               {post.excerpt && (
-                <p class="post-excerpt">{post.excerpt}</p>
+                <p class="post-excerpt text-xs mb-2 line-clamp-3">{post.excerpt}</p>
               )}
             </div>
+            {post.imageUrl && (
+              <div class="aspect-[3/2] overflow-hidden">
+                <OptimizedImage 
+                  src={post.imageUrl} 
+                  alt={post.title} 
+                  width={200} 
+                  height={133}
+                  loading="lazy" 
+                  sizes="(max-width: 768px) 100vw, 200px"
+                  class="w-full h-full object-cover transition-transform duration-500"
+                />
+              </div>
+            )}
           </a>
         </article>
       ))}
     </div>
   </section>
 )}
-
-<style>
-   a{ text-decoration: none;}
-   
-  .related-posts {
-    margin-top: var(--spacing-xl);
-  }
-
-  .section-title {
-    text-align: center;
-    font-size: var(--font-size-xl);
-    color: var(--color-primary);
-    margin-bottom: var(--spacing-large);
-  }
-
-  .posts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--spacing-large);
-  }
-
-  .related-post {
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: var(--border-radius-large);
-    overflow: hidden;
-    transition: var(--transition-fast);
-    box-shadow: var(--shadow-base);
-  }
-
-  .related-post:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-large);
-  }
-
-  .post-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-
-  .post-image {
-    aspect-ratio: 3/2;
-    overflow: hidden;
-  }
-
-  .post-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: var(--transition-normal);
-  }
-
-  .related-post:hover .post-image img {
-    transform: scale(1.05);
-  }
-
-  .post-content {
-    padding: var(--spacing-base);
-  }
-
-  .post-title {
-    font-size: var(--font-size-base);
-    color: var(--color-primary);
-    margin-bottom: var(--spacing-small);
-    line-height: 1.4;
-    font-weight: 600;
-  }
-
-  .post-excerpt {
-    color: var(--color-muted);
-    font-size: var(--font-size-small);
-    line-height: 1.5;
-    margin-bottom: var(--spacing-small);
-  }
-
-  .post-date {
-    color: var(--color-muted);
-    font-size: var(--font-size-small);
-  }
-
-  @media (max-width: 768px) {
-    .posts-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

@@ -3,6 +3,8 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
+import tailwindcss from '@tailwindcss/vite';
+
 export default defineConfig({
   site: 'https://www.kaelinfamily.com',
   integrations: [mdx(), sitemap()],
@@ -16,7 +18,9 @@ export default defineConfig({
           }
         }
       }
-    }
+    },
+
+    plugins: [tailwindcss()]
   },
   compressHTML: true,
   build: {

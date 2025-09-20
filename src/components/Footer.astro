@@ -4,19 +4,7 @@ import SocialLinks from './SocialLinks.astro';
 const today = new Date();
 ---
 
-<footer>
-	<div class="copyright">&copy; {today.getFullYear()} The Kaelin Family. All rights reserved.</div>
+<footer class="py-8 px-4 pb-24 text-center text-gray-600" style="background: linear-gradient(var(--gray-gradient)) no-repeat;">
+	<div class="pb-6">&copy; {today.getFullYear()} The Kaelin Family. All rights reserved.</div>
 	<SocialLinks />
 </footer>
-<style>
-	footer {
-		padding: 2em 1em 6em 1em;
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
-		color: rgb(var(--gray));
-		text-align: center;
-	}
-
-  .copyright {
-    padding-bottom: 1.5rem;
-  }
-</style>

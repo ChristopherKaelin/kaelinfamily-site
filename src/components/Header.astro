@@ -1,39 +1,80 @@
 ---
-import Navigation from '../components/Navigation.astro';
+
 ---
 
 <header>
-  <Navigation />
-</header>
-<style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
+  <nav class="nav">
+    <div class="max-w-4xl mx-auto px-4 flex items-center justify-between h-16">
+      <!-- Logo/Brand -->
+      <div>
+        <a href="/" class="nav-brand-link text-xl">
+          The Kaelin Family
+        </a>
+      </div>
 
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
-	}
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: var(--accent);
-	}
-</style>
+      <!-- Desktop Navigation -->
+      <div class="flex items-center gap-8">
+        <a href="/" class="nav-link px-2 py-1 rounded">Home</a>
+        <a href="/portfolio" class="nav-link px-2 py-1 rounded">Portfolio</a>
+        <a href="/categories" class="nav-link px-2 py-1 rounded">Categories</a>
+        <a href="/blog" class="nav-link px-2 py-1 rounded">Blog</a>
+        <a href="/about" class="nav-link px-2 py-1 rounded">About</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  // Client-side JavaScript for mobile menu toggle
+  const navToggle = document.getElementById('nav-toggle');
+  const navMobile = document.getElementById('nav-mobile');
+  const navOverlay = document.getElementById('nav-overlay');
+  const body = document.body;
+
+  function toggleMenu() {
+    if (!navToggle || !navMobile || !navOverlay) return;
+    
+    const isOpen = navToggle.classList.contains('nav-toggle--active');
+    
+    if (isOpen) {
+      // Close menu
+      navToggle.classList.remove('nav-toggle--active');
+      navMobile.classList.remove('nav-mobile--active');
+      navOverlay.classList.remove('nav-overlay--active');
+      body.classList.remove('nav-open');
+    } else {
+      // Open menu
+      navToggle.classList.add('nav-toggle--active');
+      navMobile.classList.add('nav-mobile--active');
+      navOverlay.classList.add('nav-overlay--active');
+      body.classList.add('nav-open');
+    }
+  }
+
+  // Toggle menu on button click
+  if (navToggle) {
+    navToggle.addEventListener('click', toggleMenu);
+  }
+
+  // Close menu on overlay click
+  if (navOverlay) {
+    navOverlay.addEventListener('click', toggleMenu);
+  }
+
+  // Close menu on mobile link click
+  const mobileLinks = document.querySelectorAll('.nav-mobile-link');
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (navToggle && navToggle.classList.contains('nav-toggle--active')) {
+        toggleMenu();
+      }
+    });
+  });
+
+  // Close menu on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navToggle && navToggle.classList.contains('nav-toggle--active')) {
+      toggleMenu();
+    }
+  });
+</script>

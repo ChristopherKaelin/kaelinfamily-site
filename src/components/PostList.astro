@@ -21,34 +21,39 @@ interface Props {
 const { posts, variant = 'grid', showExcerpt = true } = Astro.props;
 ---
 
-<div class={`post-list ${variant}`}>
+<div class={variant === 'grid' ? 'grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-8 [&>article:only-child]:max-w-[566px] [&>article:only-child]:justify-self-center' : 'flex flex-col gap-6'}>
   {posts.map((post) => (
-    <article class="post-item">
-      <div class="image-container">
+    <article class={`post-item ${variant === 'list' ? 'flex items-stretch sm:flex-col' : ''}`}>
+      <div class={`image-container ${variant === 'list' ? 'flex-[0_0_200px] aspect-[4/3] overflow-hidden sm:flex-none sm:aspect-video sm:hidden' : 'aspect-[16/10] overflow-hidden'}`}>
         <a href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} class="post-link">
           {post.imageUrl && (
-            <OptimizedImage src={post.imageUrl} alt={post.title} 
-              loading="eager" sizes="(max-width: 768px) 100vw, 400px" />
+            <OptimizedImage 
+              src={post.imageUrl} 
+              alt={post.title} 
+              loading="eager" 
+              sizes="(max-width: 768px) 100vw, 400px"
+              class="w-full h-auto object-cover transition-transform duration-500"
+            />
           )}
         </a>
       </div>
-      <div class="post-content">
-        <div class="post-meta-top">
-          <h2 class="post-title">
+      <div class="post-content p-4 flex flex-col flex-1">
+        <div class="flex justify-between items-start mb-2 gap-2">
+          <h2 class="post-title text-lg mb-2">
             <a href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} class="post-link">
               {post.title}
             </a>
           </h2>
-          <div class="post-date">
+          <div class="post-date text-sm whitespace-nowrap">
             <FormattedDate date={new Date(post.publishedAt)} />
           </div>
         </div>
                 
         {post.excerpt && (
-          <p class="post-excerpt">{post.excerpt}</p>
+          <p class="post-excerpt mb-auto flex-1">{post.excerpt}</p>
         )}
         
-        <div class="read-more">
+        <div class="read-more mt-4 text-sm">
           <a href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} class="post-link">
             Read more →
           </a>
@@ -57,149 +62,3 @@ const { posts, variant = 'grid', showExcerpt = true } = Astro.props;
     </article>
   ))}
 </div>
-
-<style>
-  .post-list.list .image-container {
-    display: none;
-  }
-
-  .post-list.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: var(--spacing-xl);
-  }
-
-  .post-list.grid .post-item:only-child {
-    max-width: 566px;
-    justify-self: center;
-  }  
-  .post-list.list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-large);
-  }
-
-  .post-item {
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: var(--border-radius-large);
-    overflow: hidden;
-    transition: var(--transition-fast);
-    box-shadow: var(--shadow-base);
-  }
-
-  .post-item:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-large);
-  }
-
-  .post-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    height: 100%;
-  }
-
-  .grid .post-image {
-    aspect-ratio: 16/10;
-    overflow: hidden;
-  }
-
-  .list .post-item {
-    display: flex;
-    align-items: stretch;
-  }
-
-  .list .post-image {
-    flex: 0 0 200px;
-    aspect-ratio: 4/3;
-    overflow: hidden;
-  }
-
-  .post-image img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    transition: var(--transition-normal);
-  }
-
-  .post-content {
-    padding: var(--spacing-base);
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .post-meta-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: var(--spacing-small);
-    gap: var(--spacing-small);
-  }
-
-  .post-date {
-    color: var(--color-muted);
-    font-size: var(--font-size-small);
-    white-space: nowrap;
-  }
-
-  .post-title {
-    font-size: var(--font-size-large);
-    color: var(--color-primary);
-    margin-bottom: var(--spacing-small);
-    line-height: 1.3;
-    font-weight: 600;
-  }
-
-  .post-excerpt {
-    color: var(--color-muted);
-    line-height: 1.6;
-    margin-bottom: auto;
-    flex: 1;
-  }
-
-  .read-more {
-    color: var(--color-accent);
-    font-weight: 500;
-    margin-top: var(--spacing-base);
-    font-size: var(--font-size-small);
-  }
-
-  .post-item:hover .read-more {
-    color: var(--color-primary);
-  }
-
-  @media (max-width: 768px) {
-    .post-list.grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .list .post-item {
-      flex-direction: column;
-    }
-    
-    .list .post-image {
-      flex: none;
-      aspect-ratio: 16/9;
-    }
-  }
-
-  .post-title a {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .post-title a:hover {
-    color: var(--color-accent);
-  }
-
-  .read-more a {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .read-more a:hover {
-    color: var(--color-primary);
-  }
-</style>

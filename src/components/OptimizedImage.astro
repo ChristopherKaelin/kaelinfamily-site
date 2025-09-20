@@ -21,6 +21,10 @@ const {
   class: className = '',
   sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
 } = Astro.props;
+
+// Combine default classes with passed classes
+const combinedImageClass = `w-full h-auto rounded-lg ${className}`;
+
 ---
 
 {typeof src === 'string' ? (
@@ -30,7 +34,7 @@ const {
     width={width}
     height={height}
     loading={loading}
-    class={className}
+    class={combinedImageClass}
     decoding="async"
   />
 ) : (
@@ -40,7 +44,7 @@ const {
     width={width || src.width}
     height={height || src.height}
     loading={loading}
-    class={className}
+    class={combinedImageClass}
     sizes={sizes}
     format="webp"
     quality={85}

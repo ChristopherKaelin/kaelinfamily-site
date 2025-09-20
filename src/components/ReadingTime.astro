@@ -16,24 +16,10 @@ function calculateReadingTime(text: string, wpm: number): string {
 const readingTime = calculateReadingTime(content, wordsPerMinute);
 ---
 
-<span class="reading-time">
+<span class="reading-time inline-flex items-center gap-1 text-sm">
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <circle cx="12" cy="12" r="10"></circle>
     <polyline points="12,6 12,12 16,14"></polyline>
   </svg>
   {readingTime}
 </span>
-
-<style>
-  .reading-time {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    color: var(--color-muted);
-    font-size: var(--font-size-small);
-  }
-
-  .reading-time svg {
-    opacity: 0.7;
-  }
-</style>
