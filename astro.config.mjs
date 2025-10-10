@@ -8,7 +8,10 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://www.kaelinfamily.com',
   redirects: {
-    '/resume': '/resume/index.html'
+    '/resume': {
+      status: 301,
+      destination: '/resume/'
+    }
   },
   integrations: [mdx(), sitemap()],
   vite: {
