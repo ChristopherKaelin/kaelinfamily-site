@@ -61,6 +61,7 @@
 
 .resume-page header,
 .resume-page footer,
+.resume-page nav,
 .resume-page section {
   border-radius: 10px;
   border: 1px solid var(--border-color);
@@ -89,4 +90,63 @@
 
 .education a {
   margin-top: 2px;
+}
+
+/* .resume-nav h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+} */
+
+.resume-nav ul {
+    list-style: none;
+    padding-left: 1rem;
+    margin: 0;
+}
+
+.resume-nav li {
+    margin-bottom: 0.25rem;
+}
+
+.resume-nav a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.resume-nav a:hover {
+    background-color: #0066cc;
+    color: #ffffff;
+}
+
+.back-to-top-link {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.back-to-top-link a {
+    display: inline-block;
+    padding: 0.25rem 1.5rem .5rem 1.5rem;
+    background-color: #0066cc;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-to-top-link a::before {
+    content: "↑ ";
+    font-size: 1.2em;
+    margin-right: 0.5rem;
+}
+
+.back-to-top-link a:hover {
+    background-color: #0052a3;
+    transform: translateY(-2px);
+}
+
+.back-to-top-link a:active {
+    transform: translateY(0);
 }
