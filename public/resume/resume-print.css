@@ -1,0 +1,79 @@
+/* Print Stylesheet for Resume */
+
+@media print {
+    /* Reset page margins */
+    @page {
+        margin: 0.5in;
+        size: letter;
+    }
+
+    body {
+        font-size: 10pt;
+        line-height: 1.3;
+        color: #000;
+        background: #fff;
+    }
+
+    /* Hide interactive elements */
+    .resume-nav,
+    .back-to-top-link {
+        display: none !important;
+    }
+
+    /* Remove shadows and borders */
+    section,
+    header {
+        box-shadow: none !important;
+        border: none !important;
+        page-break-inside: avoid;
+    }
+
+    /* Ensure links are visible */
+    a {
+        color: #000;
+        text-decoration: none;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        font-style: italic;
+    }
+
+    /* Don't print URLs for internal anchor links */
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    /* Headings - keep together with content */
+    h1, h2, h3, h4 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+    }
+
+    /* Keep job entries together */
+    .experience h3,
+    .experience h4,
+    .experience .dates,
+    .experience ul {
+        page-break-inside: avoid;
+    }
+
+    /* Compact spacing for print */
+    section {
+        margin-bottom: 1rem;
+    }
+
+    ul {
+        margin: 0.5rem 0;
+    }
+
+    li {
+        margin-bottom: 0.25rem;
+    }
+
+    /* Make sure lists don't break awkwardly */
+    ul {
+        page-break-inside: avoid;
+    }
+}
