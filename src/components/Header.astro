@@ -1,4 +1,20 @@
 ---
+// This is to test if CLAUDE is actually looking at the file I am attaching.
+
+import familyCrest from '../assets/kaelin-coat-of-arms.png';
+import { sanityClient } from '../../sanity.config.js';
+
+// Get current path for active link highlighting
+const currentPath = Astro.url.pathname;
+
+// Fetch categories for dropdown
+const categories: any[] = await sanityClient.fetch(`
+  *[_type == "category" && !defined(parent)] | order(sortOrder asc) {
+    title,
+    "slug": slug.current,
+    icon
+  }
+`);
 
 ---
 
@@ -7,18 +23,43 @@
     <div class="max-w-4xl mx-auto px-4 flex items-center justify-between h-16">
       <!-- Logo/Brand -->
       <div>
-        <a href="/" class="nav-brand-link text-xl">
+        <a href="/" class="flex items-center gap-3">
+          <img src={familyCrest.src} alt="Kaelin Family Crest" class="family-crest" />
+          <span class="nav-brand-link">
           The Kaelin Family
+          </span>
         </a>
       </div>
 
       <!-- Desktop Navigation -->
-      <div class="flex items-center gap-8">
-        <a href="/" class="nav-link px-2 py-1 rounded">Home</a>
-        <a href="/portfolio" class="nav-link px-2 py-1 rounded">Portfolio</a>
-        <a href="/categories" class="nav-link px-2 py-1 rounded">Categories</a>
-        <a href="/blog" class="nav-link px-2 py-1 rounded">Blog</a>
-        <a href="/about" class="nav-link px-2 py-1 rounded">About</a>
+      <div class="flex items-center gap-6">
+        <a href="/" class={`nav-link ${currentPath === '/' ? 'nav-link-active' : ''}`}>
+          Home
+        </a>
+        <a href="/portfolio" class={`nav-link ${currentPath === '/portfolio' || currentPath.startsWith('/portfolio/') ? 'nav-link-active' : ''}`}>
+          Portfolio
+        </a>
+        
+        <!-- Categories Dropdown -->
+        <div class="nav-dropdown">
+          <a href="/categories" class={`nav-link ${currentPath === '/categories' || currentPath.startsWith('/category/') ? 'nav-link-active' : ''}`}>
+            Categories
+          </a>
+          <div class="nav-dropdown-content">
+            {categories.map((category) => (
+              <a href={`/category/${category.slug}`} class="nav-dropdown-link">
+                {category.title}
+              </a>
+            ))}
+          </div>
+        </div>
+        
+        <a href="/blog" class={`nav-link ${currentPath === '/blog' || currentPath.startsWith('/blog/') ? 'nav-link-active' : ''}`}>
+          Blog
+        </a>
+        <a href="/about" class={`nav-link ${currentPath === '/about' ? 'nav-link-active' : ''}`}>
+          About
+        </a>
       </div>
     </div>
   </nav>
