@@ -20,10 +20,9 @@ const categories: any[] = await sanityClient.fetch(`
     icon,
     color,
     "imageUrl": image.asset->url,
-    "directPosts": count(*[_type == "post" && references(^._id)]),
-    "childCategories": *[_type == "category" && parent._ref == ^._id]._id,
-    "postCount": count(*[_type == "post" && references(^._id)]) + 
-                  count(*[_type == "post" && references(*[_type == "category" && parent._ref == ^._id]._id)])
+    "postCount": count(*[_type == "post" && ^._id in categories[]._ref]) + 
+                  count(*[_type == "post" && ^._id in categories[].parent._ref]),
+    "test" : "posts"
   }
 `);
 
@@ -94,9 +93,7 @@ const featuredPosts: any[] = await sanityClient.fetch(`
                     class="w-full h-full object-cover"
                   />
                 ) : (
-                  <div class="category-placeholder">
-                    {category.title} - {category.icon || ""}
-                  </div>
+                  <div class="category-placeholder">{category.icon || ""}</div>
                 )}
                 <div class="category-overlay" />
               </div>
@@ -104,7 +101,7 @@ const featuredPosts: any[] = await sanityClient.fetch(`
                 <h3>{category.title}</h3>
                 <p>{category.subtitle || category.description}</p>
                 <span class="post-count">
-                  {category.postCount || 0} recent posts
+                  {category.postCount || 0} recent {category.test}
                 </span>
               </div>
             </a>

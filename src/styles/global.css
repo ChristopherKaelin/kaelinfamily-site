@@ -632,6 +632,10 @@ p { margin-bottom: var(--spacing-base); }
   position: relative;
 }
 
+.category-placeholder {
+  font-size: 3rem;
+}
+
 .category-overlay {
   position: absolute;
   top: 0;
