@@ -455,6 +455,15 @@ p { margin-bottom: var(--spacing-base); }
 
 /* ===== HEADER COMPONENT ===== */
 
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-cream);
+  box-shadow: 0 2px 4px var(--color-blue-800);
+}
+
+
 /* Family crest sizing */
 .family-crest {
   width: 40px;
@@ -597,9 +606,9 @@ p { margin-bottom: var(--spacing-base); }
 
 .categories-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem 1rem;
+  max-width: 1600px;
   margin: 0 auto;
 }
 

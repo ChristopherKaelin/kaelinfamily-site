@@ -1,0 +1,39 @@
+---
+interface Props {
+  postId: string;
+  href: string;
+  class?: string;
+}
+
+const { postId, href, class: className } = Astro.props;
+---
+
+<a href={href} class={className} data-post-id={postId} data-tracked-link>
+  <slot />
+</a>
+
+<script>
+  // Track post clicks
+  document.addEventListener("DOMContentLoaded", () => {
+    const trackedLinks = document.querySelectorAll("[data-tracked-link]");
+
+    trackedLinks.forEach((link) => {
+      link.addEventListener("click", async (e) => {
+        const postId = (e.currentTarget as HTMLElement).getAttribute(
+          "data-post-id"
+        );
+
+        if (postId) {
+          // Don't wait for the API call to complete - let the navigation happen
+          fetch("/api/increment-view", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ postId }),
+          }).catch((err) => console.error("Failed to track view:", err));
+        }
+      });
+    });
+  });
+</script>

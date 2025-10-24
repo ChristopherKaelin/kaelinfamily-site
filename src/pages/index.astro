@@ -4,6 +4,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { sanityClient } from "../../sanity.config.js";
 import FormattedDate from "../components/FormattedDate.astro";
 import heroImage from "../assets/ky-horse-farm.jpg";
+import TrackedPostLink from "../components/TrackedPostLink.astro";
 
 // SEO values for home page
 const homeTitle = "Kaelin Family - Stories from Kentucky";
@@ -118,7 +119,11 @@ const featuredPosts: any[] = await sanityClient.fetch(`
           {
             popularPosts.length > 0 && (
               <>
-                <article class="post-card featured">
+                <TrackedPostLink 
+                  postId={popularPosts[0]._id}
+                  href={`/${popularPosts[0].categories?.[0]?.slug || "blog"}/${popularPosts[0].slug.current}/`}
+                  class="post-card featured"
+                >
                   <div class="post-image">
                     {popularPosts[0].imageUrl ? (
                       <img
@@ -146,7 +151,8 @@ const featuredPosts: any[] = await sanityClient.fetch(`
                       </span>
                     </div>
                   </div>
-                </article>
+                </TrackedPostLink>
+
 
                 {popularPosts.slice(1).map((post) => (
                   <article class="post-card">
@@ -209,10 +215,9 @@ const featuredPosts: any[] = await sanityClient.fetch(`
       <div class="about-content">
         <h3>Hey there, we're the Kaelins!</h3>
         <p>
-          We're a family who recently made Kentucky our home. I'm a tech
-          enthusiast who loves to code, cook, and cheer for our favorite sports
-          teams. Join us as we share our adventures, family recipes, and the ups
-          and downs of life in the Bluegrass State.
+          We're a family who recently made Kentucky our home. I'm a tech enthusiast who loves 
+          to code, cook, and cheer for our favorite sports teams. Join us as we share our 
+          adventures, family recipes, and the ups and downs of life in the Bluegrass State.
         </p>
         <a href="/about" class="about-link">Read Our Full Story</a>
       </div>

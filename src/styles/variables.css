@@ -42,7 +42,6 @@
   
 
   /* Purple Accent Scale */
-  --color-purple-accent:  #805ad5;
   --color-purple-100:     #e9d8fd;
   --color-purple-200:     #d6bcfa;
   --color-purple-300:     #b794f6;
@@ -52,6 +51,9 @@
   --color-purple-700:     #553c9a;
   --color-purple-800:     #44337a;
   --color-purple-900:     #322659;
+  --color-purple-accent:  #805ad5;
+  --color-purple-accent-rgb:  rgb(128, 90, 213);
+
 
   /* Blue Accent Scale */
   --color-blue-accent:  #63b3ed;

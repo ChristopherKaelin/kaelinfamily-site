@@ -4,6 +4,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { sanityClient } from '../../../sanity.config.js';
 import FormattedDate from '../../components/FormattedDate.astro';
 import OptimizedImage from '../../components/OptimizedImage.astro';
+import TrackedPostLink from "../../components/TrackedPostLink.astro";
 
 const posts: any[] = await sanityClient.fetch(`
   *[_type == "post"] | order(publishedAt desc) {
@@ -23,18 +24,21 @@ const posts: any[] = await sanityClient.fetch(`
 		<div class="posts-grid">
 			{
 				posts.map((post) => (
-					<article class="post-card">
-						<a href={`/${post.categories[0].slug}/${post.slug.current}/`}>
-							{post.imageUrl && (
-                <OptimizedImage src={post.imageUrl} alt={post.title} width={150} height={100}
-                  loading="lazy" sizes="(max-width: 768px) 100vw, 150px" class="post-image"/>
-							)}
-							<div class="post-content">
-								<h4 class="title">{post.title}</h4>
-								<p class="date"><FormattedDate date={new Date(post.publishedAt)} /></p>
-							</div>
-						</a>
-					</article>
+            <TrackedPostLink 
+              postId={post._id}
+              href={`/${post.categories[0].slug}/${post.slug.current}/`}
+              class="blog-post-link"
+            >
+                {post.imageUrl && (
+                  <OptimizedImage src={post.imageUrl} alt={post.title} width={150} height={100}
+                    loading="lazy" sizes="(max-width: 768px) 100vw, 150px" class="post-image"/>
+                )}
+                <div class="post-content">
+                  <h4 class="title">{post.title}</h4>
+                  <p class="date"><FormattedDate date={new Date(post.publishedAt)} /> tracking</p>
+                </div>
+              
+            </TrackedPostLink>
 				))
 			}
 		</div>
@@ -42,6 +46,14 @@ const posts: any[] = await sanityClient.fetch(`
 </BaseLayout>
 
 <style>
+  .blog-post-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
 	.posts-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

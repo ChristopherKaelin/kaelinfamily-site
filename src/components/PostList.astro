@@ -3,6 +3,8 @@
 import FormattedDate from './FormattedDate.astro';
 import CategoryTags from './CategoryTags.astro';
 import OptimizedImage from '../components/OptimizedImage.astro';
+import TrackedPostLink from "../components/TrackedPostLink.astro";
+
 
 interface Props {
   posts: Array<{
@@ -25,7 +27,11 @@ const { posts, variant = 'grid', showExcerpt = true } = Astro.props;
   {posts.map((post) => (
     <article class={`post-item ${variant === 'list' ? 'flex items-stretch sm:flex-col' : ''}`}>
       <div class={`image-container ${variant === 'list' ? 'flex-[0_0_200px] aspect-[4/3] overflow-hidden sm:flex-none sm:aspect-video sm:hidden' : 'aspect-[16/10] overflow-hidden'}`}>
-        <a href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} class="post-link">
+        <TrackedPostLink 
+          postId={post._id}
+          href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} 
+          class="post-link"
+        >
           {post.imageUrl && (
             <OptimizedImage 
               src={post.imageUrl} 
@@ -35,14 +41,18 @@ const { posts, variant = 'grid', showExcerpt = true } = Astro.props;
               class="w-full h-auto object-cover transition-transform duration-500"
             />
           )}
-        </a>
+        </TrackedPostLink>
       </div>
       <div class="post-content p-4 flex flex-col flex-1">
         <div class="flex justify-between items-start mb-2 gap-2">
           <h2 class="post-title text-lg mb-2">
-            <a href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} class="post-link">
+            <TrackedPostLink 
+              postId={post._id}
+              href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} 
+              class="post-link"
+            >
               {post.title}
-            </a>
+            </TrackedPostLink>
           </h2>
           <div class="post-date text-sm whitespace-nowrap">
             <FormattedDate date={new Date(post.publishedAt)} />
@@ -54,9 +64,13 @@ const { posts, variant = 'grid', showExcerpt = true } = Astro.props;
         )}
         
         <div class="read-more mt-4 text-sm">
-          <a href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} class="post-link">
+          <TrackedPostLink 
+            postId={post._id}
+            href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} 
+            class="post-link"
+          >
             Read more →
-          </a>
+          </TrackedPostLink>
         </div>
       </div>
     </article>
