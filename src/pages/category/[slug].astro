@@ -5,6 +5,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { sanityClient } from "../../../sanity.config.js";
 import TrackedPostLink from "../../components/TrackedPostLink.astro";
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const categories: any[] = await sanityClient.fetch(`
     *[_type == "category"] {

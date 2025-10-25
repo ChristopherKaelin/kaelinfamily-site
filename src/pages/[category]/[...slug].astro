@@ -3,6 +3,7 @@ import BlogPost from '../../layouts/BlogPost.astro';
 import { sanityClient } from '../../../sanity.config.js';
 import VideoEmbed from '../../components/VideoEmbed.astro';
 
+export const prerender = true;
 export async function getStaticPaths() {
 	const posts: any[] = await sanityClient.fetch(`
     *[_type == "post"] {
