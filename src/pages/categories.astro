@@ -2,7 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { sanityClient } from "../../sanity.config.js";
+import { categoriesWithCounts as importedCategories } from "../pages/utils/CategoryMeta.astro";
 
+// Fetch all top level categories
 const categories: any[] = await sanityClient.fetch(`
   *[_type == "category"] | order(title asc) {
     _id,
@@ -35,7 +37,6 @@ const categoriesWithCounts = await Promise.all(categories.map(async (category) =
     postCount: category.directPosts + childPostCount
   };
 }));
-
 
 ---
 

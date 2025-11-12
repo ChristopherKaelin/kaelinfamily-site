@@ -1,0 +1,38 @@
+---
+import { sanityClient } from "../../../sanity.config.js";
+
+const categories: any[] = await sanityClient.fetch(`
+  *[_type == "category"] | order(title asc) {
+    _id,
+    title,
+    "slug": slug.current,
+    description,
+    "directPosts": count(*[_type == "post" && references(^._id)]),
+    "childCategoryIds": *[_type == "category" && parent._ref == ^._id]._id,
+  }
+`);
+
+// Calculate post counts manually for each category
+export const categoriesWithCounts = await Promise.all(categories.map(async (category) => {
+  let childPostCount = 0;
+  
+  if (category.childCategoryIds && category.childCategoryIds.length > 0) {
+    childPostCount = 0;
+    // Count posts for each child category individually and sum them
+    for (const childId of category.childCategoryIds) {
+      const postsInChild = await sanityClient.fetch(`
+        count(*[_type == "post" && references("${childId}")])
+      `);
+      childPostCount += postsInChild;
+    }
+  }
+  
+  return {
+    ...category,
+    childPostCount: childPostCount,
+    postCount: category.directPosts + childPostCount
+  };
+}));
+
+
+---

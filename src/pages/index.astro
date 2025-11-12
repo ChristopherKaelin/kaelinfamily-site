@@ -9,11 +9,12 @@ import TrackedPostLink from "../components/TrackedPostLink.astro";
 // SEO values for home page
 const homeTitle = "Kaelin Family - Stories from Kentucky";
 const homeDescription =
-  "Family stories, tech adventures, recipes, and life in Kentucky. Join Chris and Trish Kaelin for heartwarming tales, coding projects, and genuine conversation from the Bluegrass State.";
+  "Family stories, tech adventures, recipes, and life in Kentucky. Join Chris and Trish for heartwarming tales, coding projects, and genuine conversation from the Bluegrass State.";
 
 // Fetch all top level categories
 const categories: any[] = await sanityClient.fetch(`
   *[_type == "category" && !defined(parent)] | order(sortOrder asc) {
+    _id,
     title,
     "slug": slug.current,
     description,
@@ -21,15 +22,49 @@ const categories: any[] = await sanityClient.fetch(`
     icon,
     color,
     "imageUrl": image.asset->url,
-    "postCount": count(*[_type == "post" && ^._id in categories[]._ref]) + 
-                  count(*[_type == "post" && ^._id in categories[].parent._ref]),
-    "test" : "posts"
+    "directPosts": count(*[_type == "post" && references(^._id)]),
+    "childCategoryIds": *[_type == "category" && parent._ref == ^._id]._id,
   }
 `);
 
-// Fetch recent posts
-const popularPosts: any[] = await sanityClient.fetch(`
-  *[_type == "post"] | order(publishedAt desc)[0...4] {
+// Calculate post counts manually for each category
+const categoriesWithCounts = await Promise.all(categories.map(async (category) => {
+  let childPostCount = 0;
+  
+  if (category.childCategoryIds && category.childCategoryIds.length > 0) {
+    childPostCount = 0;
+    // Count posts for each child category individually and sum them
+    for (const childId of category.childCategoryIds) {
+      const postsInChild = await sanityClient.fetch(`
+        count(*[_type == "post" && references("${childId}")])
+      `);
+      childPostCount += postsInChild;
+    }
+  }
+  
+  return {
+    ...category,
+    childPostCount: childPostCount,
+    postCount: category.directPosts + childPostCount
+  };
+}));
+
+// Fetch 5 most recent posts for left section
+const recentPosts: any[] = await sanityClient.fetch(`
+  *[_type == "post"] | order(publishedAt desc)[0...5] {
+    _id,
+    title,
+    slug,
+    publishedAt,
+    excerpt,
+    "imageUrl": mainImage.asset->url,
+    "categories": categories[]->{title, "slug": slug.current}
+  }
+`);
+
+// Fetch 2 most recent featured posts for sidebar
+const featuredPosts: any[] = await sanityClient.fetch(`
+  *[_type == "post" && featured == true] | order(publishedAt desc)[0...2] {
     _id,
     title,
     slug,
@@ -39,20 +74,24 @@ const popularPosts: any[] = await sanityClient.fetch(`
   }
 `);
 
-const featuredPosts: any[] = await sanityClient.fetch(`
-  *[_type == "post"] | order(publishedAt desc)[0...5] {
+// Fetch 3 most popular posts by view count for sidebar
+const popularPosts: any[] = await sanityClient.fetch(`
+  *[_type == "post" && defined(viewCount)] | order(viewCount desc)[0...3] {
     _id,
     title,
     slug,
     publishedAt,
+    viewCount,
+    "imageUrl": mainImage.asset->url,
     "categories": categories[]->{title, "slug": slug.current}
   }
 `);
+
 ---
 
 <BaseLayout title={homeTitle} description={homeDescription}>
   <!-- Hero Section -->
-  <section
+  <section 
     class="hero"
     style={`background-image: linear-gradient(rgba(44, 122, 123, 0.1), rgba(44, 122, 123, 0.2)), url(${heroImage.src});`}
   >
@@ -61,8 +100,7 @@ const featuredPosts: any[] = await sanityClient.fetch(`
       <div class="hero-content">
         <h1>Welcome to Our Kentucky Story</h1>
         <p>
-          Follow our family adventures, discover delicious recipes, and join us
-          on our tech journey in the heart of Kentucky
+          From family life to kitchen favorites to Chris' tech projects — it's all here in Kentucky.
         </p>
         <a href="/blog" class="hero-cta">Explore Latest Posts</a>
       </div>
@@ -79,12 +117,131 @@ const featuredPosts: any[] = await sanityClient.fetch(`
     <!-- </form> -->
     <!-- </section> -->
 
+    <!-- Posts -->
+    <section class="posts-sections">
+      <!-- Left: Recent Posts -->
+      <div class="recent-posts">
+        <h2>Recent Posts</h2>
+        <div class="posts-grid">
+          {recentPosts.map((post) => (
+            <TrackedPostLink 
+              postId={post._id}
+              href={`/${post.categories?.[0]?.slug || "blog"}/${post.slug.current}/`}
+              class="post-card"
+            >
+              <div class="post-image">
+                {post.imageUrl ? (
+                  <img src={post.imageUrl} alt={post.title} />
+                ) : (
+                  `${post.categories?.[0]?.title || "Blog"} Content`
+                )}
+                <span class="post-category">
+                  {post.categories?.[0]?.title || "Blog"}
+                </span>
+              </div>
+              <div class="post-content">
+                <h3 class="post-title">{post.title}</h3>
+                <p class="post-excerpt">{post.excerpt || "Discover the story behind this post..."}</p>
+                <div class="post-meta">
+                  <span>4 min read</span>
+                  <span>
+                    <FormattedDate date={new Date(post.publishedAt)} />
+                  </span>
+                </div>
+              </div>
+            </TrackedPostLink>
+          ))}
+          
+          <!-- View All Posts Card -->
+          <a href="/blog" class="post-card view-all-card">
+            <div class="view-all-content">
+              <h3>View All Posts</h3>
+              <p>Explore our complete collection of stories →</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Featured/Popular Posts; About Us -->
+      <aside class="posts-sidebar">
+        <!-- Featured -->
+        <div class="sidebar-section">
+          <h2>Featured Posts</h2>
+          <div class="sidebar-list">
+            {featuredPosts.map((post) => (
+              <TrackedPostLink 
+                postId={post._id}
+                href={`/${post.categories?.[0]?.slug || "blog"}/${post.slug.current}/`}
+                class="sidebar-item"
+              >
+                <div class="sidebar-thumb">
+                  {post.imageUrl ? (
+                    <img src={post.imageUrl} alt={post.title} />
+                  ) : (
+                    `${post.categories?.[0]?.title || "Post"} Photo`
+                  )}
+                </div>
+                <div class="sidebar-content">
+                  <h4>{post.title}</h4>
+                  <div class="sidebar-meta">
+                    {post.categories?.[0]?.title || "Blog"} • 5 min read
+                  </div>
+                </div>
+              </TrackedPostLink>
+            ))}
+          </div>
+        </div>
+
+        <!-- Most Popular -->
+        <div class="sidebar-section">
+          <h2>Most Popular</h2>
+          <div class="sidebar-list">
+            {popularPosts.map((post) => (
+              <TrackedPostLink 
+                postId={post._id}
+                href={`/${post.categories?.[0]?.slug || "blog"}/${post.slug.current}/`}
+                class="sidebar-item"
+              >
+                <div class="sidebar-thumb">
+                  {post.imageUrl ? (
+                    <img src={post.imageUrl} alt={post.title} />
+                  ) : (
+                    `${post.categories?.[0]?.title || "Post"} Photo`
+                  )}
+                </div>
+                <div class="sidebar-content">
+                  <h4>{post.title}</h4>
+                  <div class="sidebar-meta">
+                    {post.categories?.[0]?.title || "Blog"} • {post.viewCount || 0} views
+                  </div>
+                </div>
+              </TrackedPostLink>
+            ))}
+          </div>
+        </div>
+
+        <!-- About Us -->
+        <div class="sidebar-section sidebar-about">
+          <h2>Hey there, we're the Kaelins!</h2>
+          <div class="about-photo-small">Family Portrait Photo</div>
+          <p>
+            We're a family who recently made Kentucky our home. I'm a tech enthusiast who loves 
+            to code, cook, and cheer for our favorite sports teams. Join us as we share our 
+            adventures, family recipes, and the ups and downs of life in the Bluegrass State.
+          </p>
+          <a href="/about" class="about-link-small">Read Our Full Story →</a>
+        </div>
+
+      </aside>
+
+    </section>
+
     <!-- Browse Categories -->
-    <section class="browse-categories">
+    <!-- <section class="browse-categories">
       <h2 class="section-title">Browse Our Stories</h2>
       <div class="categories-grid">
         {
-          categories.map((category) => (
+          categoriesWithCounts.map((category) => (
             <a href={`/category/${category.slug}`} class="category-card">
               <div class="category-image">
                 {category.imageUrl ? (
@@ -109,118 +266,8 @@ const featuredPosts: any[] = await sanityClient.fetch(`
           ))
         }
       </div>
-    </section>
-
-    <!-- Popular & Featured Posts -->
-    <section class="posts-sections">
-      <div class="popular-posts">
-        <h2>Browse Our Popular Posts</h2>
-        <div class="posts-grid">
-          {
-            popularPosts.length > 0 && (
-              <>
-                <TrackedPostLink 
-                  postId={popularPosts[0]._id}
-                  href={`/${popularPosts[0].categories?.[0]?.slug || "blog"}/${popularPosts[0].slug.current}/`}
-                  class="post-card featured"
-                >
-                  <div class="post-image">
-                    {popularPosts[0].imageUrl ? (
-                      <img
-                        src={popularPosts[0].imageUrl}
-                        alt={popularPosts[0].title}
-                      />
-                    ) : (
-                      "Featured Hero Image - Kentucky Fall Family Adventure"
-                    )}
-                  </div>
-                  <div class="post-content">
-                    <span class="post-category">
-                      {popularPosts[0].categories?.[0]?.title || "Blog"}
-                    </span>
-                    <h3 class="post-title">{popularPosts[0].title}</h3>
-                    <p class="post-excerpt">
-                      Discover the incredible story behind this post...
-                    </p>
-                    <div class="post-meta">
-                      <span>6 min read</span>
-                      <span>
-                        <FormattedDate
-                          date={new Date(popularPosts[0].publishedAt)}
-                        />
-                      </span>
-                    </div>
-                  </div>
-                </TrackedPostLink>
+    </section> -->
 
 
-                {popularPosts.slice(1).map((post) => (
-                  <article class="post-card">
-                    <div class="post-image">
-                      {post.imageUrl ? (
-                        <img src={post.imageUrl} alt={post.title} />
-                      ) : (
-                        `${post.categories?.[0]?.title || "Blog"} Content`
-                      )}
-                    </div>
-                    <div class="post-content">
-                      <span class="post-category">
-                        {post.categories?.[0]?.title || "Blog"}
-                      </span>
-                      <h3 class="post-title">{post.title}</h3>
-                      <p class="post-excerpt">A brief look at this post...</p>
-                      <div class="post-meta">
-                        <span>4 min read</span>
-                        <span>
-                          <FormattedDate date={new Date(post.publishedAt)} />
-                        </span>
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </>
-            )
-          }
-        </div>
-      </div>
-
-      <div class="featured-posts">
-        <h2>Featured This Week</h2>
-        <div class="featured-list">
-          {
-            featuredPosts.map((post) => (
-              <a
-                href={`/${post.categories?.[0]?.slug || "blog"}/${post.slug.current}/`}
-                class="featured-item"
-              >
-                <div class="featured-thumb">
-                  {post.categories?.[0]?.title || "Post"} Photo
-                </div>
-                <div class="featured-content">
-                  <h4>{post.title}</h4>
-                  <div class="featured-meta">
-                    {post.categories?.[0]?.title || "Blog"} • 5 min read
-                  </div>
-                </div>
-              </a>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="quick-about">
-      <div class="about-photo">Family Portrait Photo</div>
-      <div class="about-content">
-        <h3>Hey there, we're the Kaelins!</h3>
-        <p>
-          We're a family who recently made Kentucky our home. I'm a tech enthusiast who loves 
-          to code, cook, and cheer for our favorite sports teams. Join us as we share our 
-          adventures, family recipes, and the ups and downs of life in the Bluegrass State.
-        </p>
-        <a href="/about" class="about-link">Read Our Full Story</a>
-      </div>
-    </section>
   </main>
 </BaseLayout>
