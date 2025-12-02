@@ -1,418 +1,712 @@
 <!DOCTYPE html>
-	<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Favorite Sites Gallery</title>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Favorite Sites Gallery</title>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="/favorites/assets/modern-normalize.css">
-        <link rel="stylesheet" href="/favorites/assets/style.css">
-        <link rel="stylesheet" href="/favorites/assets/favorites.css">
-        <script src="/favorites/assets/favorites.js" defer></script>
-    </head>
-    <body class="favorites-page">     
-        <div class="accordion-item" id="learning">
-            <button class="static-header" >
-                <span class="arrow">&nbsp; </span> &nbsp; Main
-                <span id="theme-toggle" class="theme-toggle">🌙</span>
-            </button>
-            <div class="accordion-content open">
-                <div class="gallery">
-                    <div class="card">
-                        <a href="https://kaelinfamily.com/projects/daily-life-tracker" target="_blank" data-id="daily-life-tracker">
-                            <img src="/favorites/assets/images/habit-journals.jpg" alt="Daily Life Tracker">
-                            <span class="label"> Daily Life Tracker </span>
-                        </a>
-                        <span class="click-count" data-id="daily-life-tracker"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://cp.freehostia.com/mail/webmail/?webmail=roundcube&mailbox=christopher@kaelinfamily.com" target="_blank" data-id="chriskaelin-email">
-                            <img src="/favorites/assets/images/kaelin-family-arms.jpg" alt="Chris Kaelin Email">
-                            <span class="label"> Chris Kaelin Email </span>
-                        </a>
-                        <span class="click-count" data-id="chriskaelin-email"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://cp.freehostia.com/mail/webmail/?webmail=roundcube&mailbox=chris@clkcomputing.com" target="_blank" data-id="clk-email">
-                            <img src="/favorites/assets/images/CLK-Comp-Logo-Hex.png" alt="CLK Comp Email">
-                            <span class="label"> CLK Comp Email </span>
-                        </a>
-                        <span class="click-count" data-id="clk-email"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://mail.google.com/" target="_blank" data-id="gmail">
-                            <img src="/favorites/assets/images/google-mail.png" alt="GMail">
-                            <span class="label"> Gmail </span>
-                        </a>
-                        <span class="click-count" data-id="gmail"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://calendar.google.com/calendar/u/0/r/month" target="_blank" data-id="google-calendar">
-                            <img src="/favorites/assets/images/google-calendar.png" alt="Google Calendar">
-                            <span class="label"> Google Calendar </span>
-                        </a>
-                        <span class="click-count" data-id="google-calendar"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://timetreeapp.com/calendars/SaEbwYnDscqh" target="_blank" data-id="time-tree-calendar">
-                            <img src="/favorites/assets/images/TimeTree-Thumbnail.png" alt="Time Tree Calendar">
-                            <span class="label"> Time Tree </span>
-                        </a>
-                        <span class="click-count" data-id="time-tree-calendar"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://kaelinfamily.sanity.studio/" target="_blank" data-id="kaelin-family-admin">
-                            <img src="/favorites/assets/images/kaelin-coat-of-arms.png" alt="TKF Admin">
-                            <span class="label"> TKF Admin </span>
-                        </a>
-                        <span class="click-count" data-id="kaelin-family-admin"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.kaelinfamily.com" target="_blank" data-id="kaelin-family">
-                            <img src="/favorites/assets/images/kaelin-pin.png" alt="TKF Home">
-                            <span class="label"> TKF Home</span>
-                        </a>
-                        <span class="click-count" data-id="kaelin-family"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.fitnessblender.com/my/dashboard" target="_blank" data-id="fitness-blender">
-                            <img src="/favorites/assets/images/fitness-blender.jpg" alt="Fitness Blender">
-                            <span class="label"> Fitness Blender </span>
-                        </a>
-                        <span class="click-count" data-id="fitness-blender"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.nytimes.com/games/wordle/index.html" target="_blank" data-id="wordle">
-                            <img src="/favorites/assets/images/wordle.png" alt="Wordle">
-                            <span class="label"> Wordle </span>
-                        </a>
-                        <span class="click-count" data-id="wordle"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://github.com/ChristopherKaelin" target="_blank" data-id="github">
-                            <img src="/favorites/assets/images/github.png" alt="GitHub">
-                            <span class="label"> GitHub </span>
-                        </a>
-                        <span class="click-count" data-id="github"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://classroom.code-you.org/classes" target="_blank" data-id="code-you">
-                            <img src="/favorites/assets/images/code-you.png" alt="Code You">
-                            <span class="label">Code You</span>
-                        </a>
-                        <span class="click-count" data-id="code-you"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.codewars.com/dashboard" target="_blank" data-id="code-wars">
-                            <img src="/favorites/assets/images/codewars.png" alt="Code Wars">
-                            <span class="label"> Code Wars</span>
-                        </a>
-                        <span class="click-count" data-id="code-wars"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://business.facebook.com/latest/content_calendar?asset_id=162855810859312" target="_blank" data-id="meta-business">
-                            <img src="/favorites/assets/images/meta.jpg" alt="Meta Business">
-                            <span class="label"> Meta Business </span>
-                        </a>
-                        <span class="click-count" data-id="meta-business"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.instagram.com/" target="_blank" data-id="instagram">
-                            <img src="/favorites/assets/images/instagram.png" alt="Instagram">
-                            <span class="label"> Instagram </span>
-                        </a>
-                        <span class="click-count" data-id="instagram"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.weatherbug.com/weather-forecast/now/bracktown-ky-40511" target="_blank" data-id="weather-bug">
-                            <img src="/favorites/assets/images/weather-bug.png" alt="Weather Bug">
-                            <span class="label"> Weather Bug </span>
-                        </a>
-                        <span class="click-count" data-id="weather-bug"></span>
-                    </div>
-                </div>
-            </div>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-..."
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/favorites/assets/modern-normalize.css" />
+    <link rel="stylesheet" href="/favorites/assets/style.css" />
+    <link rel="stylesheet" href="/favorites/assets/favorites.css" />
+    <script src="/favorites/assets/favorites.js" defer></script>
+  </head>
+  <body class="favorites-page">
+    <div class="accordion-item" id="learning">
+      <button class="static-header">
+        <span class="arrow">&nbsp; </span> &nbsp; Main
+        <span id="theme-toggle" class="theme-toggle">🌙</span>
+      </button>
+      <div class="accordion-content open">
+        <div class="gallery">
+          <div class="card">
+            <a
+              href="https://clkcomputing/daily-life-tracker"
+              target="_blank"
+              data-id="daily-life-tracker"
+            >
+              <img
+                src="/favorites/assets/images/habit-journals.jpg"
+                alt="Daily Life Tracker"
+              />
+              <span class="label"> Daily Life Tracker </span>
+            </a>
+            <span class="click-count" data-id="daily-life-tracker"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://cp.freehostia.com/mail/webmail/?webmail=roundcube&mailbox=christopher@kaelinfamily.com"
+              target="_blank"
+              data-id="chriskaelin-email"
+            >
+              <img
+                src="/favorites/assets/images/kaelin-family-arms.jpg"
+                alt="Chris Kaelin Email"
+              />
+              <span class="label"> Chris Kaelin Email </span>
+            </a>
+            <span class="click-count" data-id="chriskaelin-email"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://cp.freehostia.com/mail/webmail/?webmail=roundcube&mailbox=chris@clkcomputing.com"
+              target="_blank"
+              data-id="clk-email"
+            >
+              <img
+                src="/favorites/assets/images/CLK-Comp-Logo-Hex.png"
+                alt="CLK Comp Email"
+              />
+              <span class="label"> CLK Comp Email </span>
+            </a>
+            <span class="click-count" data-id="clk-email"></span>
+          </div>
+          <div class="card">
+            <a href="https://mail.google.com/" target="_blank" data-id="gmail">
+              <img src="/favorites/assets/images/google-mail.png" alt="GMail" />
+              <span class="label"> Gmail </span>
+            </a>
+            <span class="click-count" data-id="gmail"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://calendar.google.com/calendar/u/0/r/month"
+              target="_blank"
+              data-id="google-calendar"
+            >
+              <img
+                src="/favorites/assets/images/google-calendar.png"
+                alt="Google Calendar"
+              />
+              <span class="label"> Google Calendar </span>
+            </a>
+            <span class="click-count" data-id="google-calendar"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://timetreeapp.com/calendars/SaEbwYnDscqh"
+              target="_blank"
+              data-id="time-tree-calendar"
+            >
+              <img
+                src="/favorites/assets/images/TimeTree-Thumbnail.png"
+                alt="Time Tree Calendar"
+              />
+              <span class="label"> Time Tree </span>
+            </a>
+            <span class="click-count" data-id="time-tree-calendar"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://kaelinfamily.sanity.studio/"
+              target="_blank"
+              data-id="kaelin-family-admin"
+            >
+              <img
+                src="/favorites/assets/images/kaelin-coat-of-arms.png"
+                alt="TKF Admin"
+              />
+              <span class="label"> TKF Admin </span>
+            </a>
+            <span class="click-count" data-id="kaelin-family-admin"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://www.kaelinfamily.com"
+              target="_blank"
+              data-id="kaelin-family"
+            >
+              <img
+                src="/favorites/assets/images/kaelin-pin.png"
+                alt="TKF Home"
+              />
+              <span class="label"> TKF Home</span>
+            </a>
+            <span class="click-count" data-id="kaelin-family"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://www.fitnessblender.com/my/dashboard"
+              target="_blank"
+              data-id="fitness-blender"
+            >
+              <img
+                src="/favorites/assets/images/fitness-blender.jpg"
+                alt="Fitness Blender"
+              />
+              <span class="label"> Fitness Blender </span>
+            </a>
+            <span class="click-count" data-id="fitness-blender"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://www.nytimes.com/games/wordle/index.html"
+              target="_blank"
+              data-id="wordle"
+            >
+              <img src="/favorites/assets/images/wordle.png" alt="Wordle" />
+              <span class="label"> Wordle </span>
+            </a>
+            <span class="click-count" data-id="wordle"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://github.com/ChristopherKaelin"
+              target="_blank"
+              data-id="github"
+            >
+              <img src="/favorites/assets/images/github.png" alt="GitHub" />
+              <span class="label"> GitHub </span>
+            </a>
+            <span class="click-count" data-id="github"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://classroom.code-you.org/classes"
+              target="_blank"
+              data-id="code-you"
+            >
+              <img src="/favorites/assets/images/code-you.png" alt="Code You" />
+              <span class="label">Code You</span>
+            </a>
+            <span class="click-count" data-id="code-you"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://www.codewars.com/dashboard"
+              target="_blank"
+              data-id="code-wars"
+            >
+              <img
+                src="/favorites/assets/images/codewars.png"
+                alt="Code Wars"
+              />
+              <span class="label"> Code Wars</span>
+            </a>
+            <span class="click-count" data-id="code-wars"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://business.facebook.com/latest/content_calendar?asset_id=162855810859312"
+              target="_blank"
+              data-id="meta-business"
+            >
+              <img
+                src="/favorites/assets/images/meta.jpg"
+                alt="Meta Business"
+              />
+              <span class="label"> Meta Business </span>
+            </a>
+            <span class="click-count" data-id="meta-business"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+              data-id="instagram"
+            >
+              <img
+                src="/favorites/assets/images/instagram.png"
+                alt="Instagram"
+              />
+              <span class="label"> Instagram </span>
+            </a>
+            <span class="click-count" data-id="instagram"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://www.weatherbug.com/weather-forecast/now/bracktown-ky-40511"
+              target="_blank"
+              data-id="weather-bug"
+            >
+              <img
+                src="/favorites/assets/images/weather-bug.png"
+                alt="Weather Bug"
+              />
+              <span class="label"> Weather Bug </span>
+            </a>
+            <span class="click-count" data-id="weather-bug"></span>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <div class="accordion-item" id="learning">
-            <button class="accordion-header">
-                <span class="arrow">▶</span> &nbsp; Learning
-            </button>
-            <div class="accordion-content">
-                <div class="gallery">
-                    <div class="card">
-                        <a href="https://academy.zerotomastery.io/" target="_blank" data-id="zero-to-mastery">
-                            <img src="/favorites/assets/images/ztm.png" alt="ZTM">
-                            <span class="label">Zero To Mastery </span>
-                        </a>
-                        <span class="click-count" data-id="zero-to-mastery"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.udemy.com/home/my-courses/learning/" target="_blank" data-id="udemy">
-                            <img src="/favorites/assets/images/udemy.png" alt="Udemy">
-                            <span class="label"> Udemy </span>
-                        </a>
-                        <span class="click-count" data-id="udemy"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://app.knowely.com/learn" target="_blank" data-id="knowely">
-                            <img src="/favorites/assets/images/knowely.jpg" alt="Knowly">
-                            <span class="label"> Knowly </span>
-                        </a>
-                        <span class="click-count" data-id="knowely"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.freecodecamp.org/learn/" target="_blank" data-id="free-code-camp">
-                            <img src="/favorites/assets/images/freeCodeCamp.png" alt="free Code Camp">
-                            <span class="label"> free Code Camp </span>
-                        </a>
-                        <span class="click-count" data-id="free-code-camp"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://courses.dometrain.com/enrollments" target="_blank" data-id="dometrain">
-                            <img src="/favorites/assets/images/Dometrain5.png" alt="Dometrain">
-                            <span class="label"> Dometrain</span>
-                        </a>
-                        <span class="click-count" data-id="dometrain"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://coddy.tech/profile" target="_blank" data-id="coddy">
-                            <img src="/favorites/assets/images/coddy.svg" alt="Coddy">
-                            <span class="label"> Coddy </span>
-                        </a>
-                        <span class="click-count" data-id="coddy"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.linkedin.com/learning/me/my-library/in-progress" target="_blank" data-id="linkedin-learning">
-                            <img src="/favorites/assets/images/linkedin-learning.jpg" alt="LinkedIn Learning">
-                            <span class="label" > LinkedIn Learning </span>
-                        </a>
-                        <span class="click-count" data-id="linkedin-learning"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://academind.com/tutorials/" target="_blank" data-id="academind">
-                            <img src="/favorites/assets/images/academind.png" alt="Academind">
-                            <span class="label"> Academind </span>
-                        </a>
-                        <span class="click-count" data-id="academind"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.frontendmentor.io/home" target="_blank" data-id="frontend-mentor">
-                            <img src="/favorites/assets/images/frontend-mentor.png" alt="Frontend Mentor">
-                            <span class="label"> Frontend Mentor </span>
-                        </a>
-                        <span class="click-count" data-id="frontend-mentor"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://app.daily.dev/" target="_blank" data-id="daily-dev">
-                            <img src="/favorites/assets/images/dail-dev.png" alt="Daily Dev">
-                            <span class="label"> daily.dev</span>
-                        </a>
-                        <span class="click-count" data-id="daily-dev"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://codepen.io/your-work" target="_blank" data-id="code-pen">
-                            <img src="/favorites/assets/images/codepen.png" alt="CodePen">
-                            <span class="label"> CodePen</span>
-                        </a>
-                        <span class="click-count" data-id="code-pen"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://stackoverflow.com/users/5062173/eagleuk" target="_blank" data-id="stack-overflow">
-                            <img src="/favorites/assets/images/stack-overflow.jpg" alt="Stack Overflow">
-                            <span class="label"> Stack Overflow </span>
-                        </a>
-                        <span class="click-count" data-id="stack-overflow"></span>
-                    </div>
-                </div>
-            </div>
+    <div class="accordion-item" id="learning">
+      <button class="accordion-header">
+        <span class="arrow">▶</span> &nbsp; Learning
+      </button>
+      <div class="accordion-content">
+        <div class="gallery">
+          <div class="card">
+            <a
+              href="https://academy.zerotomastery.io/"
+              target="_blank"
+              data-id="zero-to-mastery"
+            >
+              <img src="/favorites/assets/images/ztm.png" alt="ZTM" />
+              <span class="label">Zero To Mastery </span>
+            </a>
+            <span class="click-count" data-id="zero-to-mastery"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://www.udemy.com/home/my-courses/learning/"
+              target="_blank"
+              data-id="udemy"
+            >
+              <img src="/favorites/assets/images/udemy.png" alt="Udemy" />
+              <span class="label"> Udemy </span>
+            </a>
+            <span class="click-count" data-id="udemy"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://app.knowely.com/learn"
+              target="_blank"
+              data-id="knowely"
+            >
+              <img src="/favorites/assets/images/knowely.jpg" alt="Knowly" />
+              <span class="label"> Knowly </span>
+            </a>
+            <span class="click-count" data-id="knowely"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://www.freecodecamp.org/learn/"
+              target="_blank"
+              data-id="free-code-camp"
+            >
+              <img
+                src="/favorites/assets/images/freeCodeCamp.png"
+                alt="free Code Camp"
+              />
+              <span class="label"> free Code Camp </span>
+            </a>
+            <span class="click-count" data-id="free-code-camp"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://courses.dometrain.com/enrollments"
+              target="_blank"
+              data-id="dometrain"
+            >
+              <img
+                src="/favorites/assets/images/Dometrain5.png"
+                alt="Dometrain"
+              />
+              <span class="label"> Dometrain</span>
+            </a>
+            <span class="click-count" data-id="dometrain"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://coddy.tech/profile"
+              target="_blank"
+              data-id="coddy"
+            >
+              <img src="/favorites/assets/images/coddy.svg" alt="Coddy" />
+              <span class="label"> Coddy </span>
+            </a>
+            <span class="click-count" data-id="coddy"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://www.linkedin.com/learning/me/my-library/in-progress"
+              target="_blank"
+              data-id="linkedin-learning"
+            >
+              <img
+                src="/favorites/assets/images/linkedin-learning.jpg"
+                alt="LinkedIn Learning"
+              />
+              <span class="label"> LinkedIn Learning </span>
+            </a>
+            <span class="click-count" data-id="linkedin-learning"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://academind.com/tutorials/"
+              target="_blank"
+              data-id="academind"
+            >
+              <img
+                src="/favorites/assets/images/academind.png"
+                alt="Academind"
+              />
+              <span class="label"> Academind </span>
+            </a>
+            <span class="click-count" data-id="academind"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://www.frontendmentor.io/home"
+              target="_blank"
+              data-id="frontend-mentor"
+            >
+              <img
+                src="/favorites/assets/images/frontend-mentor.png"
+                alt="Frontend Mentor"
+              />
+              <span class="label"> Frontend Mentor </span>
+            </a>
+            <span class="click-count" data-id="frontend-mentor"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://app.daily.dev/"
+              target="_blank"
+              data-id="daily-dev"
+            >
+              <img
+                src="/favorites/assets/images/dail-dev.png"
+                alt="Daily Dev"
+              />
+              <span class="label"> daily.dev</span>
+            </a>
+            <span class="click-count" data-id="daily-dev"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://codepen.io/your-work"
+              target="_blank"
+              data-id="code-pen"
+            >
+              <img src="/favorites/assets/images/codepen.png" alt="CodePen" />
+              <span class="label"> CodePen</span>
+            </a>
+            <span class="click-count" data-id="code-pen"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://stackoverflow.com/users/5062173/eagleuk"
+              target="_blank"
+              data-id="stack-overflow"
+            >
+              <img
+                src="/favorites/assets/images/stack-overflow.jpg"
+                alt="Stack Overflow"
+              />
+              <span class="label"> Stack Overflow </span>
+            </a>
+            <span class="click-count" data-id="stack-overflow"></span>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <div class="accordion-item" id="llc-work">
-            <button class="accordion-header">
-                <span class="arrow">▶</span> &nbsp; LLC / Work
-            </button>
-            <div class="accordion-content">
-                <div class="gallery">
-                    <div class="card">
-                        <a href="https://www.linkedin.com/in/christopherlkaelin" target="_blank" data-id="linkedin">
-                            <img src="/favorites/assets/images/linkedin.png" alt="LinkedIn">
-                            <span class="label"> LinkedIn</span>
-                        </a>
-                        <span class="click-count" data-id="linkedin"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.indeed.com/" target="_blank" data-id="indeed">
-                            <img src="/favorites/assets/images/Indeed.png" alt="Indeed">
-                            <span class="label"> Indeed </span>
-                        </a>
-                        <span class="click-count" data-id="indeed"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.ziprecruiter.com/jobs-search?search=web+developer&location=Lexington%2C+KY&lvk=n1kRgBdSJGKoaSqxm-lj1A.--Nnjj0TCqB"
-                            target="_blank" data-id="zip-recruiter">
-                            <img src="/favorites/assets/images/zip-recruiter.png" alt="Zip Recruiter">
-                            <span class="label"> Zip </span>
-                        </a>
-                        <span class="click-count" data-id="zip-recruiter"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://app.myworkerbee.com/bee" target="_blank" data-id="worker-bee">
-                            <img src="/favorites/assets/images/Workerbee.jpg" alt="Worker Bee">
-                            <span class="label"> Worker Bee </span>
-                        </a>
-                        <span class="click-count" data-id="worker-bee"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://app.welcometothejungle.com/" target="_blank" data-id="welcome-to-the-jungle">
-                            <img src="/favorites/assets/images/WelcomeToTheJungle.png" alt="Welcome To The Jungle">
-                            <span class="label"> Welcome To The Jungle</span>
-                        </a>
-                        <span class="click-count" data-id="welcome-to-the-jungle"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://chatgpt.com/" target="_blank" data-id="chat-gpt">
-                            <img src="/favorites/assets/images/ChatGPT.png" alt="Chat GPT">
-                            <span class="label"> Chat GPT</span>
-                        </a>
-                        <span class="click-count" data-id="chat-gpt"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://claude.ai/" target="_blank" data-id="claude-ai">
-                            <img src="/favorites/assets/images/claude-ai-logo.png" alt="Claude AI">
-                            <span class="label"> Claude AI</span>
-                        </a>
-                        <span class="click-count" data-id="claude-ai"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://copilot.microsoft.com/chats" target="_blank" data-id="ms-copilot">
-                            <img src="/favorites/assets/images/ms-copilot.png" alt="MS Copilot">
-                            <span class="label"> MS Copilot</span>
-                        </a>
-                        <span class="click-count" data-id="ms-copilot"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://design.com" target="_blank" data-id="design-com">
-                            <img src="/favorites/assets/images/design.png" alt="Design.com">
-                            <span class="label"> Design.com</span>
-                        </a>
-                        <span class="click-count" data-id="design-com"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://thegiftedfind.com" target="_blank" data-id="gifted-find">
-                            <img src="/favorites/assets/images/gifted-find.jpg" alt="Gifted Find">
-                            <span class="label"> The Gifted Find</span>
-                        </a>
-                        <span class="click-count" data-id="gifted-find"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://clkcomputing.com" target="_blank" data-id="clk-computing">
-                            <img src="/favorites/assets/images/CLKlogo_Main_Square.svg" alt="CLK Computing">
-                            <span class="label"> CLK Computing</span>
-                        </a>
-                        <span class="click-count" data-id="clk-computing"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://cp.freehostia.com/" target="_blank" data-id="free-hostia">
-                            <img src="/favorites/assets/images/freehostia.png" alt="Free Hostia">
-                            <span class="label"> Free Hostia </span>
-                        </a>
-                        <span class="click-count" data-id="free-hostia"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://mytaxes.ky.gov/rptp/myportal/business-home/" target="_blank" data-id="ky-my-taxes">
-                            <img src="/favorites/assets/images/ky-my-taxes.png" alt="Ky My Taxes">
-                            <span class="label"> Ky My Taxes </span>
-                        </a>
-                        <span class="click-count" data-id="ky-my-taxes"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://account.squarespace.com/domains" target="_blank" data-id="squarespace">
-                            <img src="/favorites/assets/images/squarespace.png" alt="Squarespace">
-                            <span class="label"> Square Space </span>
-                        </a>
-                        <span class="click-count" data-id="squarespace"></span>
-                    </div>
-                </div>
-            </div>
+    <div class="accordion-item" id="llc-work">
+      <button class="accordion-header">
+        <span class="arrow">▶</span> &nbsp; LLC / Work
+      </button>
+      <div class="accordion-content">
+        <div class="gallery">
+          <div class="card">
+            <a
+              href="https://www.linkedin.com/in/christopherlkaelin"
+              target="_blank"
+              data-id="linkedin"
+            >
+              <img src="/favorites/assets/images/linkedin.png" alt="LinkedIn" />
+              <span class="label"> LinkedIn</span>
+            </a>
+            <span class="click-count" data-id="linkedin"></span>
+          </div>
+          <div class="card">
+            <a href="https://www.indeed.com/" target="_blank" data-id="indeed">
+              <img src="/favorites/assets/images/Indeed.png" alt="Indeed" />
+              <span class="label"> Indeed </span>
+            </a>
+            <span class="click-count" data-id="indeed"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://www.ziprecruiter.com/jobs-search?search=web+developer&location=Lexington%2C+KY&lvk=n1kRgBdSJGKoaSqxm-lj1A.--Nnjj0TCqB"
+              target="_blank"
+              data-id="zip-recruiter"
+            >
+              <img
+                src="/favorites/assets/images/zip-recruiter.png"
+                alt="Zip Recruiter"
+              />
+              <span class="label"> Zip </span>
+            </a>
+            <span class="click-count" data-id="zip-recruiter"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://app.myworkerbee.com/bee"
+              target="_blank"
+              data-id="worker-bee"
+            >
+              <img
+                src="/favorites/assets/images/Workerbee.jpg"
+                alt="Worker Bee"
+              />
+              <span class="label"> Worker Bee </span>
+            </a>
+            <span class="click-count" data-id="worker-bee"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://app.welcometothejungle.com/"
+              target="_blank"
+              data-id="welcome-to-the-jungle"
+            >
+              <img
+                src="/favorites/assets/images/WelcomeToTheJungle.png"
+                alt="Welcome To The Jungle"
+              />
+              <span class="label"> Welcome To The Jungle</span>
+            </a>
+            <span class="click-count" data-id="welcome-to-the-jungle"></span>
+          </div>
+          <div class="card">
+            <a href="https://chatgpt.com/" target="_blank" data-id="chat-gpt">
+              <img src="/favorites/assets/images/ChatGPT.png" alt="Chat GPT" />
+              <span class="label"> Chat GPT</span>
+            </a>
+            <span class="click-count" data-id="chat-gpt"></span>
+          </div>
+          <div class="card">
+            <a href="https://claude.ai/" target="_blank" data-id="claude-ai">
+              <img
+                src="/favorites/assets/images/claude-ai-logo.png"
+                alt="Claude AI"
+              />
+              <span class="label"> Claude AI</span>
+            </a>
+            <span class="click-count" data-id="claude-ai"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://copilot.microsoft.com/chats"
+              target="_blank"
+              data-id="ms-copilot"
+            >
+              <img
+                src="/favorites/assets/images/ms-copilot.png"
+                alt="MS Copilot"
+              />
+              <span class="label"> MS Copilot</span>
+            </a>
+            <span class="click-count" data-id="ms-copilot"></span>
+          </div>
+          <div class="card">
+            <a href="https://design.com" target="_blank" data-id="design-com">
+              <img src="/favorites/assets/images/design.png" alt="Design.com" />
+              <span class="label"> Design.com</span>
+            </a>
+            <span class="click-count" data-id="design-com"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://thegiftedfind.com"
+              target="_blank"
+              data-id="gifted-find"
+            >
+              <img
+                src="/favorites/assets/images/gifted-find.jpg"
+                alt="Gifted Find"
+              />
+              <span class="label"> The Gifted Find</span>
+            </a>
+            <span class="click-count" data-id="gifted-find"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://clkcomputing.com"
+              target="_blank"
+              data-id="clk-computing"
+            >
+              <img
+                src="/favorites/assets/images/CLKlogo_Main_Square.svg"
+                alt="CLK Computing"
+              />
+              <span class="label"> CLK Computing</span>
+            </a>
+            <span class="click-count" data-id="clk-computing"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://cp.freehostia.com/"
+              target="_blank"
+              data-id="free-hostia"
+            >
+              <img
+                src="/favorites/assets/images/freehostia.png"
+                alt="Free Hostia"
+              />
+              <span class="label"> Free Hostia </span>
+            </a>
+            <span class="click-count" data-id="free-hostia"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://mytaxes.ky.gov/rptp/myportal/business-home/"
+              target="_blank"
+              data-id="ky-my-taxes"
+            >
+              <img
+                src="/favorites/assets/images/ky-my-taxes.png"
+                alt="Ky My Taxes"
+              />
+              <span class="label"> Ky My Taxes </span>
+            </a>
+            <span class="click-count" data-id="ky-my-taxes"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://account.squarespace.com/domains"
+              target="_blank"
+              data-id="squarespace"
+            >
+              <img
+                src="/favorites/assets/images/squarespace.png"
+                alt="Squarespace"
+              />
+              <span class="label"> Square Space </span>
+            </a>
+            <span class="click-count" data-id="squarespace"></span>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <div class="accordion-item" id="source">
-            <button class="accordion-header">
-                <span class="arrow">▶</span> &nbsp; The Source
-            </button>
-            <div class="accordion-content">
-                <div class="gallery">
-                    <div class="card">
-                        <a href="https://thesourceumc.org/login/" target="_blank" data-id="source-admin">
-                            <img src="/favorites/assets/images/Source-Gear.png" alt="Source Admin">
-                            <span class="label"> Source Admin</span>
-                        </a>
-                        <span class="click-count" data-id="source-admin"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://umcchurches.org/clientarea.php/" target="_blank" data-id="domain-manager">
-                            <img src="/favorites/assets/images/umc.png" alt="UMC Communications">
-                            <span class="label"> UMC Comm</span>
-                        </a>
-                        <span class="click-count" data-id="domain-manager"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://studio.youtube.com/channel/UCCvsGRdgRIcOpkipRF1iMlw/livestreaming/manage" target="_blank" data-id="source-youtube">
-                            <img src="/favorites/assets/images/YouTube.png" alt="Source YouTube">
-                            <span class="label"> Source YouTube </span>
-                        </a>
-                        <span class="click-count" data-id="source-youtube"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://thesourceumc.org/" target="_blank" data-id="source-home">
-                            <img src="/favorites/assets/images/Source-Profile.png" alt="The Source">
-                            <span class="label"> The Source </span>
-                        </a>
-                        <span class="click-count" data-id="source-home"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.bible.com/verse-of-the-day" target="_blank" data-id="verse-of-the-day">
-                            <img src="/favorites/assets/images/bible-app.png" alt="Verse of the Day">
-                            <span class="label"> Verse Of The Day </span>
-                        </a>
-                        <span class="click-count" data-id="verse-of-the-day"></span>
-                    </div>
-                </div>
-
-            </div>
+    <div class="accordion-item" id="source">
+      <button class="accordion-header">
+        <span class="arrow">▶</span> &nbsp; The Source
+      </button>
+      <div class="accordion-content">
+        <div class="gallery">
+          <div class="card">
+            <a
+              href="https://thesourceumc.org/login/"
+              target="_blank"
+              data-id="source-admin"
+            >
+              <img
+                src="/favorites/assets/images/Source-Gear.png"
+                alt="Source Admin"
+              />
+              <span class="label"> Source Admin</span>
+            </a>
+            <span class="click-count" data-id="source-admin"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://umcchurches.org/clientarea.php/"
+              target="_blank"
+              data-id="domain-manager"
+            >
+              <img
+                src="/favorites/assets/images/umc.png"
+                alt="UMC Communications"
+              />
+              <span class="label"> UMC Comm</span>
+            </a>
+            <span class="click-count" data-id="domain-manager"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://studio.youtube.com/channel/UCCvsGRdgRIcOpkipRF1iMlw/livestreaming/manage"
+              target="_blank"
+              data-id="source-youtube"
+            >
+              <img
+                src="/favorites/assets/images/YouTube.png"
+                alt="Source YouTube"
+              />
+              <span class="label"> Source YouTube </span>
+            </a>
+            <span class="click-count" data-id="source-youtube"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://thesourceumc.org/"
+              target="_blank"
+              data-id="source-home"
+            >
+              <img
+                src="/favorites/assets/images/Source-Profile.png"
+                alt="The Source"
+              />
+              <span class="label"> The Source </span>
+            </a>
+            <span class="click-count" data-id="source-home"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://www.bible.com/verse-of-the-day"
+              target="_blank"
+              data-id="verse-of-the-day"
+            >
+              <img
+                src="/favorites/assets/images/bible-app.png"
+                alt="Verse of the Day"
+              />
+              <span class="label"> Verse Of The Day </span>
+            </a>
+            <span class="click-count" data-id="verse-of-the-day"></span>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <div class="accordion-item" id="others">
-            <button class="accordion-header">
-                <span class="arrow">▶</span> &nbsp; Others
-            </button>
-            <div class="accordion-content">
-                <div class="gallery">
-                    <div class="card">
-                        <a href="https://www.facebook.com/ChristopherLKaelin" target="_blank" data-id="clk-facebook">
-                            <img src="/favorites/assets/images/facebook.png" alt="CLK Facebook">
-                            <span class="label"> CLK Facebook </span>
-                        </a>
-                        <span class="click-count" data-id="clk-facebook"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.lexsporting.com/scheduling-home/" target="_blank" data-id="lexington-sporting">
-                            <img src="/favorites/assets/images/Lexington-Sporting-Club.png" alt="Lexington Sporting Club">
-                            <span class="label"> Lex Sporting </span>
-                        </a>
-                        <span class="click-count" data-id="lexington-sporting"></span>
-                    </div>
-                    <div class="card">
-                        <a href="https://digital.fidelity.com/ftgw/digital/portfolio/summary" target="_blank" data-id="fidelity">
-                            <img src="/favorites/assets/images/fidelity-investments.png" alt="Fidelity">
-                            <span class="label"> Fidelity </span>
-                        </a>
-                        <span class="click-count" data-id="fidelity"></span>
-                    </div>
-                </div>
-            </div>
+    <div class="accordion-item" id="others">
+      <button class="accordion-header">
+        <span class="arrow">▶</span> &nbsp; Others
+      </button>
+      <div class="accordion-content">
+        <div class="gallery">
+          <div class="card">
+            <a
+              href="https://www.facebook.com/ChristopherLKaelin"
+              target="_blank"
+              data-id="clk-facebook"
+            >
+              <img
+                src="/favorites/assets/images/facebook.png"
+                alt="CLK Facebook"
+              />
+              <span class="label"> CLK Facebook </span>
+            </a>
+            <span class="click-count" data-id="clk-facebook"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://www.lexsporting.com/scheduling-home/"
+              target="_blank"
+              data-id="lexington-sporting"
+            >
+              <img
+                src="/favorites/assets/images/Lexington-Sporting-Club.png"
+                alt="Lexington Sporting Club"
+              />
+              <span class="label"> Lex Sporting </span>
+            </a>
+            <span class="click-count" data-id="lexington-sporting"></span>
+          </div>
+          <div class="card">
+            <a
+              href="https://digital.fidelity.com/ftgw/digital/portfolio/summary"
+              target="_blank"
+              data-id="fidelity"
+            >
+              <img
+                src="/favorites/assets/images/fidelity-investments.png"
+                alt="Fidelity"
+              />
+              <span class="label"> Fidelity </span>
+            </a>
+            <span class="click-count" data-id="fidelity"></span>
+          </div>
         </div>
-
-    </body>
+      </div>
+    </div>
+  </body>
 </html>
