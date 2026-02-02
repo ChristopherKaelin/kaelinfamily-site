@@ -18,7 +18,7 @@ const categories: any[] = await sanityClient.fetch(`
 
 ---
 
-<header>
+<header class="site-header">
   <nav class="nav">
     <div class="nav-container">
       <!-- Logo/Brand -->
@@ -39,7 +39,7 @@ const categories: any[] = await sanityClient.fetch(`
         <a href="/portfolio" class={`nav-link ${currentPath === '/portfolio' || currentPath.startsWith('/portfolio/') ? 'nav-link-active' : ''}`}>
           Portfolio
         </a>
-        
+
         <!-- Categories Dropdown -->
         <div class="nav-dropdown">
           <a href="/categories" class={`nav-link ${currentPath === '/categories' || currentPath.startsWith('/category/') ? 'nav-link-active' : ''}`}>
@@ -53,7 +53,7 @@ const categories: any[] = await sanityClient.fetch(`
             ))}
           </div>
         </div>
-        
+
         <a href="/blog" class={`nav-link ${currentPath === '/blog' || currentPath.startsWith('/blog/') ? 'nav-link-active' : ''}`}>
           Blog
         </a>
@@ -74,9 +74,9 @@ const categories: any[] = await sanityClient.fetch(`
 
   function toggleMenu() {
     if (!navToggle || !navMobile || !navOverlay) return;
-    
+
     const isOpen = navToggle.classList.contains('nav-toggle--active');
-    
+
     if (isOpen) {
       // Close menu
       navToggle.classList.remove('nav-toggle--active');
