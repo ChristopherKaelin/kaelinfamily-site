@@ -3,8 +3,7 @@
 import FormattedDate from './FormattedDate.astro';
 import CategoryTags from './CategoryTags.astro';
 import OptimizedImage from '../components/OptimizedImage.astro';
-import TrackedPostLink from "../components/TrackedPostLink.astro";
-
+import TrackedPostLink from '../components/TrackedPostLink.astro';
 
 interface Props {
   posts: Array<{
@@ -13,66 +12,70 @@ interface Props {
     slug: { current: string };
     publishedAt: string;
     imageUrl?: string;
-    categories?: Array<{title: string, slug: string}>;
+    categories?: Array<{ title: string; slug: string; color?: { hex: string } }>;
     excerpt?: string;
   }>;
   variant?: 'grid' | 'list';
   showExcerpt?: boolean;
+  categoryColor?: string;
 }
 
-const { posts, variant = 'grid', showExcerpt = true } = Astro.props;
+const { posts, variant = 'grid', showExcerpt = true, categoryColor } = Astro.props;
 ---
 
-<div class={variant === 'grid' ? 'grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-8 [&>article:only-child]:max-w-[566px] [&>article:only-child]:justify-self-center' : 'flex flex-col gap-6'}>
-  {posts.map((post) => (
-    <article class={`post-item ${variant === 'list' ? 'flex items-stretch sm:flex-col' : ''}`}>
-      <div class={`image-container ${variant === 'list' ? 'flex-[0_0_200px] aspect-[4/3] overflow-hidden sm:flex-none sm:aspect-video sm:hidden' : 'aspect-[16/10] overflow-hidden'}`}>
-        <TrackedPostLink 
-          postId={post._id}
-          href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} 
-          class="post-link"
-        >
-          {post.imageUrl && (
-            <OptimizedImage 
-              src={post.imageUrl} 
-              alt={post.title} 
-              loading="eager" 
-              sizes="(max-width: 768px) 100vw, 400px"
-              class="w-full h-auto object-cover transition-transform duration-500"
-            />
-          )}
-        </TrackedPostLink>
-      </div>
-      <div class="post-content p-4 flex flex-col flex-1">
-        <div class="flex justify-between items-start mb-2 gap-2">
-          <h2 class="post-title text-lg mb-2">
-            <TrackedPostLink 
-              postId={post._id}
-              href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} 
-              class="post-link"
-            >
-              {post.title}
-            </TrackedPostLink>
-          </h2>
-          <div class="post-date text-sm whitespace-nowrap">
-            <FormattedDate date={new Date(post.publishedAt)} />
-          </div>
-        </div>
-                
-        {post.excerpt && (
-          <p class="post-excerpt mb-auto flex-1">{post.excerpt}</p>
-        )}
-        
-        <div class="read-more mt-4 text-sm">
-          <TrackedPostLink 
+<div class="grid gap-8 posts-grid-2col" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+  {
+    posts.map((post) => (
+      <article
+        class="post-item rounded-lg flex items-stretch sm:flex-col"
+        style={post.categories?.[0]?.color?.hex ? `border: 8px solid ${post.categories[0].color.hex}` : ''}
+      >
+        <div class="image-container relative flex-[0_0_200px] aspect-[4/3] overflow-hidden sm:flex-none sm:aspect-video sm:hidden">
+          <TrackedPostLink
             postId={post._id}
-            href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`} 
+            href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`}
             class="post-link"
           >
-            Read more →
+            {post.imageUrl && (
+              <OptimizedImage
+                src={post.imageUrl}
+                alt={post.title}
+                loading="eager"
+                sizes="(max-width: 768px) 100vw, 400px"
+                class="w-full h-auto object-cover transition-transform duration-500 absolute top-1/2 -translate-y-1/2"
+              />
+            )}
           </TrackedPostLink>
         </div>
-      </div>
-    </article>
-  ))}
+        <div class="post-content p-4 flex flex-col flex-1">
+          <div class="flex justify-between items-start mb-2 gap-2">
+            <h2 class="post-title text-lg mb-2">
+              <TrackedPostLink
+                postId={post._id}
+                href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`}
+                class="post-link"
+              >
+                {post.title}
+              </TrackedPostLink>
+            </h2>
+            <div class="post-date text-sm whitespace-nowrap">
+              <FormattedDate date={new Date(post.publishedAt)} />
+            </div>
+          </div>
+
+          {post.excerpt && <p class="post-excerpt mb-auto flex-1">{post.excerpt}</p>}
+
+          <div class="read-more mt-4 text-sm">
+            <TrackedPostLink
+              postId={post._id}
+              href={`/${post.categories?.[0]?.slug}/${post.slug.current}/`}
+              class="post-link"
+            >
+              Read more →
+            </TrackedPostLink>
+          </div>
+        </div>
+      </article>
+    ))
+  }
 </div>

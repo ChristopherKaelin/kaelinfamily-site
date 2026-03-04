@@ -12,7 +12,8 @@ export async function getStaticPaths() {
     *[_type == "category"] {
       title,
       "slug": slug.current,
-      description
+      description,
+      color
     }
   `);
 
@@ -22,11 +23,14 @@ export async function getStaticPaths() {
       categoryTitle: category.title,
       categorySlug: category.slug,
       categoryDescription: category.description,
+      categoryColor: category.color?.hex,
     },
   }));
 }
 
-const { categoryTitle, categorySlug, categoryDescription } = Astro.props;
+const { categoryTitle, categorySlug, categoryDescription, categoryColor } = Astro.props;
+
+console.log('categoryColor:', categoryColor);
 
 const posts: any[] = await sanityClient.fetch(`
   *[_type == "post" && (
@@ -38,7 +42,7 @@ const posts: any[] = await sanityClient.fetch(`
     slug,
     publishedAt,
     "imageUrl": mainImage.asset->url,
-    "categories": categories[]->{title, "slug": slug.current},
+    "categories": categories[]->{title, "slug": slug.current, color},
     "excerpt": array::join(string::split(pt::text(body), "")[0..150], "") + "..."
   }
 `);
@@ -94,7 +98,7 @@ const posts: any[] = await sanityClient.fetch(`
           </div>
         </div>
 */}
-        <PostList posts={posts} variant="list" />
+        <PostList posts={posts} variant="list" categoryColor={categoryColor} />
       </section>
     ) : (
       <div class="no-posts">

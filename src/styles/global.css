@@ -340,6 +340,7 @@ p { margin-bottom: var(--spacing-base); }
   overflow: hidden;
   transition: var(--transition-fast);
   box-shadow: var(--shadow-base);
+  margin: 0 .75rem .75rem 0;
 }
 
 .post-item:hover {
@@ -999,5 +1000,20 @@ header.site-header {
 
   .hero p {
     font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 1280px) {
+  .post-title {
+    font-size: 0.9rem;
+  }
+  .post-excerpt {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .posts-grid-2col {
+    grid-template-columns: 1fr !important;
   }
 }
