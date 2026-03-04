@@ -1,9 +1,9 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PostList from "../../components/PostList.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
-import { sanityClient } from "../../../sanity.config.js";
-import TrackedPostLink from "../../components/TrackedPostLink.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from '../../components/PostList.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { sanityClient } from '../../../sanity.config.js';
+import TrackedPostLink from '../../components/TrackedPostLink.astro';
 
 export const prerender = true;
 
@@ -44,26 +44,20 @@ const posts: any[] = await sanityClient.fetch(`
 `);
 ---
 
-<BaseLayout
-  title={`${categoryTitle} - ${SITE_TITLE}`}
-  description={SITE_DESCRIPTION}
->
+<BaseLayout title={`${categoryTitle} - ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
   <div class="category-header">
     <h1>{categoryTitle}</h1>
-    {
-      categoryDescription && (
-        <p class="category-description">{categoryDescription}</p>
-      )
-    }
+    {categoryDescription && <p class="category-description">{categoryDescription}</p>}
     <div class="category-stats">
       {posts.length}
-      {posts.length === 1 ? "post" : "posts"}
+      {posts.length === 1 ? 'post' : 'posts'}
     </div>
   </div>
 
   {
     posts.length > 0 ? (
       <section>
+        {/*
         <div class="controls-container">
           <div class="view-controls">
             <div class="view-toggle">
@@ -99,11 +93,12 @@ const posts: any[] = await sanityClient.fetch(`
             </div>
           </div>
         </div>
-        <PostList posts={posts} variant='list' />
+*/}
+        <PostList posts={posts} variant="list" />
       </section>
     ) : (
       <div class="no-posts">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" >
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8" />
           <path d="m21 21-4.35-4.35" />
         </svg>
@@ -122,7 +117,7 @@ const posts: any[] = await sanityClient.fetch(`
   const urlParams = new URLSearchParams(window.location.search);
   const viewMode = urlParams.get('view') || 'grid';
   const sortMode = urlParams.get('sort') || 'newest';
-  
+
   // Apply the view mode to the post list
   const postList = document.querySelector('.post-list');
   if (postList) {
@@ -130,13 +125,13 @@ const posts: any[] = await sanityClient.fetch(`
   }
 
   // Update view button active states
-  document.querySelectorAll('.view-button').forEach(button => {
+  document.querySelectorAll('.view-button').forEach((button) => {
     const isActive = button.getAttribute('href')?.includes(`view=${viewMode}`);
     button.classList.toggle('active', isActive);
   });
 
   // Update sort button hrefs and active states
-  document.querySelectorAll('.sort-button').forEach(button => {
+  document.querySelectorAll('.sort-button').forEach((button) => {
     const sort = button.getAttribute('data-sort') || 'newest';
     const params = new URLSearchParams();
     if (viewMode !== 'grid') params.set('view', viewMode);
@@ -154,9 +149,9 @@ const posts: any[] = await sanityClient.fetch(`
       const dateB = new Date(b.querySelector('.post-date time')?.getAttribute('datetime') || '');
       return dateA.getTime() - dateB.getTime(); // oldest first
     });
-    
+
     // Re-append in sorted order
-    sortedArticles.forEach(article => postList.appendChild(article));
+    sortedArticles.forEach((article) => postList.appendChild(article));
   }
 </script>
 
@@ -221,10 +216,10 @@ const posts: any[] = await sanityClient.fetch(`
     transform: translateY(-2px);
   }
 
-	.active {
-		font-weight: bolder;
-		text-decoration: none;
-	}
+  .active {
+    font-weight: bolder;
+    text-decoration: none;
+  }
 
   .controls-container {
     display: flex;
@@ -234,7 +229,7 @@ const posts: any[] = await sanityClient.fetch(`
     flex-wrap: wrap;
     gap: var(--spacing-base);
   }
-  
+
   .controls-container .label {
     font-size: x-large;
     font-weight: 600;
@@ -244,7 +239,7 @@ const posts: any[] = await sanityClient.fetch(`
   .view-button,
   .sort-button {
     margin-left: 0.5rem;
-    padding: .25rem .5rem;
+    padding: 0.25rem 0.5rem;
     border-radius: var(--border-radius-base);
   }
 
