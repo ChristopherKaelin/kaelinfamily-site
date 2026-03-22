@@ -13,7 +13,6 @@
 
 .favorites-page {
   font-family: system-ui, sans-serif;
-  background-color: var(--background-light);
   color: var(--purple);
   padding: 2rem;
   text-align: center;
@@ -116,7 +115,8 @@
 }
 
 .favorites-page .accordion-header:hover {
-  background-color: #606060;
+  color: var(--purple-hover);
+  background-color: var(--card-bg-hover);
 }
 
 /* Static header (non-clickable) */
@@ -125,13 +125,14 @@
 }
 
 .favorites-page .static-header:hover {
+  color: var(--purple);
   background-color: var(--card-bg);
 }
 
 /* Accordion icon */
 .favorites-page .accordion-header .arrow {
   font-size: 1rem;
-  color: var(--text-muted);
+  /* color: var(--text-muted); */
   transition: transform 0.3s ease;
   margin-right: 0.5rem;
 }
