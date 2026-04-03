@@ -1,4 +1,11 @@
 {
   "cleanUrls": false,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/resume",
+      "destination": "http://christopherkaelin.com/resume.html",
+      "permanent": true
+    }
+  ]
 }
