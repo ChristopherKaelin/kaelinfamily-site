@@ -1,15 +1,15 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import { sanityClient } from "../../sanity.config.js";
-import FormattedDate from "../components/FormattedDate.astro";
-import heroImage from "../assets/ky-horse-farm.jpg";
-import TrackedPostLink from "../components/TrackedPostLink.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { sanityClient } from '../../sanity.config.js';
+import FormattedDate from '../components/FormattedDate.astro';
+import heroImage from '../assets/ky-horse-farm.jpg';
+import TrackedPostLink from '../components/TrackedPostLink.astro';
 
 // SEO values for home page
-const homeTitle = "Kaelin Family - Stories from Kentucky";
+const homeTitle = 'Kaelin Family - Stories from Kentucky';
 const homeDescription =
-  "Family stories, tech adventures, recipes, and life in Kentucky. Join Chris and Trish for heartwarming tales, coding projects, and genuine conversation from the Bluegrass State.";
+  'Family stories, tech adventures, recipes, and life in Kentucky. Join Chris and Trish for heartwarming tales, coding projects, and genuine conversation from the Bluegrass State.';
 
 // Fetch all top level categories
 const categories: any[] = await sanityClient.fetch(`
@@ -28,26 +28,28 @@ const categories: any[] = await sanityClient.fetch(`
 `);
 
 // Calculate post counts manually for each category
-const categoriesWithCounts = await Promise.all(categories.map(async (category) => {
-  let childPostCount = 0;
-  
-  if (category.childCategoryIds && category.childCategoryIds.length > 0) {
-    childPostCount = 0;
-    // Count posts for each child category individually and sum them
-    for (const childId of category.childCategoryIds) {
-      const postsInChild = await sanityClient.fetch(`
+const categoriesWithCounts = await Promise.all(
+  categories.map(async (category) => {
+    let childPostCount = 0;
+
+    if (category.childCategoryIds && category.childCategoryIds.length > 0) {
+      childPostCount = 0;
+      // Count posts for each child category individually and sum them
+      for (const childId of category.childCategoryIds) {
+        const postsInChild = await sanityClient.fetch(`
         count(*[_type == "post" && references("${childId}")])
       `);
-      childPostCount += postsInChild;
+        childPostCount += postsInChild;
+      }
     }
-  }
-  
-  return {
-    ...category,
-    childPostCount: childPostCount,
-    postCount: category.directPosts + childPostCount
-  };
-}));
+
+    return {
+      ...category,
+      childPostCount: childPostCount,
+      postCount: category.directPosts + childPostCount,
+    };
+  })
+);
 
 // Fetch 5 most recent posts for left section
 const recentPosts: any[] = await sanityClient.fetch(`
@@ -87,11 +89,12 @@ const popularPosts: any[] = await sanityClient.fetch(`
   }
 `);
 
+const totalPostCount: number = await sanityClient.fetch(`count(*[_type == "post"])`);
 ---
 
 <BaseLayout title={homeTitle} description={homeDescription}>
   <!-- Hero Section -->
-  <section 
+  <section
     class="hero"
     style={`background-image: linear-gradient(rgba(44, 122, 123, 0.1), rgba(44, 122, 123, 0.2)), url(${heroImage.src});`}
   >
@@ -99,9 +102,7 @@ const popularPosts: any[] = await sanityClient.fetch(`
     <div class="hero-container">
       <div class="hero-content">
         <h1>Welcome to Our Kentucky Story</h1>
-        <p>
-          From family life to kitchen favorites to Chris' tech projects — it's all here in Kentucky.
-        </p>
+        <p>From family life to kitchen favorites to Chris' tech projects — it's all here in Kentucky.</p>
         <a href="/blog" class="hero-cta">Explore Latest Posts</a>
       </div>
     </div>
@@ -123,40 +124,40 @@ const popularPosts: any[] = await sanityClient.fetch(`
       <div class="recent-posts">
         <h2>Recent Posts</h2>
         <div class="posts-grid">
-          {recentPosts.map((post) => (
-            <TrackedPostLink 
-              postId={post._id}
-              href={`/${post.categories?.[0]?.slug || "blog"}/${post.slug.current}/`}
-              class="post-card"
-            >
-              <div class="post-image">
-                {post.imageUrl ? (
-                  <img src={post.imageUrl} alt={post.title} />
-                ) : (
-                  `${post.categories?.[0]?.title || "Blog"} Content`
-                )}
-                <span class="post-category">
-                  {post.categories?.[0]?.title || "Blog"}
-                </span>
-              </div>
-              <div class="post-content">
-                <h3 class="post-title">{post.title}</h3>
-                <p class="post-excerpt">{post.excerpt || "Discover the story behind this post..."}</p>
-                <div class="post-meta">
-                  <span>4 min read</span>
-                  <span>
-                    <FormattedDate date={new Date(post.publishedAt)} />
-                  </span>
+          {
+            recentPosts.map((post) => (
+              <TrackedPostLink
+                postId={post._id}
+                href={`/${post.categories?.[0]?.slug || 'blog'}/${post.slug.current}/`}
+                class="post-card"
+              >
+                <div class="post-image">
+                  {post.imageUrl ? (
+                    <img src={post.imageUrl} alt={post.title} />
+                  ) : (
+                    `${post.categories?.[0]?.title || 'Blog'} Content`
+                  )}
+                  <span class="post-category">{post.categories?.[0]?.title || 'Blog'}</span>
                 </div>
-              </div>
-            </TrackedPostLink>
-          ))}
-          
+                <div class="post-content">
+                  <h3 class="post-title">{post.title}</h3>
+                  <p class="post-excerpt">{post.excerpt || 'Discover the story behind this post...'}</p>
+                  <div class="post-meta">
+                    <span>4 min read</span>
+                    <span>
+                      <FormattedDate date={new Date(post.publishedAt)} />
+                    </span>
+                  </div>
+                </div>
+              </TrackedPostLink>
+            ))
+          }
+
           <!-- View All Posts Card -->
           <a href="/blog" class="post-card view-all-card">
             <div class="view-all-content">
               <h3>View All Posts</h3>
-              <p>Explore our complete collection of stories →</p>
+              <p>{totalPostCount} stories and counting →</p>
             </div>
           </a>
         </div>
@@ -168,27 +169,27 @@ const popularPosts: any[] = await sanityClient.fetch(`
         <div class="sidebar-section">
           <h2>Featured Posts</h2>
           <div class="sidebar-list">
-            {featuredPosts.map((post) => (
-              <TrackedPostLink 
-                postId={post._id}
-                href={`/${post.categories?.[0]?.slug || "blog"}/${post.slug.current}/`}
-                class="sidebar-item"
-              >
-                <div class="sidebar-thumb">
-                  {post.imageUrl ? (
-                    <img src={post.imageUrl} alt={post.title} />
-                  ) : (
-                    `${post.categories?.[0]?.title || "Post"} Photo`
-                  )}
-                </div>
-                <div class="sidebar-content">
-                  <h4>{post.title}</h4>
-                  <div class="sidebar-meta">
-                    {post.categories?.[0]?.title || "Blog"} • 5 min read
+            {
+              featuredPosts.map((post) => (
+                <TrackedPostLink
+                  postId={post._id}
+                  href={`/${post.categories?.[0]?.slug || 'blog'}/${post.slug.current}/`}
+                  class="sidebar-item"
+                >
+                  <div class="sidebar-thumb">
+                    {post.imageUrl ? (
+                      <img src={post.imageUrl} alt={post.title} />
+                    ) : (
+                      `${post.categories?.[0]?.title || 'Post'} Photo`
+                    )}
                   </div>
-                </div>
-              </TrackedPostLink>
-            ))}
+                  <div class="sidebar-content">
+                    <h4>{post.title}</h4>
+                    <div class="sidebar-meta">{post.categories?.[0]?.title || 'Blog'} • 5 min read</div>
+                  </div>
+                </TrackedPostLink>
+              ))
+            }
           </div>
         </div>
 
@@ -196,27 +197,29 @@ const popularPosts: any[] = await sanityClient.fetch(`
         <div class="sidebar-section">
           <h2>Most Popular</h2>
           <div class="sidebar-list">
-            {popularPosts.map((post) => (
-              <TrackedPostLink 
-                postId={post._id}
-                href={`/${post.categories?.[0]?.slug || "blog"}/${post.slug.current}/`}
-                class="sidebar-item"
-              >
-                <div class="sidebar-thumb">
-                  {post.imageUrl ? (
-                    <img src={post.imageUrl} alt={post.title} />
-                  ) : (
-                    `${post.categories?.[0]?.title || "Post"} Photo`
-                  )}
-                </div>
-                <div class="sidebar-content">
-                  <h4>{post.title}</h4>
-                  <div class="sidebar-meta">
-                    {post.categories?.[0]?.title || "Blog"} • {post.viewCount || 0} views
+            {
+              popularPosts.map((post) => (
+                <TrackedPostLink
+                  postId={post._id}
+                  href={`/${post.categories?.[0]?.slug || 'blog'}/${post.slug.current}/`}
+                  class="sidebar-item"
+                >
+                  <div class="sidebar-thumb">
+                    {post.imageUrl ? (
+                      <img src={post.imageUrl} alt={post.title} />
+                    ) : (
+                      `${post.categories?.[0]?.title || 'Post'} Photo`
+                    )}
                   </div>
-                </div>
-              </TrackedPostLink>
-            ))}
+                  <div class="sidebar-content">
+                    <h4>{post.title}</h4>
+                    <div class="sidebar-meta">
+                      {post.categories?.[0]?.title || 'Blog'} • {post.viewCount || 0} views
+                    </div>
+                  </div>
+                </TrackedPostLink>
+              ))
+            }
           </div>
         </div>
 
@@ -225,15 +228,14 @@ const popularPosts: any[] = await sanityClient.fetch(`
           <h2>Hey there, we're the Kaelins!</h2>
           <div class="about-photo-small">Family Portrait Photo</div>
           <p>
-            We're a family who recently made Kentucky our home. I'm a tech enthusiast who loves 
-            to code, cook, and cheer for our favorite sports teams. Join us as we share our 
-            adventures, family recipes, and the ups and downs of life in the Bluegrass State.
+            We're a Kentucky family, born and raised, who spent 26 years bouncing between Colorado, Ohio, England, and
+            Illinois thanks to the military — before finally coming back home to the Bluegrass State in 2016. I'm Chris,
+            a Pappy who loves to code, and Patricia is a teacher and Lovey to our grandkids. Together we cook, cheer on
+            our teams, and share the ups and downs of life back home in the Bluegrass.
           </p>
           <a href="/about" class="about-link-small">Read Our Full Story →</a>
         </div>
-
       </aside>
-
     </section>
 
     <!-- Browse Categories -->
@@ -267,7 +269,5 @@ const popularPosts: any[] = await sanityClient.fetch(`
         }
       </div>
     </section> -->
-
-
   </main>
 </BaseLayout>
