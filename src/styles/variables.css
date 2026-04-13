@@ -15,7 +15,7 @@
 
   --color-primary-light:    #2b6cb0;          /* Royal blue (for category buttons) */
   --color-primary-light-rgb:  43, 108, 176;     /* Royal blue RGB */
- 
+
 
   /* === CATEGORY ACCENT COLORS === */
   /* Orange Accent Scale */
@@ -38,8 +38,8 @@
   --color-green-600:    #2f855a;
   --color-green-700:    #276749;
   --color-green-800:    #22543d;
-  --color-green-900:    #1c4532;  
-  
+  --color-green-900:    #1c4532;
+
 
   /* Purple Accent Scale */
   --color-purple-100:     #e9d8fd;
@@ -103,11 +103,13 @@
 
   /* Background & Surface Colors */
   /* Your custom semantic mappings */
+  --color-primary:      var(--color-primary-900);
+
   --color-bg:           var(--color-cream-300);    /* Main site bg */
   --color-bg-secondary: var(--color-cream-100);    /* For cards */
   --color-bg-blue:      var(--color-blue-200);    /* Special sections */
   --color-input-bg:     #ffffff;    /* Clean white for form inputs */
-  
+
   /* Utility Colors */
   --color-info:           var(--color-blue-700);
 
@@ -155,7 +157,7 @@
 
   /* Shadows - Warmer, softer shadows */
   --box-shadow:   0 2px 8px rgba(0, 0, 0, 0.1);
-  --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.1); 
+  --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.1);
   --shadow-base:  0 4px 12px rgba(0, 0, 0, 0.1);
   --shadow-large: 0 8px 24px rgba(0, 0, 0, 0.12);
   --shadow-warm:  0 4px 12px rgba(var(--color-primary-rgb), 0.1);
@@ -165,7 +167,7 @@
   --transition-fast:    0.2s ease;
   --transition-normal:  0.5s ease;
   --transition-slow:    0.8s ease;
-  
+
   /* Component-specific values */
   --header-height: 60px;
 

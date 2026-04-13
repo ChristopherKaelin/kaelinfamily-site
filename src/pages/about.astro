@@ -1,70 +1,86 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-
+import familyPhoto from '../assets';
 ---
 
 <BaseLayout
-	title={`About - ${SITE_TITLE}`}
-	description="About Chris Kaelin - grandfather, tech enthusiast, and family man from Kentucky">
+  title={`About - ${SITE_TITLE}`}
+  description="About Chris Kaelin - grandfather, tech enthusiast, and family man from Kentucky"
+>
+  <div class="about-page">
+    <!-- Left Sidebar -->
+    <aside class="about-sidebar">
+      <img src={familyPhoto.src} alt="Chris and Patricia Kaelin" class="about-photo" />
+      <h1 class="about-name">Chris & Patricia</h1>
+      <p class="about-tagline">Parents · Grandparents · Kentucky</p>
+    </aside>
 
-	
-<h1>About Me</h1>
-	<h2>Who I Am</h2>
-	<p>
-		Hey there! I'm Chris, and welcome to my little corner of the internet. I'm a proud grandfather, husband, and lifelong learner 
-		living in the beautiful Bluegrass State of Kentucky with my family.
-	</p>
-	<p>
-		First and foremost, I'm a family man. Being a grandparent has been one of life's greatest joys—there's nothing quite like seeing 
-		the world through a child's eyes again or watching them discover something new for the first time. My family keeps me grounded, 
-		laughing, and always on my toes. Whether we're having Sunday dinners, planning family adventures, or just spending quiet time 
-		together, these moments with my loved ones are what matter most.
-	</p>
-	<p>
-		I happen to love technology too. After serving in the Air Force and spending years building software, I've discovered that what 
-		I enjoy most isn't just the coding—it's the problem-solving, the "aha!" moments, and sharing what I've learned with others. 
-		Whether I'm helping our church with their live stream setup, building something new for fun, or teaching a grandchild how computers 
-		work, I get genuinely excited about making things work better and helping people connect with technology in meaningful ways.
-	</p>
+    <!-- Right Content -->
+    <div class="about-content">
+      <div class="about-section">
+        <h2>Who We Are</h2>
+        <p>
+          Hey there! We're Chris and Patricia Kaelin, and welcome to our little corner of the internet. We're proud
+          grandparents, lifelong learners, and family-first people living in the beautiful Bluegrass State of Kentucky.
+          Being grandparents to Cecily and August has been one of life's greatest joys — there's nothing quite like
+          seeing the world through a child's eyes again or watching them discover something new for the first time. Our
+          daughter Peyton and son-in-law Joel keep us on our toes too. Whether we're having Sunday dinners, planning
+          family adventures, or just spending quiet time together, these moments are what matter most. Chris's path here
+          has been anything but straight. After serving in the Air Force and spending years building software, he
+          discovered that what he loves most isn't just the coding — it's the problem-solving, the "aha!" moments, and
+          sharing what he's learned with others. Whether he's helping our church with their live stream setup, building
+          something new for fun, or teaching Cecily and August how computers work, technology is just another way to
+          bring people together.
+        </p>
+      </div>
 
-	<h2>What You'll Find Here</h2>
-	<p>This blog is where I share the things that matter to me:</p>
-	<ul>
-		<li><strong>Family & Friends</strong>: The heart of everything—stories about the people I love, family adventures, and the moments that make life meaningful</li>
-		<li><strong>Feel Good Stories</strong>: Life's beautiful moments, acts of kindness, and stories that restore your faith in humanity</li>
-		<li><strong>Food & Recipes</strong>: Family recipes passed down through generations, new culinary experiments, and the meals that bring us together</li>
-		<li><strong>Health & Fitness</strong>: Staying active as a grandfather, finding motivation, and encouraging others on their wellness journey</li>
-		<li><strong>Tech & Coding</strong>: The nerdy stuff I love—projects I'm working on, things I'm learning, and tech solutions that actually help people</li>
-		<li><strong>Sports</strong>: Cheering for my teams, family game nights, and the sports that bring us all together</li>
-	</ul>
+      <div class="about-section">
+        <h2>Life Beyond the Screen</h2>
+        <p>When Chris is not tinkering with code or we aren't trying new food/recipes, you'll find us:</p>
+        <ul>
+          <li>Playing with our grandchildren (and probably getting schooled at video games)</li>
+          <li>Trying new recipes and perfecting old family favorites</li>
+          <li>Cheering for our favorite teams—win or lose, we're loyal</li>
+          <li>Serving at church and helping with their technology needs</li>
+          <li>Taking walks around our beautiful Kentucky neighborhood</li>
+          <li>Reading, learning something new, or planning the next family adventure</li>
+        </ul>
+      </div>
 
-	<h2>Life Beyond the Screen</h2>
-	<p>When I'm not tinkering with code, you'll find me:</p>
-	<ul>
-		<li>Playing with my grandchildren (and probably getting schooled at video games)</li>
-		<li>Trying new recipes and perfecting old family favorites</li>
-		<li>Cheering for my favorite teams—win or lose, I'm loyal</li>
-		<li>Serving at church and helping with their technology needs</li>
-		<li>Taking walks around our beautiful Kentucky neighborhood</li>
-		<li>Reading, learning something new, or planning the next family adventure</li>
-	</ul>
+      <div class="about-section">
+        <h2>Things We're Working On</h2>
+        <p>
+          <strong>Family Time</strong> – The most important project of all. Planning gatherings, teaching grandchildren something
+          new, or just being present for the people we love.
+        </p>
+        <p>
+          <strong>Side Projects</strong> – This site is a perfect example — Chris built it from scratch because we wanted
+          a place that truly reflected who we are as a family. That's how he thinks: the best way to learn is by building
+          things, even if they're just for us and the people we love.
+        </p>
+        <p>
+          <strong>Our Church</strong> – We're both part of the behind the scenes leadership team, and Chris helps the tech
+          side. Whether it's live streaming services or helping with the website and social media, it's rewarding work that
+          serves our community.
+        </p>
+      </div>
 
-	<h2>Things I'm Working On</h2>
-	<p><strong>This Website</strong> – You're looking at it! I rebuilt this site from scratch because I wanted a place that truly reflected who I am. It's where I can share everything from family stories to the latest tech project I'm excited about.</p>
-	<p><strong>Church Tech</strong> – I love helping our church connect with people through technology. Whether it's live streaming services or making sure the sound system doesn't embarrass the pastor, it's rewarding work that serves our community.</p>
-	<p><strong>Side Projects</strong> – I'm always tinkering with something. Sometimes it's a useful tool, sometimes it's just for fun. I believe the best way to learn is by building things, even if they're just for me and my family.</p>
-	<p><strong>Family Time</strong> – The most important project of all. Whether it's planning family gatherings, teaching a grandchild something new, or just being present for the people I love.</p>
-
-	<h2>A Little About My Background</h2>
-	<p>I've been fortunate to have varied experiences that shaped who I am today. My time in the Air Force taught me discipline, problem-solving, and how to stay calm when things get hectic—skills that serve me well whether I'm debugging code or helping a grandchild with homework.</p>
-	<p>Over the years, I've worked with technology in different ways, from building business applications to creating simple solutions that make people's lives easier. But honestly, what I love most is when technology helps bring people together or solves a real problem someone is facing.</p>
-
-	<h2>Let's Be Friends</h2>
-	<p>I love connecting with people who share similar interests or just want to chat about life. Whether you're a fellow grandparent, someone learning to code, a foodie looking for recipe ideas, or just someone who enjoys genuine conversation, I'd love to hear from you.</p>
-	<p><strong>Email</strong>: <a href="mailto:chris@kaelinfamily.com">chris@kaelinfamily.com</a><br>
-	<strong>GitHub</strong>: <a href="https://github.com/christopherkaelin" target="_blank" rel="noopener">github.com/christopherkaelin</a> (where I share my coding adventures)<br>
-	<strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/christopherkaelin/" target="_blank" rel="noopener">linkedin.com/in/christopherkaelin</a> (for the more professional stuff)</p>
-	<p>Thanks for stopping by and taking the time to get to know me a little better. I hope you find something here that makes you smile, think, or maybe even inspires you to try something new!</p>	
-
+      <div class="about-section">
+        <h2>Let's Be Friends</h2>
+        <p>We love connecting with people who share similar interests or just want to chat about life.</p>
+        <p>
+          <strong>Email</strong>: <a href="mailto:chris@kaelinfamily.com">chris@kaelinfamily.com</a><br />
+          <strong>GitHub</strong>: <a href="https://github.com/christopherkaelin" target="_blank" rel="noopener"
+            >github.com/christopherkaelin</a
+          ><br />
+          <strong>LinkedIn</strong>: <a
+            href="https://www.linkedin.com/in/christopherkaelin/"
+            target="_blank"
+            rel="noopener">linkedin.com/in/christopherkaelin</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
 </BaseLayout>
