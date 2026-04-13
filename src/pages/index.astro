@@ -4,6 +4,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { sanityClient } from '../../sanity.config.js';
 import FormattedDate from '../components/FormattedDate.astro';
 import heroImage from '../assets/ky-horse-farm.jpg';
+import familyPhoto from '../assets/chris-trish-wildcats.jpg';
 import TrackedPostLink from '../components/TrackedPostLink.astro';
 
 // SEO values for home page
@@ -109,15 +110,6 @@ const totalPostCount: number = await sanityClient.fetch(`count(*[_type == "post"
   </section>
 
   <main class="main-content">
-    <!-- Search Section -->
-    <!-- <section class="search-section"> -->
-    <!-- <h3>What are you looking for?</h3> -->
-    <!-- <form class="search-form"> -->
-    <!-- <input type="search" class="search-input" placeholder="Search recipes, family stories, tech tips..."> -->
-    <!-- <button type="submit" class="search-btn">Search</button> -->
-    <!-- </form> -->
-    <!-- </section> -->
-
     <!-- Posts -->
     <section class="posts-sections">
       <!-- Left: Recent Posts -->
@@ -226,7 +218,7 @@ const totalPostCount: number = await sanityClient.fetch(`count(*[_type == "post"
         <!-- About Us -->
         <div class="sidebar-section sidebar-about">
           <h2>Hey there, we're the Kaelins!</h2>
-          <div class="about-photo-small">Family Portrait Photo</div>
+          <img src={familyPhoto.src} alt="Chris and Patricia Kaelin" class="about-photo-small" />
           <p>
             We're a Kentucky family, born and raised, who spent 26 years bouncing between Colorado, Ohio, England, and
             Illinois thanks to the military — before finally coming back home to the Bluegrass State in 2016. I'm Chris,
@@ -237,37 +229,5 @@ const totalPostCount: number = await sanityClient.fetch(`count(*[_type == "post"
         </div>
       </aside>
     </section>
-
-    <!-- Browse Categories -->
-    <!-- <section class="browse-categories">
-      <h2 class="section-title">Browse Our Stories</h2>
-      <div class="categories-grid">
-        {
-          categoriesWithCounts.map((category) => (
-            <a href={`/category/${category.slug}`} class="category-card">
-              <div class="category-image">
-                {category.imageUrl ? (
-                  <img
-                    src={category.imageUrl}
-                    alt={category.title}
-                    class="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div class="category-placeholder">{category.icon || ""}</div>
-                )}
-                <div class="category-overlay" />
-              </div>
-              <div class="category-content">
-                <h3>{category.title}</h3>
-                <p>{category.subtitle || category.description}</p>
-                <span class="post-count">
-                  {category.postCount || 0} recent {category.test}
-                </span>
-              </div>
-            </a>
-          ))
-        }
-      </div>
-    </section> -->
   </main>
 </BaseLayout>
