@@ -79,7 +79,7 @@ const featuredPosts: any[] = await sanityClient.fetch(`
 
 // Fetch 3 most popular posts by view count for sidebar
 const popularPosts: any[] = await sanityClient.fetch(`
-  *[_type == "post" && defined(viewCount)] | order(viewCount desc)[0...3] {
+  *[_type == "post" && defined(viewCount) && featured != true] | order(viewCount desc)[0...3] {
     _id,
     title,
     slug,
