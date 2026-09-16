@@ -6,6 +6,16 @@
       "source": "/resume",
       "destination": "http://christopherkaelin.com/resume.html",
       "permanent": true
+    },
+    {
+      "source": "/favorites",
+      "destination": "https://favorites.christopherkaelin.com",
+      "permanent": true
+    },
+    {
+      "source": "/projects/color-palette.html",
+      "destination": "https://christopherkaelin.com/projects/color-palette.html",
+      "permanent": true
     }
   ]
 }
